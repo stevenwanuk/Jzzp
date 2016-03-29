@@ -1,0 +1,10 @@
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.dll.config
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.dll
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.pdb
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.dll
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.SqlServer.dll
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.xml
+C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.SqlServer.xml
+C:\kwan\work\c#\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.dll
+C:\kwan\work\c#\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.pdb
+C:\kwan\work\c#\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.csprojResolveAssemblyReference.cache
