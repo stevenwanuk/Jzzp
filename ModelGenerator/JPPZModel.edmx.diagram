@@ -7,22 +7,20 @@
       <Diagram DiagramId="b9b12726839240e6b38f6d215c48c05f" Name="Diagram1">
         <EntityTypeShape EntityType="ModelEntities.TPBillRef" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelEntities.TPCallIn" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPDeliver" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPDeliverItem" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPDriver" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelEntities.TPPrintSetting" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPUser" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPUserAddress" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelEntities.TPUserCell" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
         <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_CallIn" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_UserAddress" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_DeliverItem_TP_BillRef" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_Deliver_TP_Driver" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_DeliverItem_TP_Deliver" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_UserAddress_TP_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelEntities.FK_TP_UserCell_TP_UserCell" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="ModelEntities.TPUser" Width="1.5" PointX="0.75" PointY="9.625" />
+        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_User" />
+        <AssociationConnector Association="ModelEntities.FK_TP_UserCell_TP_UserCell" />
+        <EntityTypeShape EntityType="ModelEntities.TPUserAddress" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_UserAddress" />
+        <AssociationConnector Association="ModelEntities.FK_TP_UserAddress_TP_User" />
+        <EntityTypeShape EntityType="ModelEntities.TPDeliver" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_Deliver" />
+        <EntityTypeShape EntityType="ModelEntities.TPDriver" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="ModelEntities.FK_TP_Deliver_TP_Driver" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ModelGenerator;
+using TP.Common;
+
+namespace TP.ModelView
+{
+    public class TPUserMV : BindableBase
+    {
+
+        public static TPUserMV Mapper(TPUser entity)
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUser, TPUserMV>(entity);
+        }
+
+        public TPUserMV()
+        {
+            _tPBillRef = new ObservableCollection<TPBillRefMV>();
+            _tPUserCell = new ObservableCollection<TPUserCellMV>();
+            _tPUserAddress = new ObservableCollection<TPUserAddressMV>();
+        }
+
+        private Guid _userId;
+        public System.Guid UserId {
+            get { return _userId; }
+            set { SetProperty(ref _userId, value); }
+        }
+
+        private string _firstName;
+        public string FirstName
+        {
+            get { return _firstName; }
+            set { SetProperty(ref _firstName, value); }
+        }
+
+        private string _lastName;
+        public string LastName {
+            get { return _lastName; }
+            set { SetProperty(ref _lastName, value); }
+        }
+
+        private int? _gender;
+        public int? Gender
+        {
+            get { return _gender; }
+            set { SetProperty(ref _gender, value); }
+        }
+
+
+        private ObservableCollection<TPBillRefMV> _tPBillRef;
+        public virtual ObservableCollection<TPBillRefMV> TPBillRef
+        {
+            get { return _tPBillRef; }
+            set { SetProperty(ref _tPBillRef, value); }
+        }
+
+        private ObservableCollection<TPUserCellMV> _tPUserCell;
+        public virtual ObservableCollection<TPUserCellMV> TPUserCell
+        {
+            get { return _tPUserCell; }
+            set { SetProperty(ref _tPUserCell, value); }
+        }
+
+        private ObservableCollection<TPUserAddressMV> _tPUserAddress;
+        public virtual ObservableCollection<TPUserAddressMV> TPUserAddress
+        {
+            get { return _tPUserAddress; }
+            set { SetProperty(ref _tPUserAddress, value); }
+        }
+    }
+}

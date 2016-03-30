@@ -17,7 +17,7 @@ namespace ModelGenerator
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TPDeliver()
         {
-            this.TPDeliverItem = new HashSet<TPDeliverItem>();
+            this.TPBillRef = new HashSet<TPBillRef>();
         }
     
         public long DeliverId { get; set; }
@@ -26,8 +26,8 @@ namespace ModelGenerator
         public Nullable<System.DateTime> EndDate { get; set; }
         public int Status { get; set; }
     
-        public virtual TPDriver TPDriver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TPDeliverItem> TPDeliverItem { get; set; }
+        public virtual ICollection<TPBillRef> TPBillRef { get; set; }
+        public virtual TPDriver TPDriver { get; set; }
     }
 }

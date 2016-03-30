@@ -1,9 +1,0 @@
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\ModelEntities.dll.config
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\ModelEntities.dll
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\ModelEntities.pdb
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\EntityFramework.dll
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\EntityFramework.SqlServer.dll
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\EntityFramework.xml
-C:\kwan\work\c#\Jzzp\ModelEntities\bin\Debug\EntityFramework.SqlServer.xml
-C:\kwan\work\c#\Jzzp\ModelEntities\obj\Debug\ModelEntities.dll
-C:\kwan\work\c#\Jzzp\ModelEntities\obj\Debug\ModelEntities.pdb

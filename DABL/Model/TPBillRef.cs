@@ -14,12 +14,6 @@ namespace ModelGenerator
     
     public partial class TPBillRef
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TPBillRef()
-        {
-            this.TPDeliverItem = new HashSet<TPDeliverItem>();
-        }
-    
         public long BillRefId { get; set; }
         public Nullable<long> CallInId_FK { get; set; }
         public Nullable<System.Guid> UserId_FK { get; set; }
@@ -28,11 +22,11 @@ namespace ModelGenerator
         public Nullable<decimal> DeliverMiles { get; set; }
         public Nullable<decimal> DeliverFee { get; set; }
         public int Status { get; set; }
+        public Nullable<long> DeliverId_FK { get; set; }
     
         public virtual TPCallIn TPCallIn { get; set; }
         public virtual TPUser TPUser { get; set; }
         public virtual TPUserAddress TPUserAddress { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TPDeliverItem> TPDeliverItem { get; set; }
+        public virtual TPDeliver TPDeliver { get; set; }
     }
 }

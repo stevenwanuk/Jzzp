@@ -12,6 +12,7 @@
     <Property Name="DeliverMiles" Type="decimal" Precision="10" Scale="2" />
     <Property Name="DeliverFee" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="DeliverId_FK" Type="bigint" />
   </EntityType>
   <EntityType Name="TP_CallIn">
     <Key>
@@ -21,7 +22,7 @@
     <Property Name="CellNumber" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="StartDate" Type="datetime" />
     <Property Name="EndDate" Type="datetime" />
-    <Property Name="TeminalId" Type="int" Nullable="false" />
+    <Property Name="TerminalId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="TP_Deliver">
     <Key>
@@ -33,21 +34,13 @@
     <Property Name="EndDate" Type="datetime" />
     <Property Name="Status" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="TP_DeliverItem">
-    <Key>
-      <PropertyRef Name="DeliverItemId" />
-    </Key>
-    <Property Name="DeliverItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DeliverId_FK" Type="bigint" Nullable="false" />
-    <Property Name="BillRefId_FK" Type="bigint" Nullable="false" />
-  </EntityType>
   <EntityType Name="TP_Driver">
     <Key>
       <PropertyRef Name="DriverId" />
     </Key>
     <Property Name="DriverId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="varbinary" MaxLength="50" />
-    <Property Name="LastName" Type="varbinary" MaxLength="50" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
     <Property Name="CellName" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="TP_PrintSetting">
@@ -64,7 +57,7 @@
     </Key>
     <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" />
-    <Property Name="LastName" Type="varbinary" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
     <Property Name="Gender" Type="int" />
   </EntityType>
   <EntityType Name="TP_UserAddress">
@@ -78,7 +71,7 @@
     <Property Name="AddressField2" Type="varchar" MaxLength="50" />
     <Property Name="AddressField3" Type="varchar" MaxLength="50" />
     <Property Name="TownCity" Type="varchar" MaxLength="50" />
-    <Property Name="Postcode" Type="varbinary" MaxLength="10" />
+    <Property Name="Postcode" Type="varchar" MaxLength="50" />
     <Property Name="Country" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="TP_UserCell">
@@ -98,6 +91,18 @@
       </Principal>
       <Dependent Role="TP_BillRef">
         <PropertyRef Name="CallInId_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TP_BillRef_TP_Deliver">
+    <End Role="TP_Deliver" Type="Self.TP_Deliver" Multiplicity="0..1" />
+    <End Role="TP_BillRef" Type="Self.TP_BillRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TP_Deliver">
+        <PropertyRef Name="DeliverId" />
+      </Principal>
+      <Dependent Role="TP_BillRef">
+        <PropertyRef Name="DeliverId_FK" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -137,30 +142,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_TP_DeliverItem_TP_BillRef">
-    <End Role="TP_BillRef" Type="Self.TP_BillRef" Multiplicity="1" />
-    <End Role="TP_DeliverItem" Type="Self.TP_DeliverItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_BillRef">
-        <PropertyRef Name="BillRefId" />
-      </Principal>
-      <Dependent Role="TP_DeliverItem">
-        <PropertyRef Name="BillRefId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TP_DeliverItem_TP_Deliver">
-    <End Role="TP_Deliver" Type="Self.TP_Deliver" Multiplicity="1" />
-    <End Role="TP_DeliverItem" Type="Self.TP_DeliverItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_Deliver">
-        <PropertyRef Name="DeliverId" />
-      </Principal>
-      <Dependent Role="TP_DeliverItem">
-        <PropertyRef Name="DeliverId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_TP_UserAddress_TP_User">
     <End Role="TP_User" Type="Self.TP_User" Multiplicity="1" />
     <End Role="TP_UserAddress" Type="Self.TP_UserAddress" Multiplicity="*" />
@@ -189,7 +170,6 @@
     <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="TP_DeliverItem" EntityType="Self.TP_DeliverItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Driver" EntityType="Self.TP_Driver" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_PrintSetting" EntityType="Self.TP_PrintSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_User" EntityType="Self.TP_User" Schema="dbo" store:Type="Tables" />
@@ -197,6 +177,10 @@
     <EntitySet Name="TP_UserCell" EntityType="Self.TP_UserCell" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="Self.FK_TP_BillRef_TP_CallIn">
       <End Role="TP_CallIn" EntitySet="TP_CallIn" />
+      <End Role="TP_BillRef" EntitySet="TP_BillRef" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TP_BillRef_TP_Deliver" Association="Self.FK_TP_BillRef_TP_Deliver">
+      <End Role="TP_Deliver" EntitySet="TP_Deliver" />
       <End Role="TP_BillRef" EntitySet="TP_BillRef" />
     </AssociationSet>
     <AssociationSet Name="FK_TP_BillRef_TP_User" Association="Self.FK_TP_BillRef_TP_User">
@@ -210,14 +194,6 @@
     <AssociationSet Name="FK_TP_Deliver_TP_Driver" Association="Self.FK_TP_Deliver_TP_Driver">
       <End Role="TP_Driver" EntitySet="TP_Driver" />
       <End Role="TP_Deliver" EntitySet="TP_Deliver" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TP_DeliverItem_TP_BillRef" Association="Self.FK_TP_DeliverItem_TP_BillRef">
-      <End Role="TP_BillRef" EntitySet="TP_BillRef" />
-      <End Role="TP_DeliverItem" EntitySet="TP_DeliverItem" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TP_DeliverItem_TP_Deliver" Association="Self.FK_TP_DeliverItem_TP_Deliver">
-      <End Role="TP_Deliver" EntitySet="TP_Deliver" />
-      <End Role="TP_DeliverItem" EntitySet="TP_DeliverItem" />
     </AssociationSet>
     <AssociationSet Name="FK_TP_UserAddress_TP_User" Association="Self.FK_TP_UserAddress_TP_User">
       <End Role="TP_User" EntitySet="TP_User" />

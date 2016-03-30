@@ -76,9 +76,6 @@
     <Compile Include="TPDeliver.cs">
       <DependentUpon>JPPZModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TPDeliverItem.cs">
-      <DependentUpon>JPPZModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TPDriver.cs">
       <DependentUpon>JPPZModel.tt</DependentUpon>
     </Compile>

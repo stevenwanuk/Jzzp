@@ -50,13 +50,14 @@
   <ItemGroup>
     <Compile Include="Common\DALHelper.cs" />
     <Compile Include="Common\DatabaseUtils.cs" />
-    <Compile Include="DAL\TestDAL.cs" />
+    <Compile Include="DAL\TPBillRefDAL.cs" />
     <Compile Include="DAL\TPCallInDAL.cs" />
+    <Compile Include="DAL\TPUserAddressDAL.cs" />
+    <Compile Include="DAL\TPUserDAL.cs" />
     <Compile Include="Enum\BillRefStatus.cs" />
     <Compile Include="Model\TPBillRef.cs" />
     <Compile Include="Model\TPCallIn.cs" />
     <Compile Include="Model\TPDeliver.cs" />
-    <Compile Include="Model\TPDeliverItem.cs" />
     <Compile Include="Model\TPDriver.cs" />
     <Compile Include="Model\TPPrintSetting.cs" />
     <Compile Include="Model\TPUser.cs" />

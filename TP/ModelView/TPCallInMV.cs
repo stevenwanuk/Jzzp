@@ -12,11 +12,11 @@ namespace TP.ModelView
     using System;
     using System.Collections.Generic;
     
-    public class TPCallInMV : INotifyPropertyChanged
+    public class TPCallInMV : BindableBase
     {
         public TPCallInMV()
         {
-            TPBillRef = new ObservableCollection<TPBillRef>();
+            TPBillRef = new ObservableCollection<TPBillRefMV>();
         }
 
         public static TPCallInMV Mapper(TPCallIn entity)
@@ -25,43 +25,44 @@ namespace TP.ModelView
         }
 
         private long _callinId;
-        public long CallInId {
-            get { return _callinId;}
-            set
-            {
-                if (_callinId != value)
-                {
-                    _callinId = value;
-                    OnPropertyChanged();
-                }
-            } }
 
-        public string _cellNumber;
+        public long CallInId
+        {
+            get { return _callinId; }
+            set { SetProperty(ref _callinId, value); }
+        }
+
+        private string _cellNumber;
         public string CellNumber
         {
             get { return _cellNumber; }
-            set
-            {
-                if (_cellNumber != value)
-                {
-                    _cellNumber = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _cellNumber, value); }
         }
 
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public int TeminalId { get; set; }
-   
-        public virtual ObservableCollection<TPBillRef> TPBillRef { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private DateTime? _startDate;
+        public DateTime? StartDate {
+            get { return _startDate; }
+            set { SetProperty(ref _startDate, value); }
+        }
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private DateTime? _endDate;
+        public DateTime? EndDate {
+            get { return _endDate; }
+            set { SetProperty(ref _endDate, value); }
+        }
+        
+        private int _teminalId;
+        public int TeminalId {
+            get { return _teminalId; }
+            set { SetProperty(ref _teminalId, value); }
+        }
+
+        private ObservableCollection<TPBillRefMV> _tPBillRef;
+        public virtual ObservableCollection<TPBillRefMV> TPBillRef
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return _tPBillRef; }
+            set { SetProperty(ref _tPBillRef, value); }
         }
     }
 }

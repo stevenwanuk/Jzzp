@@ -5,24 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP"
         xmlns:vm="clr-namespace:TP.View"
+        xmlns:common="clr-namespace:TP.Common"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
         <vm:MainView/>
     </Window.DataContext>
+    <Window.Resources>
+        <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
+    </Window.Resources>
     <Grid>
-
-        <ListBox x:Name="CameraListBox"
-         ItemsSource="{Binding Path=callInMvs}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=CallInId}" />
-                        <TextBlock Text="{Binding Path=CellNumber}"/>
-
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=CallInMvs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton Content="{Binding CellNumber}"  Tag="{Binding Path=CallInId}" Checked="ToggleButton_OnChecked">
+                                <ToggleButton.IsChecked>
+                                    <MultiBinding Converter="{StaticResource CompareConverter}">
+                                        <Binding Path="CallInId"></Binding>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}" Path="mainView.SelectedTPCallInMV.CallInId"></Binding>
+                                    </MultiBinding>
+                                </ToggleButton.IsChecked>
+                            </ToggleButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            
+            <TabControl TabStripPlacement="Left">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <ContentPresenter Content="{TemplateBinding Content}">
+                                        <ContentPresenter.LayoutTransform>
+                                            <RotateTransform Angle="270" />
+                                        </ContentPresenter.LayoutTransform>
+                                    </ContentPresenter>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Padding" Value="3" />
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="General">
+                    <Label Content="Content goes here..." />
+                </TabItem>
+                <TabItem Header="Security" />
+                <TabItem Header="Details" />
+            </TabControl>
+        </DockPanel>
     </Grid>
 </Window>

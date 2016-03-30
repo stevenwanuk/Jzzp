@@ -24,7 +24,7 @@ namespace ModelGenerator
         public string CellNumber { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
-        public int TeminalId { get; set; }
+        public int TerminalId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPBillRef> TPBillRef { get; set; }

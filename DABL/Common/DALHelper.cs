@@ -49,6 +49,14 @@ namespace Jzzp.Common
                 return record.GetDouble(ordinal);
         }
 
+        public static decimal? GetNullableDecimal(IDataRecord record, int ordinal)
+        {
+            if (record.IsDBNull(ordinal))
+                return null;
+            else
+                return record.GetDecimal(ordinal);
+        }
+
         public static string GetNullableString(IDataRecord record, int ordinal)
         {
             if (record.IsDBNull(ordinal))

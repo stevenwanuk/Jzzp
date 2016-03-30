@@ -27,7 +27,7 @@ namespace ModelGenerator
         public string AddressField2 { get; set; }
         public string AddressField3 { get; set; }
         public string TownCity { get; set; }
-        public byte[] Postcode { get; set; }
+        public string Postcode { get; set; }
         public string Country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
