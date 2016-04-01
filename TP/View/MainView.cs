@@ -20,38 +20,29 @@ namespace TP.View
 
         public MainView()
         {
-            _callInMvs = new ObservableCollection<TPCallInMV>();
+            _tPBillRefs = new ObservableCollection<TPBillRefMV>();
         }
 
-        private TPCallInMV _selectedTPCallInMV;
-        public TPCallInMV SelectedTPCallInMV {
-            get { return _selectedTPCallInMV; }
-            set {
-
-                if (SetProperty(ref _selectedTPCallInMV, value))
-                {
-
-                    if (value?.TPBillRef != null)
-                    {
-                        foreach (var tpBillRefMv in value.TPBillRef)
-                        {
-
-                            if (tpBillRefMv != null)
-                            {
-                                //tpBillRefMv.
-                            }
-                        }
-                        
-                    }
-                };
-            }
-        }
-
-        private ObservableCollection<TPCallInMV> _callInMvs;
-        public ObservableCollection<TPCallInMV> CallInMvs
+        private UsersTabView _usersTabView;
+        public UsersTabView UsersTabView
         {
-            get { return _callInMvs; }
-            set { SetProperty(ref _callInMvs, value);}
+            get { return _usersTabView; }
+            set { SetProperty(ref _usersTabView, value); }
+        }
+
+
+        private TPBillRefMV _selectedTPBillRefMv;
+        public TPBillRefMV SelectedTpBillRefMv
+        {
+            get { return _selectedTPBillRefMv; }
+            set { SetProperty(ref _selectedTPBillRefMv, value); }
+        }
+
+        private ObservableCollection<TPBillRefMV> _tPBillRefs;
+        public ObservableCollection<TPBillRefMV> TPBillRefs
+        {
+            get { return _tPBillRefs; }
+            set { SetProperty(ref _tPBillRefs, value); }
         }
 
     }

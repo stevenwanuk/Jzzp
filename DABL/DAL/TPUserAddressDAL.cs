@@ -11,6 +11,25 @@ namespace Jzzp.DAL
 {
     public class TPUserAddressDAL
     {
+        public TPUserAddress GeTPUserAddressById(long tPUserAddressId)
+        {
+
+            var sql = " select * from tp_useraddress a where UserAddressId = @userAddressId ";
+            TPUserAddress result = null;
+            using (var command = DatabaseUtils.DbInstance.GetSqlStringCommand(sql))
+            {
+
+                DatabaseUtils.DbInstance.AddInParameter(command, "@userAddressId", DbType.Int64, tPUserAddressId);
+
+                using (var reader = DatabaseUtils.DbInstance.ExecuteReader(command))
+                {
+
+                    result = GetSimpleDataFromReader(reader, true);
+                }
+            }
+            return result;
+        }
+
         public static TPUserAddress GetSimpleDataFromReader(IDataReader reader, bool isRead = false)
         {
 

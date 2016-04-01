@@ -5,12 +5,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jzzp.Common;
+using Jzzp.Enum;
 using ModelGenerator;
 
 namespace Jzzp.DAL
 {
     public class TPBillRefDAL
     {
+
+
+
+
+        public static ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
+        {
+            var sql = " select * from tp_callin a " +
+                         " join TP_BillRef b on a.CallInId = b.CallInId_FK " +
+                         " where b.Status is null or b.Status < @status and terminalId = @terminal order by a.CallInId";
+            var result = new List<TPBillRef>();
+            using (var command = DatabaseUtils.DbInstance.GetSqlStringCommand(sql))
+            {
+
+                DatabaseUtils.DbInstance.AddInParameter(command, "@status", DbType.Int32, (int)BillRefStatus.Done);
+                DatabaseUtils.DbInstance.AddInParameter(command, "@terminal", DbType.Int32, terminalId);
+
+                using (var reader = DatabaseUtils.DbInstance.ExecuteReader(command))
+                {
+
+                    while (reader != null && reader.Read())
+                    {
+
+                        var tPBillRef = GetSimpleDataFromReader(reader, true);
+
+                        var tpCallIn = TPCallInDAL.GetSimpleDataFromReader(reader, true);
+                        if (tpCallIn != null)
+                        {
+                            tPBillRef.TPCallIn = tpCallIn;
+                        }
+
+                        result.Add(tPBillRef);
+                    }
+                }
+            }
+            return result;
+        }
+
 
         public static TPBillRef GetSimpleDataFromReader(IDataReader reader, bool isRead = false)
         {
@@ -22,17 +60,15 @@ namespace Jzzp.DAL
                 var id = DALHelper.GetNullableLong(reader, reader.GetOrdinal("BillRefId"));
                 if (id != null)
                 {
-                    result = new TPBillRef()
-                    {
-                        BillRefId = reader.GetInt64(reader.GetOrdinal("BillRefId")),
-                        CallInId_FK = DALHelper.GetNullableLong(reader, reader.GetOrdinal("CallInId_FK")),
-                        UserId_FK = DALHelper.GetNullableGuid(reader, reader.GetOrdinal("UserId_FK")),
-                        AddressId_FK = DALHelper.GetNullableLong(reader, reader.GetOrdinal("AddressId_FK")),
-                        BillId_FK = reader.GetString(reader.GetOrdinal("BillId_FK")),
-                        DeliverMiles = DALHelper.GetNullableDecimal(reader, reader.GetOrdinal("DeliverMiles")),
-                        DeliverFee = DALHelper.GetNullableDecimal(reader, reader.GetOrdinal("DeliverFee")),
-                        Status = reader.GetInt32(reader.GetOrdinal("Status"))
-                    };
+                    result = new TPBillRef();
+                    result.BillRefId = reader.GetInt64(reader.GetOrdinal("BillRefId"));
+                    result.CallInId_FK = DALHelper.GetNullableLong(reader, reader.GetOrdinal("CallInId_FK"));
+                    result.UserId_FK = DALHelper.GetNullableGuid(reader, reader.GetOrdinal("UserId_FK"));
+                    result.AddressId_FK = DALHelper.GetNullableLong(reader, reader.GetOrdinal("AddressId_FK"));
+                    result.BillId_FK = DALHelper.GetNullableString(reader, reader.GetOrdinal("BillId_FK"));
+                    result.DeliverMiles = DALHelper.GetNullableDecimal(reader, reader.GetOrdinal("DeliverMiles"));
+                    result.DeliverFee = DALHelper.GetNullableDecimal(reader, reader.GetOrdinal("DeliverFee"));
+                    result.Status = reader.GetInt32(reader.GetOrdinal("Status"));
                 }
             }
 
@@ -41,7 +77,7 @@ namespace Jzzp.DAL
 
 
 
-        public TPBillRef GetUserDetails(long billRefId)
+        public static TPBillRef GetUserDetails(long billRefId)
         {
 
             TPBillRef result = null;
@@ -77,6 +113,21 @@ namespace Jzzp.DAL
                 }
             }
             return result;
+        }
+
+        public static void BindUser(long billRefId, Guid userId)
+        {
+            var sql = " updateTP_BillRef  " +
+                      " set UserId_FK = @userId_FK " +
+                      " where BillRefId = @billRefId ";
+            using (var command = DatabaseUtils.DbInstance.GetSqlStringCommand(sql))
+            {
+
+                DatabaseUtils.DbInstance.AddInParameter(command, "@userId_FK", DbType.Guid, userId);
+                DatabaseUtils.DbInstance.AddInParameter(command, "@billRefId", DbType.Int64, billRefId);
+
+                DatabaseUtils.DbInstance.ExecuteNonQuery(command);
+            }
         }
 
         public void FillWithUserDetails(ref TPBillRef tPBillRef)

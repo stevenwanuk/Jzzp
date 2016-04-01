@@ -23,3 +23,5 @@ C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.Properties.Resources.resources
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.csproj.GenerateResource.Cache
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.exe
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.pdb
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\WindowForm\UsersWindow.g.cs
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\WindowForm\UsersWindow.baml

@@ -52,6 +52,7 @@
     <Compile Include="Common\DatabaseUtils.cs" />
     <Compile Include="DAL\TPBillRefDAL.cs" />
     <Compile Include="DAL\TPCallInDAL.cs" />
+    <Compile Include="DAL\TPDeliverDAL.cs" />
     <Compile Include="DAL\TPUserAddressDAL.cs" />
     <Compile Include="DAL\TPUserDAL.cs" />
     <Compile Include="Enum\BillRefStatus.cs" />
