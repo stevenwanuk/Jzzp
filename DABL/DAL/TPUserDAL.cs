@@ -11,6 +11,27 @@ namespace Jzzp.DAL
 {
     public class TPUserDAL
     {
+
+
+        public static TPUser GeTPUserById(Guid tPUserId)
+        {
+
+            var sql = " select * from tp_user a where UserId = @userId ";
+            TPUser result = null;
+            using (var command = DatabaseUtils.DbInstance.GetSqlStringCommand(sql))
+            {
+
+                DatabaseUtils.DbInstance.AddInParameter(command, "@userId", DbType.Guid, tPUserId);
+
+                using (var reader = DatabaseUtils.DbInstance.ExecuteReader(command))
+                {
+
+                    result = GetSimpleDataFromReader(reader, true);
+                }
+            }
+            return result;
+        }
+
         public static TPUser GetSimpleDataFromReader(IDataReader reader, bool isRead = false)
         {
 

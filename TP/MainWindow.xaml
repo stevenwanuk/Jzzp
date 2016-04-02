@@ -7,17 +7,48 @@
         xmlns:vm="clr-namespace:TP.View"
         xmlns:common="clr-namespace:TP.Common"
         mc:Ignorable="d"
+        x:Name="mainWindow"
         Title="MainWindow" Height="350" Width="525" Loaded="MainWindow_OnLoaded">
     <Window.DataContext>
         <vm:MainView/>
     </Window.DataContext>
     <Window.Resources>
+        <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Background" Value="Pink"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                                <Grid Width="12" Height="12">
+                                    <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+                                    <TextBlock Foreground="White" FontWeight="Heavy" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" 
+                                               ToolTip="{Binding ElementName=ErrorAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">X</TextBlock>
+                                </Grid>
+                                <TextBlock Foreground="Red"  Margin="2,0,0,0" Text="{Binding ElementName=ErrorAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                    
+                                </TextBlock>
+                            </StackPanel>
+                            <AdornedElementPlaceholder x:Name="ErrorAdorner" ></AdornedElementPlaceholder>
+                        </DockPanel>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=CallInMvs}">
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=TPBillRefs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -25,20 +56,20 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <ToggleButton Content="{Binding CellNumber}"  Tag="{Binding Path=CallInId}" Checked="ToggleButton_OnChecked">
-                                <ToggleButton.IsChecked>
+                            <RadioButton Content="Point" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Checked="ToggleButton_OnChecked">
+                                <RadioButton.IsChecked>
                                     <MultiBinding Converter="{StaticResource CompareConverter}">
-                                        <Binding Path="CallInId"></Binding>
-                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}" Path="mainView.SelectedTPCallInMV.CallInId"></Binding>
+                                        <Binding Path="BillRefId"></Binding>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}" Path="mainView.SelectedTpBillRefMv.BillRefId"></Binding>
                                     </MultiBinding>
-                                </ToggleButton.IsChecked>
-                            </ToggleButton>
+                                </RadioButton.IsChecked>
+                            </RadioButton>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
             
-            <TabControl TabStripPlacement="Left">
+            <TabControl TabStripPlacement="Left" x:Name="tPTabControl">
                 <TabControl.Resources>
                     <Style TargetType="{x:Type TabItem}">
                         <Setter Property="HeaderTemplate">
@@ -56,9 +87,28 @@
                     </Style>
                 </TabControl.Resources>
                 <TabItem Header="General">
-                    <Label Content="Content goes here..." />
+                    <StackPanel>
+                        <TextBox Height="30" x:Name="txtinput" Background="AliceBlue" Width="189" AllowDrop="True" Text="{Binding UsersTabView.TPBillRefMV.TPUser.FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" />
+                        <Button Content="Query" Name="QueryUser" Click="QueryUser_OnClick">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="IsEnabled" Value="false" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=txtinput, Path=(Validation.HasError)}" Value="false" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsEnabled" Value="true" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
                 </TabItem>
-                <TabItem Header="Security" />
+                <TabItem Header="Security" >
+                </TabItem>
+                         
                 <TabItem Header="Details" />
             </TabControl>
         </DockPanel>

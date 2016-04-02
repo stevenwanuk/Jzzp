@@ -27,8 +27,8 @@ namespace TP.ModelView
             set { SetProperty(ref _billRefId, value); }
         }
 
-        private long _callInId_FK;
-        public long CallInId_FK
+        private long? _callInId_FK;
+        public long? CallInId_FK
         {
             get { return _callInId_FK; }
             set { SetProperty(ref _callInId_FK, value); }
@@ -41,8 +41,8 @@ namespace TP.ModelView
             set { SetProperty(ref _userId_FK, value); }
         }
 
-        private long _addressId_FK;
-        public long AddressId_FK
+        private long? _addressId_FK;
+        public long? AddressId_FK
         {
             get { return _addressId_FK; }
             set { SetProperty(ref _addressId_FK, value); }
@@ -78,15 +78,20 @@ namespace TP.ModelView
             set { SetProperty(ref _status, value); }
         }
 
+        private long? _deliverId_FK;
+        public Nullable<long> DeliverId_FK {
+            get { return _deliverId_FK; }
+            set { SetProperty(ref _deliverId_FK, value); }
+        }
 
-        private TPCallIn _tPCallIn;
-        public virtual TPCallIn TPCallIn {
+        private TPCallInMV _tPCallIn;
+        public virtual TPCallInMV TPCallIn {
             get { return _tPCallIn; }
             set { SetProperty(ref _tPCallIn, value); }
         }
 
-        private TPUser _tPUser;
-        public virtual TPUser TPUser
+        private TPUserMV _tPUser;
+        public virtual TPUserMV TPUser
         {
             get { return _tPUser; }
             set { SetProperty(ref _tPUser, value); }

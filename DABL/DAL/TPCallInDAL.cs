@@ -14,6 +14,26 @@ namespace Jzzp.DAL
     public class TPCallInDAL
     {
 
+        public TPCallIn GeTPCallInById(long tPCallInId)
+        {
+
+            var sql = " select * from tp_callin a where CallInId = @callInId ";
+            TPCallIn result = null;
+            using (var command = DatabaseUtils.DbInstance.GetSqlStringCommand(sql))
+            {
+
+                DatabaseUtils.DbInstance.AddInParameter(command, "@callInId", DbType.Int64, tPCallInId);
+
+                using (var reader = DatabaseUtils.DbInstance.ExecuteReader(command))
+                {
+
+                    result = GetSimpleDataFromReader(reader, true);
+                }
+            }
+            return result;
+        }
+
+
         public ICollection<TPCallIn> GetUnCompletedCallIns(int terminalId)
         {
             var sql = " select * from tp_callin a " +

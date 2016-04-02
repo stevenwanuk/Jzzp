@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using TP.Common;
 
 namespace TP.ModelView
 {
-    public class TPUserMV : BindableBase
+    public class TPUserMV : BindableBase, IDataErrorInfo
     {
 
         public static TPUserMV Mapper(TPUser entity)
@@ -70,6 +71,32 @@ namespace TP.ModelView
         {
             get { return _tPUserAddress; }
             set { SetProperty(ref _tPUserAddress, value); }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+
+                var i = string.Empty;
+
+                switch (columnName)
+                {
+                    case "FirstName":
+                        if (!_firstName.Equals("111"))
+                        i = "testttt";
+                        break;
+                }
+
+                return i;
+            }
+        }
+
+
+        private string _error;
+
+        public string Error {
+            get { return _error; }
         }
     }
 }
