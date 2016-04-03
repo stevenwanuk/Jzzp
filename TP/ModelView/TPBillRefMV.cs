@@ -1,17 +1,14 @@
 
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using AutoMapper;
-using ModelGenerator;
-using TP.Annotations;
+
 using TP.Common;
+using EntitiesDABL;
+using System;
 
 namespace TP.ModelView
 {
-    using System;
-    using System.Collections.Generic;
-    
+
+
+
     public class TPBillRefMV : BindableBase
     {
 

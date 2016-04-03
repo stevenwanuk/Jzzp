@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModelGenerator
+namespace EntitiesDABL
 {
     using System;
     using System.Collections.Generic;

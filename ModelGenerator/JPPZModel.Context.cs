@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModelGenerator
+namespace EntitiesDABL
 {
     using System;
     using System.Data.Entity;
@@ -27,11 +27,11 @@ namespace ModelGenerator
     
         public virtual DbSet<TPBillRef> TPBillRefs { get; set; }
         public virtual DbSet<TPCallIn> TPCallIns { get; set; }
-        public virtual DbSet<TPPrintSetting> TPPrintSettings { get; set; }
-        public virtual DbSet<TPUserCell> TPUserCells { get; set; }
-        public virtual DbSet<TPUser> TPUsers { get; set; }
-        public virtual DbSet<TPUserAddress> TPUserAddresses { get; set; }
         public virtual DbSet<TPDeliver> TPDelivers { get; set; }
         public virtual DbSet<TPDriver> TPDrivers { get; set; }
+        public virtual DbSet<TPPrintSetting> TPPrintSettings { get; set; }
+        public virtual DbSet<TPUser> TPUsers { get; set; }
+        public virtual DbSet<TPUserAddress> TPUserAddresses { get; set; }
+        public virtual DbSet<TPUserCell> TPUserCells { get; set; }
     }
 }

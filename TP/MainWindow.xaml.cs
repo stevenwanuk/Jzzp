@@ -6,12 +6,14 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Jzzp.DAL;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using TP.Common;
 using TP.ModelView;
 using TP.View;
 using TP.WindowForm;
+using EntitiesDABL.DAL;
+using EntitiesDABL;
+using EntitiesDABL.BLL;
 
 namespace TP
 {
@@ -57,13 +59,19 @@ namespace TP
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+
+            dispatcherTimer_Tick(this, null);
+
             dispatcherTimer.Start();
+
+
+
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-
-            var tPBillRefs = TPBillRefDAL.GetUnCompletedCallIns(terminalId);
+            
+            var tPBillRefs = new TPBillRefBLL().GetUnCompletedCallIns(terminalId);
 
             foreach (var existedMV in mainView.TPBillRefs)
             {
@@ -79,7 +87,10 @@ namespace TP
 
                 if (!mainView.TPBillRefs.Any(i => i.BillRefId.Equals(temp.BillRefId)))
                 {
-                    mainView.TPBillRefs.Add(TPBillRefMV.Mapper(temp));
+                    var newBillRef = TPBillRefMV.Mapper(temp);
+                    newBillRef.TPCallIn = TPCallInMV.Mapper(temp.TPCallIn);
+
+                    mainView.TPBillRefs.Add(newBillRef);
                 }
             }
 
@@ -88,23 +99,6 @@ namespace TP
             {
                 mainView.SelectedTpBillRefMv = mainView.TPBillRefs.FirstOrDefault();
             }
-
-            /**
-            var callins = new TPCallInDAL().GetUnCompletedCallIns(terminalId);
-            var tempList = new ObservableCollection<TPCallInMV>();
-
-            callins.ForEach(i => tempList.Add(TPCallInMV.Mapper(i)));
-            
-            if (!tempList.CompareToUsingJson(mainView.CallInMvs))
-            {
-                mainView.CallInMvs = tempList;
-
-                if (mainView.SelectedTPCallInMV == null)
-                {
-                    mainView.SelectedTPCallInMV = tempList.FirstOrDefault();
-                }
-            }
-        **/
         }
         
 
@@ -123,40 +117,13 @@ namespace TP
                 case 0:
                     mainView.UsersTabView = new UsersTabView(BillRefId.Value);
 
-
+                    //TODO
                 break;
                 case 1:
                 break;
                 case 2:
                 break;
             }
-            
-
-
-            /*
-            if (mainView.CallInMvs != null && mainView.CallInMvs.Count > 0)
-            {
-                if (CallInId == null)
-                {
-                    CallInId = mainView.CallInMvs.First().CallInId;
-                    mainView.SelectedTPCallInMV = mainView.CallInMvs.First();
-                }
-
-                if (mainView.SelectedTPCallInMV?.CallInId != CallInId)
-                {
-                    var tempCallInMV = mainView.CallInMvs.FirstOrDefault(i => i.CallInId == CallInId);
-                    if (tempCallInMV == null)
-                    {
-                        CallInId = mainView.CallInMvs.First().CallInId;
-                        mainView.SelectedTPCallInMV = mainView.CallInMvs.First();
-                    }
-                    else
-                    {
-                        mainView.SelectedTPCallInMV = tempCallInMV;
-                    }
-                }
-            }
-            */
         }
 
         private void QueryUser_OnClick(object sender, RoutedEventArgs e)
@@ -182,15 +149,39 @@ namespace TP
 
                     //Update userId
                     var currTPBillRefId = this.mainView.SelectedTpBillRefMv.BillRefId;
-                    TPBillRefDAL.BindUser(currTPBillRefId, userId);
+
+
+                    new TPBillRefBLL().UpdateBillRefUser(currTPBillRefId, userId);
+
 
                     //LoadView
-                    var userMV = TPUserMV.Mapper(TPUserDAL.GeTPUserById(userId));
+                    var userMV = TPUserMV.Mapper(new TPUserBLL().GeTPUserById(userId));
                     mainView.SelectedTpBillRefMv.UserId_FK = userId;
                     mainView.SelectedTpBillRefMv.TPUser = userMV;
+
+                    //load userAddressList
+                    var userAddress = new TPUserAddressBLL().GetTPUserAddressByUserId(userId);
+
+                    var addressMv = mainView.SelectedTpBillRefMv.TPUser.TPUserAddress;
+                    addressMv.Clear();
+                    userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
+                    
                 }
             }
             
+        }
+
+        private void ListBox_Selected(object sender, RoutedEventArgs e)
+        {
+
+            
+            
+            //mainView.UsersTabView.TPBillRefMV.TPUserAddress = mainView.UsersTabView.TPBillRefMV.TPUser.TPUserAddress.Where(i => i.UserAddressId == )
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mainView.UsersTabView.TPBillRefMV.TPUserAddress = (TPUserAddressMV)((ListBox)sender).SelectedItem;
         }
     }
 }

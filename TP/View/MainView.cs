@@ -7,8 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.Internal;
-using Jzzp.DAL;
-using ModelGenerator;
+
 using TP.Annotations;
 using TP.Common;
 using TP.ModelView;

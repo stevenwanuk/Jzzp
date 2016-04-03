@@ -2,51 +2,63 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelEntitiesStoreContainer" CdmEntityContainer="JZZPEntities">
     <EntitySetMapping Name="TPBillRefs">
-      <EntityTypeMapping TypeName="ModelEntities.TPBillRef">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
         <MappingFragment StoreEntitySet="TP_BillRef">
           <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
-          <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
-          <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
-          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
-          <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
-          <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
-          <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
-          <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
+          <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
+          <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
+          <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
+          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
+          <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
+          <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TPCallIns">
-      <EntityTypeMapping TypeName="ModelEntities.TPCallIn">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPCallIn">
         <MappingFragment StoreEntitySet="TP_CallIn">
           <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
-          <ScalarProperty Name="CallInId" ColumnName="CallInId" />
-          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+          <ScalarProperty Name="CallInId" ColumnName="CallInId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TPDelivers">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPDeliver">
+        <MappingFragment StoreEntitySet="TP_Deliver">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="DriverId_FK" ColumnName="DriverId_FK" />
+          <ScalarProperty Name="DeliverId" ColumnName="DeliverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TPDrivers">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPDriver">
+        <MappingFragment StoreEntitySet="TP_Driver">
+          <ScalarProperty Name="CellName" ColumnName="CellName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TPPrintSettings">
-      <EntityTypeMapping TypeName="ModelEntities.TPPrintSetting">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPPrintSetting">
         <MappingFragment StoreEntitySet="TP_PrintSetting">
-          <ScalarProperty Name="PrintSettingId" ColumnName="PrintSettingId" />
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TPUserCells">
-      <EntityTypeMapping TypeName="ModelEntities.TPUserCell">
-        <MappingFragment StoreEntitySet="TP_UserCell">
-          <ScalarProperty Name="UserCellId" ColumnName="UserCellId" />
-          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
-          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="PrintSettingId" ColumnName="PrintSettingId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TPUsers">
-      <EntityTypeMapping TypeName="ModelEntities.TPUser">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPUser">
         <MappingFragment StoreEntitySet="TP_User">
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -56,7 +68,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TPUserAddresses">
-      <EntityTypeMapping TypeName="ModelEntities.TPUserAddress">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPUserAddress">
         <MappingFragment StoreEntitySet="TP_UserAddress">
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="Postcode" ColumnName="Postcode" />
@@ -70,24 +82,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TPDelivers">
-      <EntityTypeMapping TypeName="ModelEntities.TPDeliver">
-        <MappingFragment StoreEntitySet="TP_Deliver">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="DriverId_FK" ColumnName="DriverId_FK" />
-          <ScalarProperty Name="DeliverId" ColumnName="DeliverId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TPDrivers">
-      <EntityTypeMapping TypeName="ModelEntities.TPDriver">
-        <MappingFragment StoreEntitySet="TP_Driver">
-          <ScalarProperty Name="CellName" ColumnName="CellName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+    <EntitySetMapping Name="TPUserCells">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPUserCell">
+        <MappingFragment StoreEntitySet="TP_UserCell">
+          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
+          <ScalarProperty Name="UserCellId" ColumnName="UserCellId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

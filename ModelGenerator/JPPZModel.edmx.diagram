@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b9b12726839240e6b38f6d215c48c05f" Name="Diagram1">
-        <EntityTypeShape EntityType="ModelEntities.TPBillRef" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPCallIn" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPPrintSetting" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelEntities.TPUserCell" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_CallIn" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ModelEntities.TPUser" Width="1.5" PointX="0.75" PointY="9.625" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_User" />
-        <AssociationConnector Association="ModelEntities.FK_TP_UserCell_TP_UserCell" />
-        <EntityTypeShape EntityType="ModelEntities.TPUserAddress" Width="1.5" PointX="3" PointY="8.25" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_UserAddress" />
-        <AssociationConnector Association="ModelEntities.FK_TP_UserAddress_TP_User" />
-        <EntityTypeShape EntityType="ModelEntities.TPDeliver" Width="1.5" PointX="5.25" PointY="0.75" />
-        <AssociationConnector Association="ModelEntities.FK_TP_BillRef_TP_Deliver" />
-        <EntityTypeShape EntityType="ModelEntities.TPDriver" Width="1.5" PointX="3" PointY="1" />
-        <AssociationConnector Association="ModelEntities.FK_TP_Deliver_TP_Driver" />
-        </Diagram>
+        <EntityTypeShape EntityType="EntitiesDABL.TPBillRef" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPCallIn" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPDeliver" Width="1.5" PointX="3" PointY="14.5" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPDriver" Width="1.5" PointX="0.75" PointY="14.625" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPPrintSetting" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPUser" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPUserAddress" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPUserCell" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_User" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_Deliver_TP_Driver" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_UserAddress_TP_User" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_UserCell_TP_UserCell" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
