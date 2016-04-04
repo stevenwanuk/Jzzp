@@ -1,5 +1,251 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bi_Bill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TableID" Type="varchar" MaxLength="50" />
+    <Property Name="SubTableID" Type="int" />
+    <Property Name="TableName" Type="varchar" MaxLength="50" />
+    <Property Name="TableFullName" Type="varchar" MaxLength="50" />
+    <Property Name="TableAreaID" Type="varchar" MaxLength="50" />
+    <Property Name="TableAreaName" Type="varchar" MaxLength="50" />
+    <Property Name="TableTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="TableTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="MemberID" Type="varchar" MaxLength="50" />
+    <Property Name="MemberCardID" Type="varchar" MaxLength="50" />
+    <Property Name="MemberName" Type="varchar" MaxLength="50" />
+    <Property Name="PeopleCount" Type="int" />
+    <Property Name="ChargePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="ChargePerson" Type="varchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+    <Property Name="IsCheckOuting" Type="bit" />
+    <Property Name="CheckOutTime" Type="datetime" />
+    <Property Name="CheckOutPersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CheckOutPerson" Type="varchar" MaxLength="50" />
+    <Property Name="CheckOutNull" Type="bit" />
+    <Property Name="DeleteTime" Type="datetime" />
+    <Property Name="DeletePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="DeletePerson" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountID" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountName" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountRate" Type="money" />
+    <Property Name="DiscountPersonID" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountPerson" Type="varchar" MaxLength="50" />
+    <Property Name="SumOfConsume" Type="money" />
+    <Property Name="ServiceRate" Type="money" />
+    <Property Name="SumOfService" Type="money" />
+    <Property Name="SumForDiscount" Type="money" />
+    <Property Name="SumOfCarry" Type="money" />
+    <Property Name="SumToPay" Type="money" />
+    <Property Name="SumPaid" Type="money" />
+    <Property Name="SumInCash" Type="money" />
+    <Property Name="SumOfInvoice" Type="money" />
+    <Property Name="SumOfCashPaid" Type="money" />
+    <Property Name="SumOfCashBack" Type="money" />
+    <Property Name="BillDate" Type="datetime" />
+    <Property Name="BillPeriod" Type="varchar" MaxLength="50" />
+    <Property Name="BillYear" Type="int" />
+    <Property Name="BillMonth" Type="int" />
+    <Property Name="BillDay" Type="int" />
+    <Property Name="IsArchived" Type="bit" />
+    <Property Name="IsUploaded" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="PrintCount" Type="int" />
+    <Property Name="ReduceMantissa" Type="money" />
+    <Property Name="BranchID" Type="varchar" MaxLength="50" />
+    <Property Name="BranchName" Type="varchar" MaxLength="50" />
+    <Property Name="WorkStationID" Type="varchar" MaxLength="50" />
+    <Property Name="WorkStationName" Type="varchar" MaxLength="50" />
+    <Property Name="Remark" Type="text" />
+    <Property Name="OriginalID" Type="varchar" MaxLength="50" />
+    <Property Name="ShiftID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="bi_BillItem">
+    <Key>
+      <PropertyRef Name="BillItemID" />
+    </Key>
+    <Property Name="BillItemID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BillID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuName" Type="varchar" MaxLength="50" />
+    <Property Name="MenuUnitID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuUnitName" Type="varchar" MaxLength="50" />
+    <Property Name="MenuTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartID" Type="varchar" MaxLength="50" />
+    <Property Name="DepartName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="DepartTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="AmountOrder" Type="money" />
+    <Property Name="AmountOnTable" Type="money" />
+    <Property Name="AmountCancel" Type="money" />
+    <Property Name="MenuPrice" Type="money" />
+    <Property Name="MenuPrice2" Type="money" />
+    <Property Name="SumOfConsume" Type="money" />
+    <Property Name="SumForDiscount" Type="money" />
+    <Property Name="SumOfService" Type="money" />
+    <Property Name="SumOfCookWay" Type="money" />
+    <Property Name="CookWayID" Type="varchar" MaxLength="255" />
+    <Property Name="CookWay" Type="varchar" MaxLength="255" />
+    <Property Name="CookWayPrice" Type="money" />
+    <Property Name="MenuPart" Type="varchar" MaxLength="255" />
+    <Property Name="Request" Type="varchar" MaxLength="255" />
+    <Property Name="TasteType" Type="varchar" MaxLength="255" />
+    <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="ServingState" Type="int" />
+    <Property Name="IsSentMenu" Type="bit" />
+    <Property Name="IsSent" Type="bit" />
+    <Property Name="Remark" Type="text" />
+    <Property Name="IsSpecialPrice" Type="bit" />
+    <Property Name="IsDiscount" Type="bit" />
+    <Property Name="DiscountRate" Type="money" />
+    <Property Name="IsPrinted" Type="bit" />
+    <Property Name="PrintTime" Type="datetime" />
+    <Property Name="IsOnTable" Type="bit" />
+    <Property Name="OnTableTime" Type="datetime" />
+    <Property Name="MenuSetID" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetName" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetPrefix" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetItemID" Type="varchar" MaxLength="255" />
+    <Property Name="CostPrice" Type="money" />
+    <Property Name="TaxRate" Type="money" />
+    <Property Name="SumOfTax" Type="money" />
+  </EntityType>
+  <EntityType Name="bi_BillPayment">
+    <Key>
+      <PropertyRef Name="BillID" />
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubjectID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubjectName" Type="varchar" MaxLength="50" />
+    <Property Name="ExchangeRate" Type="money" />
+    <Property Name="PaySum" Type="money" />
+    <Property Name="SumPaid" Type="money" />
+  </EntityType>
+  <EntityType Name="bi_TempBill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TableID" Type="varchar" MaxLength="50" />
+    <Property Name="SubTableID" Type="int" />
+    <Property Name="TableName" Type="varchar" MaxLength="50" />
+    <Property Name="TableFullName" Type="varchar" MaxLength="50" />
+    <Property Name="TableAreaID" Type="varchar" MaxLength="50" />
+    <Property Name="TableAreaName" Type="varchar" MaxLength="50" />
+    <Property Name="TableTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="TableTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="MemberID" Type="varchar" MaxLength="50" />
+    <Property Name="MemberCardID" Type="varchar" MaxLength="50" />
+    <Property Name="MemberName" Type="varchar" MaxLength="50" />
+    <Property Name="PeopleCount" Type="int" />
+    <Property Name="ChargePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="ChargePerson" Type="varchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+    <Property Name="IsCheckOuting" Type="bit" />
+    <Property Name="CheckOutTime" Type="datetime" />
+    <Property Name="CheckOutPersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CheckOutPerson" Type="varchar" MaxLength="50" />
+    <Property Name="CheckOutNull" Type="bit" />
+    <Property Name="DeleteTime" Type="datetime" />
+    <Property Name="DeletePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="DeletePerson" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountID" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountName" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountRate" Type="money" />
+    <Property Name="DiscountPersonID" Type="varchar" MaxLength="50" />
+    <Property Name="DiscountPerson" Type="varchar" MaxLength="50" />
+    <Property Name="SumOfConsume" Type="money" />
+    <Property Name="ServiceRate" Type="money" />
+    <Property Name="SumOfService" Type="money" />
+    <Property Name="SumForDiscount" Type="money" />
+    <Property Name="SumOfCarry" Type="money" />
+    <Property Name="SumToPay" Type="money" />
+    <Property Name="SumPaid" Type="money" />
+    <Property Name="SumInCash" Type="money" />
+    <Property Name="SumOfInvoice" Type="money" />
+    <Property Name="SumOfCashPaid" Type="money" />
+    <Property Name="SumOfCashBack" Type="money" />
+    <Property Name="BillDate" Type="datetime" />
+    <Property Name="BillPeriod" Type="varchar" MaxLength="50" />
+    <Property Name="BillYear" Type="int" />
+    <Property Name="BillMonth" Type="int" />
+    <Property Name="BillDay" Type="int" />
+    <Property Name="IsArchived" Type="bit" />
+    <Property Name="IsUploaded" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="PrintCount" Type="int" />
+    <Property Name="ReduceMantissa" Type="money" />
+    <Property Name="BranchID" Type="varchar" MaxLength="50" />
+    <Property Name="BranchName" Type="varchar" MaxLength="50" />
+    <Property Name="WorkStationID" Type="varchar" MaxLength="50" />
+    <Property Name="WorkStationName" Type="varchar" MaxLength="50" />
+    <Property Name="Remark" Type="text" />
+    <Property Name="OriginalID" Type="varchar" MaxLength="50" />
+    <Property Name="ShiftID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="bi_TempBillItem">
+    <Key>
+      <PropertyRef Name="BillItemID" />
+    </Key>
+    <Property Name="BillItemID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BillID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuName" Type="varchar" MaxLength="50" />
+    <Property Name="MenuUnitID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuUnitName" Type="varchar" MaxLength="50" />
+    <Property Name="MenuTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="MenuTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartID" Type="varchar" MaxLength="50" />
+    <Property Name="DepartName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartTypeID" Type="varchar" MaxLength="50" />
+    <Property Name="DepartTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="AmountOrder" Type="money" />
+    <Property Name="AmountOnTable" Type="money" />
+    <Property Name="AmountCancel" Type="money" />
+    <Property Name="MenuPrice" Type="money" />
+    <Property Name="MenuPrice2" Type="money" />
+    <Property Name="SumOfConsume" Type="money" />
+    <Property Name="SumForDiscount" Type="money" />
+    <Property Name="SumOfService" Type="money" />
+    <Property Name="SumOfCookWay" Type="money" />
+    <Property Name="CookWayID" Type="varchar" MaxLength="255" />
+    <Property Name="CookWay" Type="varchar" MaxLength="255" />
+    <Property Name="CookWayPrice" Type="money" />
+    <Property Name="MenuPart" Type="varchar" MaxLength="255" />
+    <Property Name="Request" Type="varchar" MaxLength="255" />
+    <Property Name="TasteType" Type="varchar" MaxLength="255" />
+    <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+    <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="ServingState" Type="int" />
+    <Property Name="IsSentMenu" Type="bit" />
+    <Property Name="IsSent" Type="bit" />
+    <Property Name="Remark" Type="text" />
+    <Property Name="IsSpecialPrice" Type="bit" />
+    <Property Name="IsDiscount" Type="bit" />
+    <Property Name="DiscountRate" Type="money" />
+    <Property Name="IsPrinted" Type="bit" />
+    <Property Name="PrintTime" Type="datetime" />
+    <Property Name="IsOnTable" Type="bit" />
+    <Property Name="OnTableTime" Type="datetime" />
+    <Property Name="MenuSetID" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetName" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetPrefix" Type="varchar" MaxLength="255" />
+    <Property Name="MenuSetItemID" Type="varchar" MaxLength="255" />
+    <Property Name="CostPrice" Type="money" />
+    <Property Name="TaxRate" Type="money" />
+    <Property Name="SumOfTax" Type="money" />
+  </EntityType>
   <EntityType Name="TP_BillRef">
     <Key>
       <PropertyRef Name="BillRefId" />
@@ -167,6 +413,11 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ModelEntitiesStoreContainer">
+    <EntitySet Name="bi_Bill" EntityType="Self.bi_Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bi_BillItem" EntityType="Self.bi_BillItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bi_BillPayment" EntityType="Self.bi_BillPayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bi_TempBill" EntityType="Self.bi_TempBill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bi_TempBillItem" EntityType="Self.bi_TempBillItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />

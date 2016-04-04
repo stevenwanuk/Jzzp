@@ -7,8 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.Internal;
-using Jzzp.DAL;
-using ModelGenerator;
+
 using TP.Annotations;
 using TP.Common;
 using TP.ModelView;
@@ -28,6 +27,20 @@ namespace TP.View
         {
             get { return _usersTabView; }
             set { SetProperty(ref _usersTabView, value); }
+        }
+
+        private DeliveryTabView _deliveryTabView;
+        public DeliveryTabView DeliveryTabView
+        {
+            get { return _deliveryTabView; }
+            set { SetProperty(ref _deliveryTabView, value); }
+        }
+
+        private OrderHistoryTabView _orderHistoryTabView;
+        public OrderHistoryTabView OrderHistoryTabView
+        {
+            get { return _orderHistoryTabView; }
+            set { SetProperty(ref _orderHistoryTabView, value); }
         }
 
 

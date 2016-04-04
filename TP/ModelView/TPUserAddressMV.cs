@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelGenerator;
 using TP.Common;
+using EntitiesDABL;
 
 namespace TP.ModelView
 {
@@ -20,6 +21,10 @@ namespace TP.ModelView
         public static TPUserAddressMV Mapper(TPUserAddress entity)
         {
             return AutoMapperUtils.GetMapper().Map<TPUserAddress, TPUserAddressMV>(entity);
+        }
+        public TPUserAddress MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUserAddressMV, TPUserAddress>(this);
         }
 
 

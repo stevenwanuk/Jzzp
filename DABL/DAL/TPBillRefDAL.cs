@@ -7,17 +7,51 @@ using System.Threading.Tasks;
 using Jzzp.Common;
 using Jzzp.Enum;
 using ModelGenerator;
+using System.Data.SqlClient;
 
 namespace Jzzp.DAL
 {
     public class TPBillRefDAL
     {
 
+        private static Boolean checkDatabaseConnection()
+        {
+            Boolean result = false;
 
+
+            try
+            {
+                SqlConnection sqlConn = new SqlConnection("server=127.0.0.1;Initial catalog=NorthWind;user ID=sa;password=123456;database=RMS_DB");
+                using (sqlConn)
+                {
+                    sqlConn.Open();
+
+                    SqlCommand cmd = sqlConn.CreateCommand();
+                    cmd.CommandText = "select 1";
+                    cmd.CommandType = CommandType.Text;
+                    SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+                    if (reader.Read())
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return result;
+        }
 
 
         public static ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
         {
+
+            checkDatabaseConnection();
+
             var sql = " select * from tp_callin a " +
                          " join TP_BillRef b on a.CallInId = b.CallInId_FK " +
                          " where b.Status is null or b.Status < @status and terminalId = @terminal order by a.CallInId";
