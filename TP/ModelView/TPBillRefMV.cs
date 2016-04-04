@@ -12,6 +12,10 @@ namespace TP.ModelView
     public class TPBillRefMV : BindableBase
     {
 
+        public TPBillRefMV()
+        {
+        }
+
         public static TPBillRefMV Mapper(TPBillRef entity)
         {
             return AutoMapperUtils.GetMapper().Map<TPBillRef, TPBillRefMV>(entity);

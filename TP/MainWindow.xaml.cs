@@ -13,7 +13,7 @@ using TP.View;
 using TP.WindowForm;
 using EntitiesDABL.DAL;
 using EntitiesDABL;
-using EntitiesDABL.BLL;
+using TP.BLL;
 
 namespace TP
 {
@@ -109,20 +109,21 @@ namespace TP
 
         }
 
-        private void LoadTabControlView(long? BillRefId)
+        private void LoadTabControlView(long BillRefId)
         {
             switch (tPTabControl.SelectedIndex)
             {
 
                 case 0:
-                    mainView.UsersTabView = new UsersTabView(BillRefId.Value);
+                    mainView.UsersTabView = new UsersTabView(BillRefId);
 
-                    //TODO
-                break;
+                    break;
                 case 1:
-                break;
+                    mainView.OrderHistoryTabView = new OrderHistoryTabView(BillRefId);
+                    break;
                 case 2:
-                break;
+                    mainView.DeliveryTabView = new DeliveryTabView(BillRefId);
+                    break;
             }
         }
 
@@ -168,20 +169,79 @@ namespace TP
                     
                 }
             }
-            
-        }
-
-        private void ListBox_Selected(object sender, RoutedEventArgs e)
-        {
-
-            
-            
-            //mainView.UsersTabView.TPBillRefMV.TPUserAddress = mainView.UsersTabView.TPBillRefMV.TPUser.TPUserAddress.Where(i => i.UserAddressId == )
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mainView.UsersTabView.TPBillRefMV.TPUserAddress = (TPUserAddressMV)((ListBox)sender).SelectedItem;
+            //mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
         }
+
+        #region User
+
+        private void UserClear_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            mainView.UsersTabView.TPUserMV = new TPUserMV()
+            {
+                UserId = Guid.NewGuid()
+            };
+
+            mainView.UsersTabView.TPUserAddressMVs.Clear();
+            mainView.UsersTabView.TPUserAddressMV = new TPUserAddressMV();
+        }
+
+        private void UserSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            var userMV = mainView.UsersTabView.TPUserMV;
+            
+            var user = userMV.MapperTo();
+            if (user.UserId == Guid.Empty)
+            {
+                user.UserId = Guid.NewGuid();
+            }
+            var billRefId = mainView.UsersTabView.TPBillRefMV.BillRefId;
+            new TPBillRefBLL().SaveUser(billRefId, user);
+            
+            mainView.UsersTabView = new UsersTabView(billRefId);
+        }
+
+        #endregion User
+
+        #region UserAddress
+
+        private void UserAddressClear_OnClick(object sender, RoutedEventArgs e)
+        {
+            mainView.UsersTabView.TPUserAddressMV = new TPUserAddressMV();
+        }
+
+        private void UserAddressRemove_OnClick(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = mainView.UsersTabView.TPUserAddressMV;
+            if (selectedItem != null && mainView.UsersTabView.TPUserAddressMVs.Any(i => i.UserAddressId == selectedItem.UserAddressId))
+            {
+                
+                new TPBillRefBLL().RemoveUserAddress(mainView.UsersTabView.TPBillRefMV.BillRefId, selectedItem.UserAddressId);
+                mainView.UsersTabView = new UsersTabView(mainView.UsersTabView.TPBillRefMV.BillRefId);
+            }
+            
+        }
+
+        private void UserAddressSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            var userAddressMV = mainView.UsersTabView.TPUserAddressMV;
+            var userAddress = userAddressMV.MapperTo();
+            var billRefId = mainView.UsersTabView.TPBillRefMV.BillRefId;
+
+            if (mainView.UsersTabView.TPBillRefMV.UserId_FK != null)
+            {
+                userAddress.UserId_FK = mainView.UsersTabView.TPBillRefMV.UserId_FK.Value;
+
+                new TPBillRefBLL().SaveAddress(billRefId, userAddress);
+                mainView.UsersTabView = new UsersTabView(billRefId);
+            }
+            
+        }
+
+        #endregion UserAddress
     }
 }

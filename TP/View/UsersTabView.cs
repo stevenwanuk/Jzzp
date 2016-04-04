@@ -5,42 +5,77 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntitiesDABL;
 using TP.Common;
 using TP.ModelView;
-using EntitiesDABL.BLL;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using TP.BLL;
 
 namespace TP.View
 {
     public class UsersTabView : BindableBase
     {
         private TPBillRefMV _tPBillRefMV;
-
         public TPBillRefMV TPBillRefMV
         {
             get { return _tPBillRefMV; }
             set { SetProperty(ref _tPBillRefMV, value); }
         }
-        private TPUserMV _tPUserMV;
-        private TPUserAddressMV _tPUserAddressMv;
 
-        private ObservableCollection<TPUserAddressMV> _tPUserAddressMvs;
+        private TPUserMV _tPUserMV;
+        public TPUserMV TPUserMV
+        {
+            get { return _tPUserMV; }
+            set { SetProperty(ref _tPUserMV, value); }
+        }
+
+        private SelectionCollection<TPUserAddressMV> _tPUserAddressMVs;
+        public SelectionCollection<TPUserAddressMV> TPUserAddressMVs
+        {
+            get { return _tPUserAddressMVs; }
+            set { SetProperty(ref _tPUserAddressMVs, value); }
+        }
+
+        private TPUserAddressMV _tPUserAddressMV;
+        public TPUserAddressMV TPUserAddressMV
+        {
+            get { return _tPUserAddressMV; }
+            set { SetProperty(ref _tPUserAddressMV, value); }
+        }
+
 
         public UsersTabView(long tPBillRef)
         {
 
-            var billRef = new TPBillRefBLL().GetTPBillRefById(tPBillRef);
+            var billRef = new TPBillRefBLL().GetUsersTabViewByTpBillRefId(tPBillRef);
             _tPBillRefMV = TPBillRefMV.Mapper(billRef);
-            _tPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
 
-            //load userAddressList
-            var userAddress = new TPUserAddressBLL().GetTPUserAddressByUserId(_tPBillRefMV.TPUser.UserId);
+            
 
-            var addressMv = _tPBillRefMV.TPUser.TPUserAddress;
-            addressMv.Clear();
-            userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
+            if (billRef.TPUser != null)
+            {
+                _tPUserMV = TPUserMV.Mapper(billRef.TPUser);
+
+                var userAddress = billRef.TPUser.TPUserAddress;
+                _tPUserAddressMVs = new SelectionCollection<TPUserAddressMV>(); ;
+                userAddress.ForEach(i => _tPUserAddressMVs.Add(TPUserAddressMV.Mapper(i)));
+            }
+            else
+            {
+                _tPUserMV = new TPUserMV();
+            }
+
+            if (billRef.TPUserAddress != null)
+            {
+                _tPUserAddressMV = _tPUserAddressMVs.FirstOrDefault(i => i.UserAddressId == billRef.TPUserAddress.UserAddressId);
+                _tPUserAddressMVs.SelectedItem = _tPUserAddressMV;
+            }
+            else
+            {
+                _tPUserAddressMV = new TPUserAddressMV();
+            }
+
 
         }
-
     }
 }

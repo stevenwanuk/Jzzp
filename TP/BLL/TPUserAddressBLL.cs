@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntitiesDABL;
 
-namespace EntitiesDABL.BLL
+namespace TP.BLL
 {
     public class TPUserAddressBLL
     {
@@ -15,7 +16,7 @@ namespace EntitiesDABL.BLL
             using (var entities = new JZZPEntities())
             {
 
-                result = new TPUserAddressDAL(entities).GetTPUserAddressByUserId(tPUserId);
+                result = new TPUserAddressDAL(entities).GetTPUserAddressByUserId(tPUserId).ToList();
             }
 
             return result;
@@ -27,7 +28,7 @@ namespace EntitiesDABL.BLL
             using (var entities = new JZZPEntities())
             {
 
-                result = new TPUserAddressDAL(entities).GeTPUserAddressById(tPUserAddressId);
+                result = new TPUserAddressDAL(entities).GeTPUserAddressById(tPUserAddressId).ToList().FirstOrDefault();
             }
 
             return result;

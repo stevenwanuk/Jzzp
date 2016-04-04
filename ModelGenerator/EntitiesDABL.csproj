@@ -55,9 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\TPBillRefBLL.cs" />
-    <Compile Include="BLL\TPUserAddressBLL.cs" />
-    <Compile Include="BLL\TPUserBLL.cs" />
     <Compile Include="DAL\DALBase.cs" />
     <Compile Include="DAL\TPBillRefDAL.cs" />
     <Compile Include="DAL\TPUserAddressDAL.cs" />

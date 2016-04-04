@@ -18,6 +18,11 @@ namespace TP.ModelView
             return AutoMapperUtils.GetMapper().Map<TPUser, TPUserMV>(entity);
         }
 
+        public TPUser MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUserMV, TPUser>(this);
+        }
+
         public TPUserMV()
         {
             _tPBillRef = new ObservableCollection<TPBillRefMV>();
@@ -83,7 +88,7 @@ namespace TP.ModelView
                 switch (columnName)
                 {
                     case "FirstName":
-                        if (!_firstName.Equals("111"))
+                        if (!("111").Equals(_firstName))
                         i = "testttt";
                         break;
                 }

@@ -29,6 +29,20 @@ namespace TP.View
             set { SetProperty(ref _usersTabView, value); }
         }
 
+        private DeliveryTabView _deliveryTabView;
+        public DeliveryTabView DeliveryTabView
+        {
+            get { return _deliveryTabView; }
+            set { SetProperty(ref _deliveryTabView, value); }
+        }
+
+        private OrderHistoryTabView _orderHistoryTabView;
+        public OrderHistoryTabView OrderHistoryTabView
+        {
+            get { return _orderHistoryTabView; }
+            set { SetProperty(ref _orderHistoryTabView, value); }
+        }
+
 
         private TPBillRefMV _selectedTPBillRefMv;
         public TPBillRefMV SelectedTpBillRefMv

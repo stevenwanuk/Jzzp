@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,18 +17,31 @@ namespace EntitiesDABL.DAL
             this.Entities = entities;
         }
 
-        public TPUserAddress GeTPUserAddressById(long tPUserAddressId)
+        public IQueryable<TPUserAddress> GeTPUserAddressById(long tPUserAddressId)
         {
 
-            var query = Entities.TPUserAddresses.Where(i => i.UserAddressId == tPUserAddressId).ToList().FirstOrDefault();
-            return query;
+            return Entities.TPUserAddresses.Where(i => i.UserAddressId == tPUserAddressId);
         }
 
-        public ICollection<TPUserAddress> GetTPUserAddressByUserId(Guid userId)
+        public IQueryable<TPUserAddress> GetTPUserAddressByUserId(Guid userId)
         {
 
-            var query = Entities.TPUserAddresses.Where(i => i.UserId_FK == userId).ToList();
-            return query;
+            return Entities.TPUserAddresses.Where(i => i.UserId_FK == userId);
+        }
+
+        public void Save(TPUserAddress userAddress)
+        {
+            Entities.TPUserAddresses.AddOrUpdate(userAddress);
+        }
+
+        public void Remove(long userAddressId)
+        {
+
+            var userAddress = GeTPUserAddressById(userAddressId).ToList().FirstOrDefault();
+            if (userAddress != null)
+            {
+                Entities.TPUserAddresses.Remove(userAddress);
+            }
         }
     }
 }

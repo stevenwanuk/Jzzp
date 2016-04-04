@@ -22,6 +22,10 @@ namespace TP.ModelView
         {
             return AutoMapperUtils.GetMapper().Map<TPUserAddress, TPUserAddressMV>(entity);
         }
+        public TPUserAddress MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUserAddressMV, TPUserAddress>(this);
+        }
 
 
         private long _userAddressId;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +20,14 @@ namespace EntitiesDABL.DAL
         }
 
 
-        public ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
+        public IQueryable<TPBillRef> GetUnCompletedTpBillRefs(int terminalId)
         {
 
-            var query = from br in Entities.TPBillRefs.Include("TPCallIn")
+            var query = from br in Entities.TPBillRefs
                         where br.Status < (int)BillRefStatus.Done
                         && br.TPCallIn != null && br.TPCallIn.TerminalId == terminalId
                         select br;
-
-            return query.ToList();
+            return query;
         }
 
         public void UpdateBillRefUser(long billRefId, Guid userId)
@@ -40,9 +40,29 @@ namespace EntitiesDABL.DAL
             }
         }
 
-        public TPBillRef GetTPBillRefById(long billRefId)
+        public IQueryable<TPBillRef> GetTPBillRefById(long billRefId)
         {
-            return Entities.TPBillRefs.Include("TPUser").Where(i => i.BillRefId == billRefId).ToList().FirstOrDefault();
+            return Entities.TPBillRefs.Where(i => i.BillRefId == billRefId);
+        }
+
+        public void SaveUser(long billRefId, Guid userId)
+        {
+            var billRef = Entities.TPBillRefs.Where(i => i.BillRefId == billRefId).ToList().FirstOrDefault();
+            if (billRef != null)
+            {
+
+                //Entities.TPUsers.Attach(user);
+                billRef.UserId_FK = userId;
+            }
+        }
+
+        public void SaveUserAddress(long billRefId, long? userAddressId)
+        {
+            var billRef = Entities.TPBillRefs.Where(i => i.BillRefId == billRefId).ToList().FirstOrDefault();
+            if (billRef != null)
+            {
+                billRef.AddressId_FK = userAddressId;
+            }
         }
     }
 }

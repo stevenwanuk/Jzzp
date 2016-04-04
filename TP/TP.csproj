@@ -101,17 +101,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BLL\TPBillRefBLL.cs" />
+    <Compile Include="BLL\TPUserAddressBLL.cs" />
+    <Compile Include="BLL\TPUserBLL.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\CompareConverter.cs" />
+    <Compile Include="Common\CSharpComplilerUtils.cs" />
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
+    <Compile Include="Common\SelectionCollection.cs" />
     <Compile Include="ModelView\TPBillRefMV.cs" />
     <Compile Include="ModelView\TPDeliverMV.cs" />
     <Compile Include="ModelView\TPDriverMV.cs" />
     <Compile Include="ModelView\TPUserAddressMV.cs" />
     <Compile Include="ModelView\TPUserCellMV.cs" />
     <Compile Include="ModelView\TPUserMV.cs" />
+    <Compile Include="View\DeliveryTabView.cs" />
     <Compile Include="View\MainView.cs" />
+    <Compile Include="View\OrderHistoryTabView.cs" />
     <Compile Include="View\UsersTabView.cs" />
     <Compile Include="WindowForm\UsersWindow.xaml.cs">
       <DependentUpon>UsersWindow.xaml</DependentUpon>
