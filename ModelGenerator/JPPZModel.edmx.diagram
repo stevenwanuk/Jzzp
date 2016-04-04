@@ -20,6 +20,11 @@
         <AssociationConnector Association="EntitiesDABL.FK_TP_Deliver_TP_Driver" />
         <AssociationConnector Association="EntitiesDABL.FK_TP_UserAddress_TP_User" />
         <AssociationConnector Association="EntitiesDABL.FK_TP_UserCell_TP_UserCell" />
+        <EntityTypeShape EntityType="EntitiesDABL.Bill" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.BillItem" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.TempBill" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.TempBillItem" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.BillPayment" Width="1.5" PointX="13.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

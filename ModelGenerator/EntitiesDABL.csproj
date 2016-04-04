@@ -55,6 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bill.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillItem.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillPayment.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DALBase.cs" />
     <Compile Include="DAL\TPBillRefDAL.cs" />
     <Compile Include="DAL\TPUserAddressDAL.cs" />
@@ -76,6 +85,12 @@
       <DependentUpon>JPPZModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TempBill.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TempBillItem.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Test\TestEntity.cs" />
     <Compile Include="TPBillRef.cs">
       <DependentUpon>JPPZModel.tt</DependentUpon>

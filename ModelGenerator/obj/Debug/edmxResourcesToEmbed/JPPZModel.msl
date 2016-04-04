@@ -91,5 +91,255 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="EntitiesDABL.Bill">
+        <MappingFragment StoreEntitySet="bi_Bill">
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="WorkStationName" ColumnName="WorkStationName" />
+          <ScalarProperty Name="WorkStationID" ColumnName="WorkStationID" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+          <ScalarProperty Name="ReduceMantissa" ColumnName="ReduceMantissa" />
+          <ScalarProperty Name="PrintCount" ColumnName="PrintCount" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="BillDay" ColumnName="BillDay" />
+          <ScalarProperty Name="BillMonth" ColumnName="BillMonth" />
+          <ScalarProperty Name="BillYear" ColumnName="BillYear" />
+          <ScalarProperty Name="BillPeriod" ColumnName="BillPeriod" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+          <ScalarProperty Name="SumOfCashBack" ColumnName="SumOfCashBack" />
+          <ScalarProperty Name="SumOfCashPaid" ColumnName="SumOfCashPaid" />
+          <ScalarProperty Name="SumOfInvoice" ColumnName="SumOfInvoice" />
+          <ScalarProperty Name="SumInCash" ColumnName="SumInCash" />
+          <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+          <ScalarProperty Name="SumToPay" ColumnName="SumToPay" />
+          <ScalarProperty Name="SumOfCarry" ColumnName="SumOfCarry" />
+          <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+          <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+          <ScalarProperty Name="ServiceRate" ColumnName="ServiceRate" />
+          <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+          <ScalarProperty Name="DiscountPerson" ColumnName="DiscountPerson" />
+          <ScalarProperty Name="DiscountPersonID" ColumnName="DiscountPersonID" />
+          <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+          <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+          <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+          <ScalarProperty Name="DeletePerson" ColumnName="DeletePerson" />
+          <ScalarProperty Name="DeletePersonID" ColumnName="DeletePersonID" />
+          <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+          <ScalarProperty Name="CheckOutNull" ColumnName="CheckOutNull" />
+          <ScalarProperty Name="CheckOutPerson" ColumnName="CheckOutPerson" />
+          <ScalarProperty Name="CheckOutPersonID" ColumnName="CheckOutPersonID" />
+          <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+          <ScalarProperty Name="IsCheckOuting" ColumnName="IsCheckOuting" />
+          <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+          <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ChargePersonID" ColumnName="ChargePersonID" />
+          <ScalarProperty Name="PeopleCount" ColumnName="PeopleCount" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="TableTypeName" ColumnName="TableTypeName" />
+          <ScalarProperty Name="TableTypeID" ColumnName="TableTypeID" />
+          <ScalarProperty Name="TableAreaName" ColumnName="TableAreaName" />
+          <ScalarProperty Name="TableAreaID" ColumnName="TableAreaID" />
+          <ScalarProperty Name="TableFullName" ColumnName="TableFullName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="SubTableID" ColumnName="SubTableID" />
+          <ScalarProperty Name="TableID" ColumnName="TableID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillItems">
+      <EntityTypeMapping TypeName="EntitiesDABL.BillItem">
+        <MappingFragment StoreEntitySet="bi_BillItem">
+          <ScalarProperty Name="SumOfTax" ColumnName="SumOfTax" />
+          <ScalarProperty Name="TaxRate" ColumnName="TaxRate" />
+          <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+          <ScalarProperty Name="MenuSetItemID" ColumnName="MenuSetItemID" />
+          <ScalarProperty Name="MenuSetPrefix" ColumnName="MenuSetPrefix" />
+          <ScalarProperty Name="MenuSetName" ColumnName="MenuSetName" />
+          <ScalarProperty Name="MenuSetID" ColumnName="MenuSetID" />
+          <ScalarProperty Name="OnTableTime" ColumnName="OnTableTime" />
+          <ScalarProperty Name="IsOnTable" ColumnName="IsOnTable" />
+          <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+          <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+          <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+          <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
+          <ScalarProperty Name="IsSpecialPrice" ColumnName="IsSpecialPrice" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+          <ScalarProperty Name="IsSentMenu" ColumnName="IsSentMenu" />
+          <ScalarProperty Name="ServingState" ColumnName="ServingState" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+          <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+          <ScalarProperty Name="TasteType" ColumnName="TasteType" />
+          <ScalarProperty Name="Request" ColumnName="Request" />
+          <ScalarProperty Name="MenuPart" ColumnName="MenuPart" />
+          <ScalarProperty Name="CookWayPrice" ColumnName="CookWayPrice" />
+          <ScalarProperty Name="CookWay" ColumnName="CookWay" />
+          <ScalarProperty Name="CookWayID" ColumnName="CookWayID" />
+          <ScalarProperty Name="SumOfCookWay" ColumnName="SumOfCookWay" />
+          <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+          <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+          <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+          <ScalarProperty Name="MenuPrice2" ColumnName="MenuPrice2" />
+          <ScalarProperty Name="MenuPrice" ColumnName="MenuPrice" />
+          <ScalarProperty Name="AmountCancel" ColumnName="AmountCancel" />
+          <ScalarProperty Name="AmountOnTable" ColumnName="AmountOnTable" />
+          <ScalarProperty Name="AmountOrder" ColumnName="AmountOrder" />
+          <ScalarProperty Name="DepartTypeName" ColumnName="DepartTypeName" />
+          <ScalarProperty Name="DepartTypeID" ColumnName="DepartTypeID" />
+          <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+          <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+          <ScalarProperty Name="MenuTypeName" ColumnName="MenuTypeName" />
+          <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+          <ScalarProperty Name="MenuUnitName" ColumnName="MenuUnitName" />
+          <ScalarProperty Name="MenuUnitID" ColumnName="MenuUnitID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+          <ScalarProperty Name="BillItemID" ColumnName="BillItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempBills">
+      <EntityTypeMapping TypeName="EntitiesDABL.TempBill">
+        <MappingFragment StoreEntitySet="bi_TempBill">
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="WorkStationName" ColumnName="WorkStationName" />
+          <ScalarProperty Name="WorkStationID" ColumnName="WorkStationID" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+          <ScalarProperty Name="ReduceMantissa" ColumnName="ReduceMantissa" />
+          <ScalarProperty Name="PrintCount" ColumnName="PrintCount" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+          <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+          <ScalarProperty Name="BillDay" ColumnName="BillDay" />
+          <ScalarProperty Name="BillMonth" ColumnName="BillMonth" />
+          <ScalarProperty Name="BillYear" ColumnName="BillYear" />
+          <ScalarProperty Name="BillPeriod" ColumnName="BillPeriod" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+          <ScalarProperty Name="SumOfCashBack" ColumnName="SumOfCashBack" />
+          <ScalarProperty Name="SumOfCashPaid" ColumnName="SumOfCashPaid" />
+          <ScalarProperty Name="SumOfInvoice" ColumnName="SumOfInvoice" />
+          <ScalarProperty Name="SumInCash" ColumnName="SumInCash" />
+          <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+          <ScalarProperty Name="SumToPay" ColumnName="SumToPay" />
+          <ScalarProperty Name="SumOfCarry" ColumnName="SumOfCarry" />
+          <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+          <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+          <ScalarProperty Name="ServiceRate" ColumnName="ServiceRate" />
+          <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+          <ScalarProperty Name="DiscountPerson" ColumnName="DiscountPerson" />
+          <ScalarProperty Name="DiscountPersonID" ColumnName="DiscountPersonID" />
+          <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+          <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+          <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+          <ScalarProperty Name="DeletePerson" ColumnName="DeletePerson" />
+          <ScalarProperty Name="DeletePersonID" ColumnName="DeletePersonID" />
+          <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+          <ScalarProperty Name="CheckOutNull" ColumnName="CheckOutNull" />
+          <ScalarProperty Name="CheckOutPerson" ColumnName="CheckOutPerson" />
+          <ScalarProperty Name="CheckOutPersonID" ColumnName="CheckOutPersonID" />
+          <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+          <ScalarProperty Name="IsCheckOuting" ColumnName="IsCheckOuting" />
+          <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+          <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+          <ScalarProperty Name="ChargePersonID" ColumnName="ChargePersonID" />
+          <ScalarProperty Name="PeopleCount" ColumnName="PeopleCount" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="TableTypeName" ColumnName="TableTypeName" />
+          <ScalarProperty Name="TableTypeID" ColumnName="TableTypeID" />
+          <ScalarProperty Name="TableAreaName" ColumnName="TableAreaName" />
+          <ScalarProperty Name="TableAreaID" ColumnName="TableAreaID" />
+          <ScalarProperty Name="TableFullName" ColumnName="TableFullName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="SubTableID" ColumnName="SubTableID" />
+          <ScalarProperty Name="TableID" ColumnName="TableID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempBillItems">
+      <EntityTypeMapping TypeName="EntitiesDABL.TempBillItem">
+        <MappingFragment StoreEntitySet="bi_TempBillItem">
+          <ScalarProperty Name="SumOfTax" ColumnName="SumOfTax" />
+          <ScalarProperty Name="TaxRate" ColumnName="TaxRate" />
+          <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+          <ScalarProperty Name="MenuSetItemID" ColumnName="MenuSetItemID" />
+          <ScalarProperty Name="MenuSetPrefix" ColumnName="MenuSetPrefix" />
+          <ScalarProperty Name="MenuSetName" ColumnName="MenuSetName" />
+          <ScalarProperty Name="MenuSetID" ColumnName="MenuSetID" />
+          <ScalarProperty Name="OnTableTime" ColumnName="OnTableTime" />
+          <ScalarProperty Name="IsOnTable" ColumnName="IsOnTable" />
+          <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+          <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+          <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+          <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
+          <ScalarProperty Name="IsSpecialPrice" ColumnName="IsSpecialPrice" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+          <ScalarProperty Name="IsSentMenu" ColumnName="IsSentMenu" />
+          <ScalarProperty Name="ServingState" ColumnName="ServingState" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+          <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+          <ScalarProperty Name="TasteType" ColumnName="TasteType" />
+          <ScalarProperty Name="Request" ColumnName="Request" />
+          <ScalarProperty Name="MenuPart" ColumnName="MenuPart" />
+          <ScalarProperty Name="CookWayPrice" ColumnName="CookWayPrice" />
+          <ScalarProperty Name="CookWay" ColumnName="CookWay" />
+          <ScalarProperty Name="CookWayID" ColumnName="CookWayID" />
+          <ScalarProperty Name="SumOfCookWay" ColumnName="SumOfCookWay" />
+          <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+          <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+          <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+          <ScalarProperty Name="MenuPrice2" ColumnName="MenuPrice2" />
+          <ScalarProperty Name="MenuPrice" ColumnName="MenuPrice" />
+          <ScalarProperty Name="AmountCancel" ColumnName="AmountCancel" />
+          <ScalarProperty Name="AmountOnTable" ColumnName="AmountOnTable" />
+          <ScalarProperty Name="AmountOrder" ColumnName="AmountOrder" />
+          <ScalarProperty Name="DepartTypeName" ColumnName="DepartTypeName" />
+          <ScalarProperty Name="DepartTypeID" ColumnName="DepartTypeID" />
+          <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+          <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+          <ScalarProperty Name="MenuTypeName" ColumnName="MenuTypeName" />
+          <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+          <ScalarProperty Name="MenuUnitName" ColumnName="MenuUnitName" />
+          <ScalarProperty Name="MenuUnitID" ColumnName="MenuUnitID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+          <ScalarProperty Name="BillItemID" ColumnName="BillItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillPayments">
+      <EntityTypeMapping TypeName="EntitiesDABL.BillPayment">
+        <MappingFragment StoreEntitySet="bi_BillPayment">
+          <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+          <ScalarProperty Name="PaySum" ColumnName="PaySum" />
+          <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

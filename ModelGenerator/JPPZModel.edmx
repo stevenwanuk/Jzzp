@@ -5,6 +5,252 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bi_Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TableID" Type="varchar" MaxLength="50" />
+          <Property Name="SubTableID" Type="int" />
+          <Property Name="TableName" Type="varchar" MaxLength="50" />
+          <Property Name="TableFullName" Type="varchar" MaxLength="50" />
+          <Property Name="TableAreaID" Type="varchar" MaxLength="50" />
+          <Property Name="TableAreaName" Type="varchar" MaxLength="50" />
+          <Property Name="TableTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="TableTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="MemberID" Type="varchar" MaxLength="50" />
+          <Property Name="MemberCardID" Type="varchar" MaxLength="50" />
+          <Property Name="MemberName" Type="varchar" MaxLength="50" />
+          <Property Name="PeopleCount" Type="int" />
+          <Property Name="ChargePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="ChargePerson" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+          <Property Name="IsCheckOuting" Type="bit" />
+          <Property Name="CheckOutTime" Type="datetime" />
+          <Property Name="CheckOutPersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CheckOutPerson" Type="varchar" MaxLength="50" />
+          <Property Name="CheckOutNull" Type="bit" />
+          <Property Name="DeleteTime" Type="datetime" />
+          <Property Name="DeletePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="DeletePerson" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountID" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountName" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountRate" Type="money" />
+          <Property Name="DiscountPersonID" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountPerson" Type="varchar" MaxLength="50" />
+          <Property Name="SumOfConsume" Type="money" />
+          <Property Name="ServiceRate" Type="money" />
+          <Property Name="SumOfService" Type="money" />
+          <Property Name="SumForDiscount" Type="money" />
+          <Property Name="SumOfCarry" Type="money" />
+          <Property Name="SumToPay" Type="money" />
+          <Property Name="SumPaid" Type="money" />
+          <Property Name="SumInCash" Type="money" />
+          <Property Name="SumOfInvoice" Type="money" />
+          <Property Name="SumOfCashPaid" Type="money" />
+          <Property Name="SumOfCashBack" Type="money" />
+          <Property Name="BillDate" Type="datetime" />
+          <Property Name="BillPeriod" Type="varchar" MaxLength="50" />
+          <Property Name="BillYear" Type="int" />
+          <Property Name="BillMonth" Type="int" />
+          <Property Name="BillDay" Type="int" />
+          <Property Name="IsArchived" Type="bit" />
+          <Property Name="IsUploaded" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="PrintCount" Type="int" />
+          <Property Name="ReduceMantissa" Type="money" />
+          <Property Name="BranchID" Type="varchar" MaxLength="50" />
+          <Property Name="BranchName" Type="varchar" MaxLength="50" />
+          <Property Name="WorkStationID" Type="varchar" MaxLength="50" />
+          <Property Name="WorkStationName" Type="varchar" MaxLength="50" />
+          <Property Name="Remark" Type="text" />
+          <Property Name="OriginalID" Type="varchar" MaxLength="50" />
+          <Property Name="ShiftID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="bi_BillItem">
+          <Key>
+            <PropertyRef Name="BillItemID" />
+          </Key>
+          <Property Name="BillItemID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuName" Type="varchar" MaxLength="50" />
+          <Property Name="MenuUnitID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuUnitName" Type="varchar" MaxLength="50" />
+          <Property Name="MenuTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="DepartID" Type="varchar" MaxLength="50" />
+          <Property Name="DepartName" Type="varchar" MaxLength="50" />
+          <Property Name="DepartTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="DepartTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="AmountOrder" Type="money" />
+          <Property Name="AmountOnTable" Type="money" />
+          <Property Name="AmountCancel" Type="money" />
+          <Property Name="MenuPrice" Type="money" />
+          <Property Name="MenuPrice2" Type="money" />
+          <Property Name="SumOfConsume" Type="money" />
+          <Property Name="SumForDiscount" Type="money" />
+          <Property Name="SumOfService" Type="money" />
+          <Property Name="SumOfCookWay" Type="money" />
+          <Property Name="CookWayID" Type="varchar" MaxLength="255" />
+          <Property Name="CookWay" Type="varchar" MaxLength="255" />
+          <Property Name="CookWayPrice" Type="money" />
+          <Property Name="MenuPart" Type="varchar" MaxLength="255" />
+          <Property Name="Request" Type="varchar" MaxLength="255" />
+          <Property Name="TasteType" Type="varchar" MaxLength="255" />
+          <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="ServingState" Type="int" />
+          <Property Name="IsSentMenu" Type="bit" />
+          <Property Name="IsSent" Type="bit" />
+          <Property Name="Remark" Type="text" />
+          <Property Name="IsSpecialPrice" Type="bit" />
+          <Property Name="IsDiscount" Type="bit" />
+          <Property Name="DiscountRate" Type="money" />
+          <Property Name="IsPrinted" Type="bit" />
+          <Property Name="PrintTime" Type="datetime" />
+          <Property Name="IsOnTable" Type="bit" />
+          <Property Name="OnTableTime" Type="datetime" />
+          <Property Name="MenuSetID" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetName" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetPrefix" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetItemID" Type="varchar" MaxLength="255" />
+          <Property Name="CostPrice" Type="money" />
+          <Property Name="TaxRate" Type="money" />
+          <Property Name="SumOfTax" Type="money" />
+        </EntityType>
+        <EntityType Name="bi_BillPayment">
+          <Key>
+            <PropertyRef Name="BillID" />
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubjectID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="50" />
+          <Property Name="ExchangeRate" Type="money" />
+          <Property Name="PaySum" Type="money" />
+          <Property Name="SumPaid" Type="money" />
+        </EntityType>
+        <EntityType Name="bi_TempBill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TableID" Type="varchar" MaxLength="50" />
+          <Property Name="SubTableID" Type="int" />
+          <Property Name="TableName" Type="varchar" MaxLength="50" />
+          <Property Name="TableFullName" Type="varchar" MaxLength="50" />
+          <Property Name="TableAreaID" Type="varchar" MaxLength="50" />
+          <Property Name="TableAreaName" Type="varchar" MaxLength="50" />
+          <Property Name="TableTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="TableTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="MemberID" Type="varchar" MaxLength="50" />
+          <Property Name="MemberCardID" Type="varchar" MaxLength="50" />
+          <Property Name="MemberName" Type="varchar" MaxLength="50" />
+          <Property Name="PeopleCount" Type="int" />
+          <Property Name="ChargePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="ChargePerson" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+          <Property Name="IsCheckOuting" Type="bit" />
+          <Property Name="CheckOutTime" Type="datetime" />
+          <Property Name="CheckOutPersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CheckOutPerson" Type="varchar" MaxLength="50" />
+          <Property Name="CheckOutNull" Type="bit" />
+          <Property Name="DeleteTime" Type="datetime" />
+          <Property Name="DeletePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="DeletePerson" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountID" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountName" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountRate" Type="money" />
+          <Property Name="DiscountPersonID" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountPerson" Type="varchar" MaxLength="50" />
+          <Property Name="SumOfConsume" Type="money" />
+          <Property Name="ServiceRate" Type="money" />
+          <Property Name="SumOfService" Type="money" />
+          <Property Name="SumForDiscount" Type="money" />
+          <Property Name="SumOfCarry" Type="money" />
+          <Property Name="SumToPay" Type="money" />
+          <Property Name="SumPaid" Type="money" />
+          <Property Name="SumInCash" Type="money" />
+          <Property Name="SumOfInvoice" Type="money" />
+          <Property Name="SumOfCashPaid" Type="money" />
+          <Property Name="SumOfCashBack" Type="money" />
+          <Property Name="BillDate" Type="datetime" />
+          <Property Name="BillPeriod" Type="varchar" MaxLength="50" />
+          <Property Name="BillYear" Type="int" />
+          <Property Name="BillMonth" Type="int" />
+          <Property Name="BillDay" Type="int" />
+          <Property Name="IsArchived" Type="bit" />
+          <Property Name="IsUploaded" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="PrintCount" Type="int" />
+          <Property Name="ReduceMantissa" Type="money" />
+          <Property Name="BranchID" Type="varchar" MaxLength="50" />
+          <Property Name="BranchName" Type="varchar" MaxLength="50" />
+          <Property Name="WorkStationID" Type="varchar" MaxLength="50" />
+          <Property Name="WorkStationName" Type="varchar" MaxLength="50" />
+          <Property Name="Remark" Type="text" />
+          <Property Name="OriginalID" Type="varchar" MaxLength="50" />
+          <Property Name="ShiftID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="bi_TempBillItem">
+          <Key>
+            <PropertyRef Name="BillItemID" />
+          </Key>
+          <Property Name="BillItemID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuName" Type="varchar" MaxLength="50" />
+          <Property Name="MenuUnitID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuUnitName" Type="varchar" MaxLength="50" />
+          <Property Name="MenuTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="MenuTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="DepartID" Type="varchar" MaxLength="50" />
+          <Property Name="DepartName" Type="varchar" MaxLength="50" />
+          <Property Name="DepartTypeID" Type="varchar" MaxLength="50" />
+          <Property Name="DepartTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="AmountOrder" Type="money" />
+          <Property Name="AmountOnTable" Type="money" />
+          <Property Name="AmountCancel" Type="money" />
+          <Property Name="MenuPrice" Type="money" />
+          <Property Name="MenuPrice2" Type="money" />
+          <Property Name="SumOfConsume" Type="money" />
+          <Property Name="SumForDiscount" Type="money" />
+          <Property Name="SumOfService" Type="money" />
+          <Property Name="SumOfCookWay" Type="money" />
+          <Property Name="CookWayID" Type="varchar" MaxLength="255" />
+          <Property Name="CookWay" Type="varchar" MaxLength="255" />
+          <Property Name="CookWayPrice" Type="money" />
+          <Property Name="MenuPart" Type="varchar" MaxLength="255" />
+          <Property Name="Request" Type="varchar" MaxLength="255" />
+          <Property Name="TasteType" Type="varchar" MaxLength="255" />
+          <Property Name="CreatePersonID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatePerson" Type="varchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="ServingState" Type="int" />
+          <Property Name="IsSentMenu" Type="bit" />
+          <Property Name="IsSent" Type="bit" />
+          <Property Name="Remark" Type="text" />
+          <Property Name="IsSpecialPrice" Type="bit" />
+          <Property Name="IsDiscount" Type="bit" />
+          <Property Name="DiscountRate" Type="money" />
+          <Property Name="IsPrinted" Type="bit" />
+          <Property Name="PrintTime" Type="datetime" />
+          <Property Name="IsOnTable" Type="bit" />
+          <Property Name="OnTableTime" Type="datetime" />
+          <Property Name="MenuSetID" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetName" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetPrefix" Type="varchar" MaxLength="255" />
+          <Property Name="MenuSetItemID" Type="varchar" MaxLength="255" />
+          <Property Name="CostPrice" Type="money" />
+          <Property Name="TaxRate" Type="money" />
+          <Property Name="SumOfTax" Type="money" />
+        </EntityType>
         <EntityType Name="TP_BillRef">
           <Key>
             <PropertyRef Name="BillRefId" />
@@ -172,6 +418,11 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelEntitiesStoreContainer">
+          <EntitySet Name="bi_Bill" EntityType="Self.bi_Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bi_BillItem" EntityType="Self.bi_BillItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bi_BillPayment" EntityType="Self.bi_BillPayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bi_TempBill" EntityType="Self.bi_TempBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bi_TempBillItem" EntityType="Self.bi_TempBillItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />
@@ -250,6 +501,11 @@
             <End Role="TP_User" EntitySet="TPUsers" />
             <End Role="TP_UserCell" EntitySet="TPUserCells" />
           </AssociationSet>
+          <EntitySet Name="Bills" EntityType="EntitiesDABL.Bill" />
+          <EntitySet Name="BillItems" EntityType="EntitiesDABL.BillItem" />
+          <EntitySet Name="TempBills" EntityType="EntitiesDABL.TempBill" />
+          <EntitySet Name="TempBillItems" EntityType="EntitiesDABL.TempBillItem" />
+          <EntitySet Name="BillPayments" EntityType="EntitiesDABL.BillPayment" />
         </EntityContainer>
         <EntityType Name="TPBillRef">
           <Key>
@@ -431,6 +687,252 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubTableID" Type="Int32" />
+          <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableAreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberCardID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PeopleCount" Type="Int32" />
+          <Property Name="ChargePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ChargePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsCheckOuting" Type="Boolean" />
+          <Property Name="CheckOutTime" Type="DateTime" Precision="3" />
+          <Property Name="CheckOutPersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOutPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOutNull" Type="Boolean" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeletePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DiscountPersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SumOfConsume" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ServiceRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfService" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumForDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCarry" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumToPay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumInCash" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfInvoice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCashPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCashBack" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BillDate" Type="DateTime" Precision="3" />
+          <Property Name="BillPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillYear" Type="Int32" />
+          <Property Name="BillMonth" Type="Int32" />
+          <Property Name="BillDay" Type="Int32" />
+          <Property Name="IsArchived" Type="Boolean" />
+          <Property Name="IsUploaded" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="PrintCount" Type="Int32" />
+          <Property Name="ReduceMantissa" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BranchID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkStationID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkStationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShiftID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BillItem">
+          <Key>
+            <PropertyRef Name="BillItemID" />
+          </Key>
+          <Property Name="BillItemID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuUnitID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AmountOrder" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountOnTable" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountCancel" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPrice2" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfConsume" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumForDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfService" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCookWay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CookWayID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CookWay" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CookWayPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPart" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Request" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TasteType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="ServingState" Type="Int32" />
+          <Property Name="IsSentMenu" Type="Boolean" />
+          <Property Name="IsSent" Type="Boolean" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsSpecialPrice" Type="Boolean" />
+          <Property Name="IsDiscount" Type="Boolean" />
+          <Property Name="DiscountRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsPrinted" Type="Boolean" />
+          <Property Name="PrintTime" Type="DateTime" Precision="3" />
+          <Property Name="IsOnTable" Type="Boolean" />
+          <Property Name="OnTableTime" Type="DateTime" Precision="3" />
+          <Property Name="MenuSetID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetPrefix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetItemID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CostPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TaxRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfTax" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="TempBill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubTableID" Type="Int32" />
+          <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableAreaID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableAreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TableTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberCardID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PeopleCount" Type="Int32" />
+          <Property Name="ChargePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ChargePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsCheckOuting" Type="Boolean" />
+          <Property Name="CheckOutTime" Type="DateTime" Precision="3" />
+          <Property Name="CheckOutPersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOutPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckOutNull" Type="Boolean" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <Property Name="DeletePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeletePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DiscountPersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SumOfConsume" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ServiceRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfService" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumForDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCarry" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumToPay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumInCash" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfInvoice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCashPaid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCashBack" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BillDate" Type="DateTime" Precision="3" />
+          <Property Name="BillPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillYear" Type="Int32" />
+          <Property Name="BillMonth" Type="Int32" />
+          <Property Name="BillDay" Type="Int32" />
+          <Property Name="IsArchived" Type="Boolean" />
+          <Property Name="IsUploaded" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="PrintCount" Type="Int32" />
+          <Property Name="ReduceMantissa" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BranchID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkStationID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkStationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OriginalID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShiftID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TempBillItem">
+          <Key>
+            <PropertyRef Name="BillItemID" />
+          </Key>
+          <Property Name="BillItemID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuUnitID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MenuTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartTypeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AmountOrder" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountOnTable" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountCancel" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPrice2" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfConsume" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumForDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfService" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfCookWay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CookWayID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CookWay" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CookWayPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MenuPart" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Request" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TasteType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatePerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="ServingState" Type="Int32" />
+          <Property Name="IsSentMenu" Type="Boolean" />
+          <Property Name="IsSent" Type="Boolean" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsSpecialPrice" Type="Boolean" />
+          <Property Name="IsDiscount" Type="Boolean" />
+          <Property Name="DiscountRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsPrinted" Type="Boolean" />
+          <Property Name="PrintTime" Type="DateTime" Precision="3" />
+          <Property Name="IsOnTable" Type="Boolean" />
+          <Property Name="OnTableTime" Type="DateTime" Precision="3" />
+          <Property Name="MenuSetID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetPrefix" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MenuSetItemID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CostPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TaxRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumOfTax" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="BillPayment">
+          <Key>
+            <PropertyRef Name="BillID" />
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="BillID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExchangeRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaySum" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -524,6 +1026,256 @@
                 <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
                 <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
                 <ScalarProperty Name="UserCellId" ColumnName="UserCellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="EntitiesDABL.Bill">
+              <MappingFragment StoreEntitySet="bi_Bill">
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+                <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="WorkStationName" ColumnName="WorkStationName" />
+                <ScalarProperty Name="WorkStationID" ColumnName="WorkStationID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="ReduceMantissa" ColumnName="ReduceMantissa" />
+                <ScalarProperty Name="PrintCount" ColumnName="PrintCount" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="BillDay" ColumnName="BillDay" />
+                <ScalarProperty Name="BillMonth" ColumnName="BillMonth" />
+                <ScalarProperty Name="BillYear" ColumnName="BillYear" />
+                <ScalarProperty Name="BillPeriod" ColumnName="BillPeriod" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="SumOfCashBack" ColumnName="SumOfCashBack" />
+                <ScalarProperty Name="SumOfCashPaid" ColumnName="SumOfCashPaid" />
+                <ScalarProperty Name="SumOfInvoice" ColumnName="SumOfInvoice" />
+                <ScalarProperty Name="SumInCash" ColumnName="SumInCash" />
+                <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+                <ScalarProperty Name="SumToPay" ColumnName="SumToPay" />
+                <ScalarProperty Name="SumOfCarry" ColumnName="SumOfCarry" />
+                <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+                <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+                <ScalarProperty Name="ServiceRate" ColumnName="ServiceRate" />
+                <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+                <ScalarProperty Name="DiscountPerson" ColumnName="DiscountPerson" />
+                <ScalarProperty Name="DiscountPersonID" ColumnName="DiscountPersonID" />
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+                <ScalarProperty Name="DeletePerson" ColumnName="DeletePerson" />
+                <ScalarProperty Name="DeletePersonID" ColumnName="DeletePersonID" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="CheckOutNull" ColumnName="CheckOutNull" />
+                <ScalarProperty Name="CheckOutPerson" ColumnName="CheckOutPerson" />
+                <ScalarProperty Name="CheckOutPersonID" ColumnName="CheckOutPersonID" />
+                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+                <ScalarProperty Name="IsCheckOuting" ColumnName="IsCheckOuting" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+                <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+                <ScalarProperty Name="ChargePersonID" ColumnName="ChargePersonID" />
+                <ScalarProperty Name="PeopleCount" ColumnName="PeopleCount" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="TableTypeName" ColumnName="TableTypeName" />
+                <ScalarProperty Name="TableTypeID" ColumnName="TableTypeID" />
+                <ScalarProperty Name="TableAreaName" ColumnName="TableAreaName" />
+                <ScalarProperty Name="TableAreaID" ColumnName="TableAreaID" />
+                <ScalarProperty Name="TableFullName" ColumnName="TableFullName" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="SubTableID" ColumnName="SubTableID" />
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillItems">
+            <EntityTypeMapping TypeName="EntitiesDABL.BillItem">
+              <MappingFragment StoreEntitySet="bi_BillItem">
+                <ScalarProperty Name="SumOfTax" ColumnName="SumOfTax" />
+                <ScalarProperty Name="TaxRate" ColumnName="TaxRate" />
+                <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+                <ScalarProperty Name="MenuSetItemID" ColumnName="MenuSetItemID" />
+                <ScalarProperty Name="MenuSetPrefix" ColumnName="MenuSetPrefix" />
+                <ScalarProperty Name="MenuSetName" ColumnName="MenuSetName" />
+                <ScalarProperty Name="MenuSetID" ColumnName="MenuSetID" />
+                <ScalarProperty Name="OnTableTime" ColumnName="OnTableTime" />
+                <ScalarProperty Name="IsOnTable" ColumnName="IsOnTable" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
+                <ScalarProperty Name="IsSpecialPrice" ColumnName="IsSpecialPrice" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="IsSentMenu" ColumnName="IsSentMenu" />
+                <ScalarProperty Name="ServingState" ColumnName="ServingState" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+                <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+                <ScalarProperty Name="TasteType" ColumnName="TasteType" />
+                <ScalarProperty Name="Request" ColumnName="Request" />
+                <ScalarProperty Name="MenuPart" ColumnName="MenuPart" />
+                <ScalarProperty Name="CookWayPrice" ColumnName="CookWayPrice" />
+                <ScalarProperty Name="CookWay" ColumnName="CookWay" />
+                <ScalarProperty Name="CookWayID" ColumnName="CookWayID" />
+                <ScalarProperty Name="SumOfCookWay" ColumnName="SumOfCookWay" />
+                <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+                <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+                <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+                <ScalarProperty Name="MenuPrice2" ColumnName="MenuPrice2" />
+                <ScalarProperty Name="MenuPrice" ColumnName="MenuPrice" />
+                <ScalarProperty Name="AmountCancel" ColumnName="AmountCancel" />
+                <ScalarProperty Name="AmountOnTable" ColumnName="AmountOnTable" />
+                <ScalarProperty Name="AmountOrder" ColumnName="AmountOrder" />
+                <ScalarProperty Name="DepartTypeName" ColumnName="DepartTypeName" />
+                <ScalarProperty Name="DepartTypeID" ColumnName="DepartTypeID" />
+                <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="MenuTypeName" ColumnName="MenuTypeName" />
+                <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+                <ScalarProperty Name="MenuUnitName" ColumnName="MenuUnitName" />
+                <ScalarProperty Name="MenuUnitID" ColumnName="MenuUnitID" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="BillItemID" ColumnName="BillItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempBills">
+            <EntityTypeMapping TypeName="EntitiesDABL.TempBill">
+              <MappingFragment StoreEntitySet="bi_TempBill">
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+                <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="WorkStationName" ColumnName="WorkStationName" />
+                <ScalarProperty Name="WorkStationID" ColumnName="WorkStationID" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="ReduceMantissa" ColumnName="ReduceMantissa" />
+                <ScalarProperty Name="PrintCount" ColumnName="PrintCount" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsUploaded" ColumnName="IsUploaded" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="BillDay" ColumnName="BillDay" />
+                <ScalarProperty Name="BillMonth" ColumnName="BillMonth" />
+                <ScalarProperty Name="BillYear" ColumnName="BillYear" />
+                <ScalarProperty Name="BillPeriod" ColumnName="BillPeriod" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="SumOfCashBack" ColumnName="SumOfCashBack" />
+                <ScalarProperty Name="SumOfCashPaid" ColumnName="SumOfCashPaid" />
+                <ScalarProperty Name="SumOfInvoice" ColumnName="SumOfInvoice" />
+                <ScalarProperty Name="SumInCash" ColumnName="SumInCash" />
+                <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+                <ScalarProperty Name="SumToPay" ColumnName="SumToPay" />
+                <ScalarProperty Name="SumOfCarry" ColumnName="SumOfCarry" />
+                <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+                <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+                <ScalarProperty Name="ServiceRate" ColumnName="ServiceRate" />
+                <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+                <ScalarProperty Name="DiscountPerson" ColumnName="DiscountPerson" />
+                <ScalarProperty Name="DiscountPersonID" ColumnName="DiscountPersonID" />
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="DiscountName" ColumnName="DiscountName" />
+                <ScalarProperty Name="DiscountID" ColumnName="DiscountID" />
+                <ScalarProperty Name="DeletePerson" ColumnName="DeletePerson" />
+                <ScalarProperty Name="DeletePersonID" ColumnName="DeletePersonID" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="CheckOutNull" ColumnName="CheckOutNull" />
+                <ScalarProperty Name="CheckOutPerson" ColumnName="CheckOutPerson" />
+                <ScalarProperty Name="CheckOutPersonID" ColumnName="CheckOutPersonID" />
+                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+                <ScalarProperty Name="IsCheckOuting" ColumnName="IsCheckOuting" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+                <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ChargePerson" ColumnName="ChargePerson" />
+                <ScalarProperty Name="ChargePersonID" ColumnName="ChargePersonID" />
+                <ScalarProperty Name="PeopleCount" ColumnName="PeopleCount" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="TableTypeName" ColumnName="TableTypeName" />
+                <ScalarProperty Name="TableTypeID" ColumnName="TableTypeID" />
+                <ScalarProperty Name="TableAreaName" ColumnName="TableAreaName" />
+                <ScalarProperty Name="TableAreaID" ColumnName="TableAreaID" />
+                <ScalarProperty Name="TableFullName" ColumnName="TableFullName" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="SubTableID" ColumnName="SubTableID" />
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempBillItems">
+            <EntityTypeMapping TypeName="EntitiesDABL.TempBillItem">
+              <MappingFragment StoreEntitySet="bi_TempBillItem">
+                <ScalarProperty Name="SumOfTax" ColumnName="SumOfTax" />
+                <ScalarProperty Name="TaxRate" ColumnName="TaxRate" />
+                <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+                <ScalarProperty Name="MenuSetItemID" ColumnName="MenuSetItemID" />
+                <ScalarProperty Name="MenuSetPrefix" ColumnName="MenuSetPrefix" />
+                <ScalarProperty Name="MenuSetName" ColumnName="MenuSetName" />
+                <ScalarProperty Name="MenuSetID" ColumnName="MenuSetID" />
+                <ScalarProperty Name="OnTableTime" ColumnName="OnTableTime" />
+                <ScalarProperty Name="IsOnTable" ColumnName="IsOnTable" />
+                <ScalarProperty Name="PrintTime" ColumnName="PrintTime" />
+                <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
+                <ScalarProperty Name="IsSpecialPrice" ColumnName="IsSpecialPrice" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+                <ScalarProperty Name="IsSentMenu" ColumnName="IsSentMenu" />
+                <ScalarProperty Name="ServingState" ColumnName="ServingState" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreatePerson" ColumnName="CreatePerson" />
+                <ScalarProperty Name="CreatePersonID" ColumnName="CreatePersonID" />
+                <ScalarProperty Name="TasteType" ColumnName="TasteType" />
+                <ScalarProperty Name="Request" ColumnName="Request" />
+                <ScalarProperty Name="MenuPart" ColumnName="MenuPart" />
+                <ScalarProperty Name="CookWayPrice" ColumnName="CookWayPrice" />
+                <ScalarProperty Name="CookWay" ColumnName="CookWay" />
+                <ScalarProperty Name="CookWayID" ColumnName="CookWayID" />
+                <ScalarProperty Name="SumOfCookWay" ColumnName="SumOfCookWay" />
+                <ScalarProperty Name="SumOfService" ColumnName="SumOfService" />
+                <ScalarProperty Name="SumForDiscount" ColumnName="SumForDiscount" />
+                <ScalarProperty Name="SumOfConsume" ColumnName="SumOfConsume" />
+                <ScalarProperty Name="MenuPrice2" ColumnName="MenuPrice2" />
+                <ScalarProperty Name="MenuPrice" ColumnName="MenuPrice" />
+                <ScalarProperty Name="AmountCancel" ColumnName="AmountCancel" />
+                <ScalarProperty Name="AmountOnTable" ColumnName="AmountOnTable" />
+                <ScalarProperty Name="AmountOrder" ColumnName="AmountOrder" />
+                <ScalarProperty Name="DepartTypeName" ColumnName="DepartTypeName" />
+                <ScalarProperty Name="DepartTypeID" ColumnName="DepartTypeID" />
+                <ScalarProperty Name="DepartName" ColumnName="DepartName" />
+                <ScalarProperty Name="DepartID" ColumnName="DepartID" />
+                <ScalarProperty Name="MenuTypeName" ColumnName="MenuTypeName" />
+                <ScalarProperty Name="MenuTypeID" ColumnName="MenuTypeID" />
+                <ScalarProperty Name="MenuUnitName" ColumnName="MenuUnitName" />
+                <ScalarProperty Name="MenuUnitID" ColumnName="MenuUnitID" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="BillItemID" ColumnName="BillItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillPayments">
+            <EntityTypeMapping TypeName="EntitiesDABL.BillPayment">
+              <MappingFragment StoreEntitySet="bi_BillPayment">
+                <ScalarProperty Name="SumPaid" ColumnName="SumPaid" />
+                <ScalarProperty Name="PaySum" ColumnName="PaySum" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

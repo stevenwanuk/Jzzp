@@ -33,5 +33,10 @@ namespace EntitiesDABL
         public virtual DbSet<TPUser> TPUsers { get; set; }
         public virtual DbSet<TPUserAddress> TPUserAddresses { get; set; }
         public virtual DbSet<TPUserCell> TPUserCells { get; set; }
+        public virtual DbSet<Bill> Bills { get; set; }
+        public virtual DbSet<BillItem> BillItems { get; set; }
+        public virtual DbSet<TempBill> TempBills { get; set; }
+        public virtual DbSet<TempBillItem> TempBillItems { get; set; }
+        public virtual DbSet<BillPayment> BillPayments { get; set; }
     }
 }
