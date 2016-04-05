@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TP"
         xmlns:vm="clr-namespace:TP.View"
         xmlns:common="clr-namespace:TP.Common"
+        xmlns:UC="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
         x:Name="mainWindow"
         Title="MainWindow" Height="650" Width="525" Loaded="MainWindow_OnLoaded" >
@@ -100,7 +101,7 @@
                 </Grid>
             </StackPanel>
 
-            <TabControl TabStripPlacement="Left" x:Name="tPTabControl" Margin="1,0,0,0">
+            <TabControl TabStripPlacement="Left" x:Name="tPTabControl" Margin="1,0,0,0" SelectionChanged="TPTabControl_OnSelectionChanged">
                 <TabControl.Resources>
                     <Style TargetType="{x:Type TabItem}">
                         <Setter Property="HeaderTemplate">
@@ -254,12 +255,6 @@
                             </Grid>
                         </Grid>
 
-
-
-
-
-
-
                         <TextBox Height="30" x:Name="txtinput" Background="AliceBlue" Width="189" AllowDrop="True" Text="{Binding UsersTabView.TPBillRefMV.TPUser.FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" />
                         <Button Content="Query" Name="QueryUser" Click="QueryUser_OnClick">
                             <Button.Style>
@@ -278,8 +273,46 @@
                         </Button>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80">
+                <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80" IsSelected="True">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top">
+                            <!-- user infos -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Content="{Binding Path=OrderHistoryTabView.TPBillRefMV.TPUser.FirstName}"></Label>
+                                <Label Grid.Column="2" Content="{Binding Path=OrderHistoryTabView.TPBillRefMV.TPUser.LastName}"></Label>
+                            </Grid>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!--Last paid order -->
+                            <Grid Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
 
+                                <Label Visibility="Hidden" Grid.Column="0" Grid.Row="0" Content="UserId:" HorizontalAlignment="Right"/>
+                                <Label Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="{Binding Path=UsersTabView.TPUserMV.UserId}"/>
+                                
+                                <UC:BillUserControl BillMV="{Binding Path=OrderHistoryTabView.BillMV}" BillItemMVs="{Binding Path=OrderHistoryTabView.BillItemMVs}"/>
+
+
+                            </Grid>
+                            <!--favorite -->
+                            <Grid Column="1">
+                                
+                            </Grid>
+                        </Grid>
+                    </DockPanel>
                 </TabItem>
 
                 <TabItem Header="Delivery" Foreground="Green" Height="80"/>

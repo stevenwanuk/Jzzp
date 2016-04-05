@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP", "TP\TP.csproj", "{905D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntitiesDABL", "ModelGenerator\EntitiesDABL.csproj", "{A1B276F4-B92F-4B1A-9E60-46C1A4119343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCWPF", "UCWPF\UCWPF.csproj", "{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Release|x86.ActiveCfg = Release|Any CPU
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Release|x86.Build.0 = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Debug|x86.Build.0 = Debug|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{E0FD3281-28CD-4E8C-93E3-CA11DDAEAA7C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

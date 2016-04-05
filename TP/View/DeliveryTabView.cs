@@ -25,6 +25,7 @@ namespace TP.View
         public DeliveryTabView(long tPBillRef)
         {
 
+            /*
             var billRef = new TPBillRefBLL().GetUsersTabViewByTpBillRefId(tPBillRef);
             _tPBillRefMV = TPBillRefMV.Mapper(billRef);
             _tPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
@@ -36,6 +37,7 @@ namespace TP.View
                 addressMv.Clear();
                 userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
             }
+            */
         }
     }
 }

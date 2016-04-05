@@ -243,5 +243,17 @@ namespace TP
         }
 
         #endregion UserAddress
+
+        private void TPTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (mainView != null && mainView.SelectedTpBillRefMv != null)
+            {
+
+                var billRefId = mainView.SelectedTpBillRefMv.BillRefId;
+                LoadTabControlView(billRefId);
+            }
+
+            
+        }
     }
 }

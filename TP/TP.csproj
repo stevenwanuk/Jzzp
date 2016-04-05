@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BLL\JzzpBillBLL.cs" />
     <Compile Include="BLL\TPBillRefBLL.cs" />
     <Compile Include="BLL\TPUserAddressBLL.cs" />
     <Compile Include="BLL\TPUserBLL.cs" />
@@ -110,12 +111,20 @@
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
+    <Compile Include="ModelView\BillItemMV.cs" />
+    <Compile Include="ModelView\BillMV.cs" />
+    <Compile Include="ModelView\OrderHistoryMV.cs" />
+    <Compile Include="ModelView\TempBillItemMV.cs" />
+    <Compile Include="ModelView\TempBillMV.cs" />
     <Compile Include="ModelView\TPBillRefMV.cs" />
     <Compile Include="ModelView\TPDeliverMV.cs" />
     <Compile Include="ModelView\TPDriverMV.cs" />
     <Compile Include="ModelView\TPUserAddressMV.cs" />
     <Compile Include="ModelView\TPUserCellMV.cs" />
     <Compile Include="ModelView\TPUserMV.cs" />
+    <Compile Include="UserControl\BillUserControl.xaml.cs">
+      <DependentUpon>BillUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DeliveryTabView.cs" />
     <Compile Include="View\MainView.cs" />
     <Compile Include="View\OrderHistoryTabView.cs" />
@@ -136,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControl\BillUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WindowForm\UsersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

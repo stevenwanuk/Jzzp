@@ -11,9 +11,6 @@ namespace TP.BLL
     public class TPBillRefBLL
     {
 
-
-
-
         public ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
         {
             ICollection<TPBillRef> result = null;
@@ -37,7 +34,7 @@ namespace TP.BLL
             }
         }
 
-        public TPBillRef GetUsersTabViewByTpBillRefId(long billRefId)
+        public TPBillRef GeBillRefWithUserAndUserAddressByTpBillRefId(long billRefId)
         {
             TPBillRef result = null;
             using (var entities = new JZZPEntities())
@@ -50,6 +47,20 @@ namespace TP.BLL
             }
             return result;
         }
+
+        public TPBillRef GeBillRefWithUserByTpBillRefId(long billRefId)
+        {
+            TPBillRef result = null;
+            using (var entities = new JZZPEntities())
+            {
+
+                var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
+                result = query.Include(i => i.TPUser).ToList().FirstOrDefault();
+            }
+            return result;
+        }
+
+
 
         public TPBillRef GetDeliveryTabViewByTpBillRefId(long billRefId)
         {

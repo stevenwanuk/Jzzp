@@ -65,9 +65,12 @@
       <DependentUpon>JPPZModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\DALBase.cs" />
+    <Compile Include="DAL\JzzpBillDAL.cs" />
     <Compile Include="DAL\TPBillRefDAL.cs" />
     <Compile Include="DAL\TPUserAddressDAL.cs" />
     <Compile Include="DAL\TPUserDAL.cs" />
+    <Compile Include="DTO\BillDTO.cs" />
+    <Compile Include="DTO\OrderHistoryDTO.cs" />
     <Compile Include="Enum\BillRefStatus.cs" />
     <Compile Include="JPPZModel.Context.cs">
       <AutoGen>True</AutoGen>

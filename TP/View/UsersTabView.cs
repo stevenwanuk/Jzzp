@@ -47,7 +47,7 @@ namespace TP.View
         public UsersTabView(long tPBillRef)
         {
 
-            var billRef = new TPBillRefBLL().GetUsersTabViewByTpBillRefId(tPBillRef);
+            var billRef = new TPBillRefBLL().GeBillRefWithUserAndUserAddressByTpBillRefId(tPBillRef);
             _tPBillRefMV = TPBillRefMV.Mapper(billRef);
 
             
