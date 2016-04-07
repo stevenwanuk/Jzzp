@@ -5,16 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 
 namespace TP.Common
 {
-    public class CompareConverter : IMultiValueConverter
+    public class SumConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var value1 = values[0];
-            var value2 = values[1];
-            return value1.Equals(value2);
+
+            decimal temp = 0;
+
+            foreach (var i in values)
+            {
+                if (i is decimal)
+                {
+                    temp += (decimal) i;
+                }
+            }
+            return temp.ToString("C");
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

@@ -40,7 +40,10 @@ D:\work\jzzp\branch\Jzzp\TP\bin\Debug\EntitiesDABL.pdb
 D:\work\jzzp\branch\Jzzp\TP\bin\Debug\EntityFramework.xml
 D:\work\jzzp\branch\Jzzp\TP\bin\Debug\EntityFramework.SqlServer.dll
 D:\work\jzzp\branch\Jzzp\TP\bin\Debug\EntityFramework.SqlServer.xml
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.csprojResolveAssemblyReference.cache
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\MainWindow.g.cs
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\BillUserControl.g.cs
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\FavouriteOrderUserControl.g.cs
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\WindowForm\UsersWindow.g.cs
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\App.g.cs
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -75,12 +78,11 @@ C:\kwan\work\c#\Jzzp\TP\bin\Debug\Microsoft.Practices.Unity.Interception.xml
 C:\kwan\work\c#\Jzzp\TP\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
 C:\kwan\work\c#\Jzzp\TP\bin\Debug\Newtonsoft.Json.xml
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\MainWindow.baml
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\BillUserControl.baml
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\FavouriteOrderUserControl.baml
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\WindowForm\UsersWindow.baml
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.g.resources
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.Properties.Resources.resources
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.csproj.GenerateResource.Cache
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.exe
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.pdb
-C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\BillUserControl.g.cs
-C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\BillUserControl.baml
-C:\kwan\work\c#\Jzzp\TP\obj\Debug\TP.csprojResolveAssemblyReference.cache

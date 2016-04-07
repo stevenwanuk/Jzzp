@@ -3,16 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:TP"
         xmlns:vm="clr-namespace:TP.View"
         xmlns:common="clr-namespace:TP.Common"
-        xmlns:UC="clr-namespace:TP.UserControl"
+        xmlns:uc="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
-        x:Name="mainWindow"
-        Title="MainWindow" Height="650" Width="525" Loaded="MainWindow_OnLoaded" >
+        x:Name="MWindow"
+        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" >
     <!--WindowState="Maximized" WindowStyle="None"-->
     <Window.DataContext>
-        <vm:MainView/>
+        <vm:MainView></vm:MainView>
     </Window.DataContext>
     <Window.Resources>
         <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
@@ -273,7 +274,7 @@
                         </Button>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80" IsSelected="True">
+                <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80" >
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top">
                             <!-- user infos -->
@@ -294,28 +295,134 @@
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <!--Last paid order -->
+                            
                             <Grid Column="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <Label Visibility="Hidden" Grid.Column="0" Grid.Row="0" Content="UserId:" HorizontalAlignment="Right"/>
-                                <Label Visibility="Hidden" Grid.Column="1" Grid.Row="0" Content="{Binding Path=UsersTabView.TPUserMV.UserId}"/>
-                                
-                                <UC:BillUserControl BillMV="{Binding Path=OrderHistoryTabView.BillMV}" BillItemMVs="{Binding Path=OrderHistoryTabView.BillItemMVs}"/>
-
-
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Content="Last Order" FontSize="14" FontWeight="Bold">
+                                </Label>
+                                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                                    <uc:BillUserControl BillRefId="{Binding OrderHistoryTabView.LastBillRefId, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Border>
                             </Grid>
                             <!--favorite -->
                             <Grid Column="1">
-                                
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Content="Favourite Food" FontSize="14" FontWeight="Bold">
+                                </Label>
+                                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                                    <uc:FavouriteOrderUserControl UserId="{Binding OrderHistoryTabView.TPBillRefMV.UserId_FK, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Border>
                             </Grid>
                         </Grid>
                     </DockPanel>
                 </TabItem>
 
-                <TabItem Header="Delivery" Foreground="Green" Height="80"/>
+                <TabItem Header="Delivery" Foreground="Green" Height="80" IsSelected="True">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top">
+                            <!-- user infos -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Content="{Binding Path=DeliveryTabView.TPBillRefMV.TPUser.FirstName}"></Label>
+                                <Label Grid.Column="2" Content="{Binding Path=DeliveryTabView.TPBillRefMV.TPUser.LastName}"></Label>
+                            </Grid>
+                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <!--Bill Infos -->
+
+                            <Grid Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Content="Bill Infos" FontSize="14" FontWeight="Bold">
+                                </Label>
+                                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                                    <uc:BillUserControl x:Name="BUControl" BillRefId="{Binding Path=DeliveryTabView.TPBillRefMV.BillRefId}"/>
+                                </Border>
+                            </Grid>
+
+                            <!--drivers -->
+
+                            <Grid Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" HorizontalAlignment="Center" Content="Delivery Infos" FontSize="14" FontWeight="Bold">
+                                </Label>
+                                <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
+                                    <DataGrid Grid.ColumnSpan="4" Grid.Row="1" ItemsSource="{Binding Path=DeliveryTabView.TpDriverMVs, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"  IsReadOnly="True" >
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn IsReadOnly="False">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <RadioButton GroupName="DriversRB" Content="" Checked="DriverRadioButton_OnChecked" Tag="{Binding Path=DriverId}">
+                                                            <RadioButton.IsChecked>
+                                                                <MultiBinding Converter="{StaticResource CompareConverter}">
+                                                                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}" Path="mainView.DeliveryTabView.TPDeliverMV.DriverId_FK"/>
+                                                                    <Binding Path="DriverId"></Binding>
+                                                                </MultiBinding>
+                                                            </RadioButton.IsChecked>
+                                                        </RadioButton>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            
+                                            <DataGridTextColumn Visibility="Hidden" Header="DriverId" Width="*" Binding="{Binding Path=DriverId}" x:Name="DriverIdColumn">
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding Path=FirstName}">
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding Path=LastName}">
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Header="Cell" Width="*" Binding="{Binding Path=CellName}">
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <Label Grid.Column="1" Grid.Row="0" Content="DeliveryMiles" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverMiles}"></TextBox>
+
+                                    <Label Grid.Column="1" Grid.Row="1" Content="DeliveryFee" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFee}"></TextBox>
+
+                                    <Button Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
+                                </Grid>
+                                
+                            </Grid>
+                            
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

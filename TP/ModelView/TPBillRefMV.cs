@@ -110,5 +110,7 @@ namespace TP.ModelView
             get { return _tPDeliver; }
             set { SetProperty(ref _tPDeliver, value); }
         }
+
+        
     }
 }

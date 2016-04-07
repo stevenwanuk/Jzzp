@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,22 +23,42 @@ namespace TP.View
             set { SetProperty(ref _tPBillRefMV, value); }
         }
 
+
+
+        private TPDeliverMV _tPDeliverMV;
+
+        public TPDeliverMV TPDeliverMV
+        {
+            get { return _tPDeliverMV; }
+            set { SetProperty(ref _tPDeliverMV, value); }
+        }
+
+        private ObservableCollection<TPDriverMV> _tPDriverMVs;
+        public ObservableCollection<TPDriverMV> TpDriverMVs
+        {
+            get { return _tPDriverMVs; }
+            set { SetProperty(ref _tPDriverMVs, value); }
+        }
+
+
         public DeliveryTabView(long tPBillRef)
         {
 
-            /*
-            var billRef = new TPBillRefBLL().GetUsersTabViewByTpBillRefId(tPBillRef);
-            _tPBillRefMV = TPBillRefMV.Mapper(billRef);
-            _tPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
+            var billRef = new TPBillRefBLL().GeBillRefWithUserAndDriverByTpBillRefId(tPBillRef);
+            TPBillRefMV = TPBillRefMV.Mapper(billRef);
+            TPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
 
-            if (billRef.TPUser != null)
+            TPDeliverMV = TPDeliverMV.Mapper(billRef.TPDeliver);
+            if (billRef.TPDeliver != null)
             {
-                var userAddress = billRef.TPUser.TPUserAddress;
-                var addressMv = _tPBillRefMV.TPUser.TPUserAddress;
-                addressMv.Clear();
-                userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
+                TPDeliverMV.TPDriver = TPDriverMV.Mapper(billRef.TPDeliver.TPDriver);
             }
-            */
+
+            var drivers = new TPDriverBLL().GetDriversIfAvailable();
+            TpDriverMVs = new ObservableCollection<TPDriverMV>();
+            drivers.ForEach(i => TpDriverMVs.Add(TPDriverMV.Mapper(i)));
+
+            
         }
     }
 }

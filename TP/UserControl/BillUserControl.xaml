@@ -4,30 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TP.UserControl"
+             xmlns:common="clr-namespace:TP.Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <common:SumConverter x:Key="SumConverter"></common:SumConverter>
+    </UserControl.Resources>
     <DockPanel>
         
         <!-- bill -->
         <Grid DockPanel.Dock="Top" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
             Path=BillMV, UpdateSourceTrigger=PropertyChanged}">
-            <Label Content="{Binding Path=BillID}"></Label>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Content="{Binding Path=BillID}"></Label>
+            <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Content="{Binding Path=TableName}"></Label>
+
+            <!-- billitem -->
+            <DataGrid Grid.ColumnSpan="4" Grid.Row="1" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+            Path=BillItemMVs, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="MenuName" Width="*" Binding="{Binding Path=MenuName, StringFormat=N2}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="MenuPrice" Width="*" Binding="{Binding Path=MenuPrice, StringFormat=C, ConverterCulture='en-GB'}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Amount" Width="*" Binding="{Binding Path=Amount, StringFormat=N2}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Price" Width="*" Binding="{Binding SUMNet, StringFormat=C, ConverterCulture='en-GB'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                <Setter Property="Margin" Value="0,0,10,0"></Setter>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <Grid Grid.ColumnSpan="4" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock  Grid.Column="0" Grid.Row="0" Text="Sum:" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="0" Text="{Binding SumOfConsume, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+                <TextBlock  Grid.Column="0" Grid.Row="1" Text="Service Charge:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="1" Text="{Binding SumOfService, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+                <TextBlock  Grid.Column="0" Grid.Row="2" Text="Discount:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="2" Text="{Binding SumForDiscount, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+                <TextBlock  Grid.Column="0" Grid.Row="3" Text="Amount:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="3" Text="{Binding SumToPay, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+                
+                
+                <TextBlock  Grid.Column="0" Grid.Row="4" Text="Delivery Fee:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="4" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=BIllRefMV.DeliverFee, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+
+                <TextBlock  Grid.Column="0" Grid.Row="5" Text="Total:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Right" Margin="0,0,10,0">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource SumConverter}">
+                            <Binding Path="SumToPay" Mode="OneWay"></Binding>
+                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type UserControl}}" Path="BIllRefMV.DeliverFee" Mode="OneWay"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+
         </Grid>
         
-        <!-- billitem -->
-        <ItemsControl Grid.Column="0" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
-            Path=BillItemMVs, UpdateSourceTrigger=PropertyChanged}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Path=MenuName}"></Label>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        
+        
+        
         
     </DockPanel>
 </UserControl>

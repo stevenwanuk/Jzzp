@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,9 @@ namespace TP
 
         protected void InitConfig()
         {
+
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
             terminalId = Convert.ToInt32(ConfigurationManager.AppSettings["TerminalId"]);
         }
 
@@ -173,7 +177,7 @@ namespace TP
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
+            mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
         }
 
         #region User
@@ -246,13 +250,45 @@ namespace TP
 
         private void TPTabControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mainView != null && mainView.SelectedTpBillRefMv != null)
+
+            //Because all tab elemens' selectionchanged events are past to here, need to know where it comes from
+            if (e.OriginalSource is TabControl)
+            {
+                if (mainView != null && mainView.SelectedTpBillRefMv != null)
+                {
+
+                    var billRefId = mainView.SelectedTpBillRefMv.BillRefId;
+                    LoadTabControlView(billRefId);
+                }
+            }
+        }
+
+
+        private void DriverRadioButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            var derverRB = (RadioButton)sender;
+            var driverId = (long)derverRB.Tag;
+            var billRefId = mainView.DeliveryTabView.TPBillRefMV?.BillRefId;
+            if (driverId != 0)
+            {
+                new TPDriverBLL().SaveOrUpdate(driverId, billRefId.Value);
+            }
+        }
+
+        private void DeliverySave_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (mainView.DeliveryTabView.TPBillRefMV != null)
             {
 
-                var billRefId = mainView.SelectedTpBillRefMv.BillRefId;
-                LoadTabControlView(billRefId);
-            }
+                var billRefId = mainView.DeliveryTabView.TPBillRefMV.BillRefId;
+                var deliveryMiles = mainView.DeliveryTabView.TPBillRefMV.DeliverMiles;
+                var deliveryFee = mainView.DeliveryTabView.TPBillRefMV.DeliverFee;
 
+                new TPBillRefBLL().UpdateDeliveryInfos(billRefId, deliveryMiles, deliveryFee);
+
+                //Refresh usercontrol
+                BUControl.LoadBill();
+            }
             
         }
     }

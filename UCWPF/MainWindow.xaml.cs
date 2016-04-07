@@ -23,17 +23,11 @@ namespace UCWPF
         public MainWindow()
         {
             InitializeComponent();
-
-            T = new TSModel()
-            {
-                TSName = "test"
-            };
-
-            DataContext = this;
-            T.TSName = "123";
         }
 
-        public TSModel T { get; set; }
-        public string SelectedFilename { get; set; }
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            PopupTest.IsOpen = true;
+        }
     }
 }

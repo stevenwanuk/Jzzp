@@ -23,20 +23,11 @@ namespace TP.View
             set { SetProperty(ref _tPBillRefMV, value); }
         }
 
-        private BillMV _billMV;
-
-        public BillMV BillMV
+        private long? _lastBillRefId;
+        public long? LastBillRefId
         {
-            get { return _billMV; }
-            set { SetProperty(ref _billMV, value); }
-        }
-
-        private ObservableCollection<BillItemMV> _billItemMVs;
-
-        public ObservableCollection<BillItemMV> BillItemMVs
-        {
-            get { return _billItemMVs; }
-            set { SetProperty(ref _billItemMVs, value); }
+            get { return _lastBillRefId; }
+            set { SetProperty(ref _lastBillRefId, value); }
         }
 
         public OrderHistoryTabView(long tPBillRef)
@@ -46,17 +37,12 @@ namespace TP.View
             _tPBillRefMV = TPBillRefMV.Mapper(billRef);
             _tPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
 
-            if (billRef.UserId_FK != null && billRef.TPUser != null)
+            if (billRef.TPUser != null)
             {
-                //Looking for history
-                var billDTO = new JzzpBillBLL().GetLastPaidBillByUserId(billRef.UserId_FK.Value);
-                if (billDTO != null)
-                {
-                    _billMV = BillMV.Mapper(billDTO.Bill);
-                    _billItemMVs = new ObservableCollection<BillItemMV>();
-                    billDTO.BillItems.ForEach(i => _billItemMVs.Add(BillItemMV.Mapper(i)));
-                }
+                _lastBillRefId = new TPBillRefBLL().GetLastBillRefIdByUser(billRef.TPUser.UserId);
             }
+            
+
         }
     }
 }

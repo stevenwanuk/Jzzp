@@ -64,5 +64,10 @@ namespace EntitiesDABL.DAL
                 billRef.AddressId_FK = userAddressId;
             }
         }
+
+        public long? GetBillRefIdByBillId(string billId)
+        {
+            return Entities.TPBillRefs.Where(i => i.BillId_FK.Equals(billId)).Select(i => i.BillRefId).ToList().FirstOrDefault();
+        }
     }
 }

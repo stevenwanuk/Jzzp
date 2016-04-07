@@ -95,6 +95,30 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -103,6 +127,7 @@
     </ApplicationDefinition>
     <Compile Include="BLL\JzzpBillBLL.cs" />
     <Compile Include="BLL\TPBillRefBLL.cs" />
+    <Compile Include="BLL\TPDriverBLL.cs" />
     <Compile Include="BLL\TPUserAddressBLL.cs" />
     <Compile Include="BLL\TPUserBLL.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -111,6 +136,7 @@
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
+    <Compile Include="Common\SumConverter.cs" />
     <Compile Include="ModelView\BillItemMV.cs" />
     <Compile Include="ModelView\BillMV.cs" />
     <Compile Include="ModelView\OrderHistoryMV.cs" />
@@ -124,6 +150,9 @@
     <Compile Include="ModelView\TPUserMV.cs" />
     <Compile Include="UserControl\BillUserControl.xaml.cs">
       <DependentUpon>BillUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\FavouriteOrderUserControl.xaml.cs">
+      <DependentUpon>FavouriteOrderUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DeliveryTabView.cs" />
     <Compile Include="View\MainView.cs" />
@@ -148,6 +177,10 @@
     <Page Include="UserControl\BillUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\FavouriteOrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowForm\UsersWindow.xaml">
       <SubType>Designer</SubType>

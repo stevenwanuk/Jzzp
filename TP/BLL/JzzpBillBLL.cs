@@ -21,10 +21,42 @@ namespace TP.BLL
         {
 
             BillDTO result = null;
-            var dal = new JzzpBillDAL(new JZZPEntities());
-            var billId = dal.GetLastPaidBillByUserId(userId);
-            if (!string.IsNullOrEmpty(billId))
+            using (var entities = new JZZPEntities())
             {
+                var dal = new JzzpBillDAL(entities);
+                var billId = dal.GetLastPaidBillByUserId(userId);
+                if (!string.IsNullOrEmpty(billId))
+                {
+                    result = new BillDTO()
+                    {
+                        Bill = dal.GetBillByBillId(billId).ToList().FirstOrDefault(),
+                        BillItems = dal.GetBillItemsByBIllId(billId).ToList()
+                    };
+                }
+            }
+            
+            return result;
+        }
+
+        public string GetLastPaidBillIdByUserId(Guid userId)
+        {
+
+            string result = null;
+            using (var entities = new JZZPEntities())
+            {
+                
+                result = new JzzpBillDAL(entities).GetLastPaidBillByUserId(userId);
+            }
+
+            return result;
+        }
+
+        public BillDTO GetBillByBillId(string billId)
+        {
+            BillDTO result = null;
+            using (var entities = new JZZPEntities())
+            {
+                var dal = new JzzpBillDAL(entities);
                 result = new BillDTO()
                 {
                     Bill = dal.GetBillByBillId(billId).ToList().FirstOrDefault(),

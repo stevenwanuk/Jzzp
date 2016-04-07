@@ -7,8 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
-    <StackPanel>
-        <local:UC x:Name="In" TSModel="{Binding T, UpdateSourceTrigger=PropertyChanged}" />
-        <local:UC x:Name="Out" TSModel="{Binding ElementName=In, Path=TSModel}" />
-    </StackPanel>
+    <Grid>
+        <Button Click="ButtonBase_OnClick" Content="test">
+            
+        </Button>
+        <Popup Placement="Mouse" x:Name="PopupTest">
+            <StackPanel Background="PaleGreen">
+                <Label HorizontalAlignment="Center">Click to hide</Label>
+                <Button  Margin="10">Hide</Button>
+            </StackPanel>
+        </Popup>
+    </Grid>
 </Window>

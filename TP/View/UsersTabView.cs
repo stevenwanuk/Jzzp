@@ -65,9 +65,9 @@ namespace TP.View
                 _tPUserMV = new TPUserMV();
             }
 
-            if (billRef.TPUserAddress != null)
+            if (billRef.AddressId_FK != null)
             {
-                _tPUserAddressMV = _tPUserAddressMVs.FirstOrDefault(i => i.UserAddressId == billRef.TPUserAddress.UserAddressId);
+                _tPUserAddressMV = _tPUserAddressMVs.FirstOrDefault(i => i.UserAddressId == billRef.AddressId_FK);
                 _tPUserAddressMVs.SelectedItem = _tPUserAddressMV;
             }
             else

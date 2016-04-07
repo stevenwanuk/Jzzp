@@ -43,7 +43,9 @@ namespace TP.BLL
                 var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
                 result = query.Include(i => i.TPUser)
                     .Include(i => i.TPUser.TPUserAddress)
+                    //.Include(i => i.TPUserAddress)
                     .ToList().FirstOrDefault();
+
             }
             return result;
         }
@@ -56,6 +58,18 @@ namespace TP.BLL
 
                 var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
                 result = query.Include(i => i.TPUser).ToList().FirstOrDefault();
+            }
+            return result;
+        }
+
+        public TPBillRef GeBillRefWithUserAndDriverByTpBillRefId(long billRefId)
+        {
+            TPBillRef result = null;
+            using (var entities = new JZZPEntities())
+            {
+
+                var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
+                result = query.Include(i => i.TPUser).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
             }
             return result;
         }
@@ -106,8 +120,40 @@ namespace TP.BLL
                 
                 entities.SaveChanges();
             }
+        }
+
+        public void UpdateDeliveryInfos(long billRefId, decimal? deliveryMiles, decimal? deliveryFee)
+        {
+            using (var entities = new JZZPEntities())
+            {
+                var billRef = new TPBillRefDAL(entities).GetTPBillRefById(billRefId).ToList().FirstOrDefault();
+                if (billRef != null)
+                {
+
+                    billRef.DeliverMiles = deliveryMiles;
+                    billRef.DeliverFee = deliveryFee;
+
+                    entities.SaveChanges();
+                }
+                
+            }
+
+        }
 
 
+        public long? GetLastBillRefIdByUser(Guid userId)
+        {
+
+            long? result = null;
+            using (var entities = new JZZPEntities())
+            {
+                var lastPaidBillId = new JzzpBillBLL().GetLastPaidBillIdByUserId(userId);
+                if (!string.IsNullOrEmpty(lastPaidBillId))
+                {
+                    result = new TPBillRefDAL(entities).GetBillRefIdByBillId(lastPaidBillId);
+                }
+            }
+            return result;
         }
 
 

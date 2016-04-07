@@ -46,6 +46,7 @@ namespace TP.ModelView
 
         private decimal? _amountOrder;
 
+
         public Nullable<decimal> AmountOrder
         {
             get { return _amountOrder; }
@@ -65,6 +66,8 @@ namespace TP.ModelView
             get { return _amountCancel; }
             set { SetProperty(ref _amountCancel, value); }
         }
+
+        public decimal? Amount => (_amountOrder ?? 0) - (_amountCancel ?? 0);
 
         private decimal? _menuPrice;
 
@@ -97,6 +100,8 @@ namespace TP.ModelView
             get { return _sumForDiscount; }
             set { SetProperty(ref _sumForDiscount, value); }
         }
+
+        public decimal? SUMNet => (_sumOfConsume ?? 0) - (_sumForDiscount ?? 0);
 
         private decimal? _sumOfService;
         public Nullable<decimal> SumOfService {
