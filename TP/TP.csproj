@@ -154,6 +154,9 @@
     <Compile Include="UserControl\FavouriteOrderUserControl.xaml.cs">
       <DependentUpon>FavouriteOrderUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\PopUpUserControl.xaml.cs">
+      <DependentUpon>PopUpUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DeliveryTabView.cs" />
     <Compile Include="View\MainView.cs" />
     <Compile Include="View\OrderHistoryTabView.cs" />
@@ -179,6 +182,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControl\FavouriteOrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl\PopUpUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

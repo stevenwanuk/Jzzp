@@ -48,11 +48,12 @@ namespace EntitiesDABL.DAL
         public void SaveUser(long billRefId, Guid userId)
         {
             var billRef = Entities.TPBillRefs.Where(i => i.BillRefId == billRefId).ToList().FirstOrDefault();
-            if (billRef != null)
+            if (billRef != null && billRef.UserId_FK != userId)
             {
-
-                //Entities.TPUsers.Attach(user);
+                
                 billRef.UserId_FK = userId;
+                billRef.AddressId_FK = null;
+
             }
         }
 

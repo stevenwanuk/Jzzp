@@ -109,6 +109,25 @@ namespace TP.BLL
             }
         }
 
+        public void SaveDliveryInfos(long billRefId, decimal? deliveryMiles, decimal? deliveryFee)
+        {
+
+            using (var entitites = new JZZPEntities())
+            {
+                var billRef = new TPBillRefDAL(entitites).GetTPBillRefById(billRefId).ToList().FirstOrDefault();
+                if (billRef != null)
+                {
+                    billRef.DeliverMiles = deliveryMiles;
+                    billRef.DeliverFee = deliveryFee;
+                    entitites.SaveChanges();
+                }
+
+            }
+
+        }
+
+
+
         public void RemoveUserAddress(long billRefId, long userAddressId)
         {
 

@@ -48,7 +48,7 @@ namespace TP.View
         {
 
             var billRef = new TPBillRefBLL().GeBillRefWithUserAndUserAddressByTpBillRefId(tPBillRef);
-            _tPBillRefMV = TPBillRefMV.Mapper(billRef);
+            TPBillRefMV = TPBillRefMV.Mapper(billRef);
 
             
 
@@ -67,8 +67,8 @@ namespace TP.View
 
             if (billRef.AddressId_FK != null)
             {
-                _tPUserAddressMV = _tPUserAddressMVs.FirstOrDefault(i => i.UserAddressId == billRef.AddressId_FK);
-                _tPUserAddressMVs.SelectedItem = _tPUserAddressMV;
+                TPUserAddressMV = _tPUserAddressMVs.FirstOrDefault(i => i.UserAddressId == billRef.AddressId_FK);
+                _tPUserAddressMVs.SelectedItem = TPUserAddressMV;
             }
             else
             {

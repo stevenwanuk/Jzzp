@@ -23,6 +23,8 @@ namespace TP
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        #region Init
         public MainWindow()
         {
             InitializeComponent();
@@ -33,9 +35,6 @@ namespace TP
 
         protected void InitConfig()
         {
-
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
             terminalId = Convert.ToInt32(ConfigurationManager.AppSettings["TerminalId"]);
         }
 
@@ -56,8 +55,9 @@ namespace TP
                 Console.WriteLine(exception.ToString());
             }
         }
+        #endregion Init
 
-        
+        #region Timer
         protected void SetupTimer()
         {
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -67,10 +67,9 @@ namespace TP
             dispatcherTimer_Tick(this, null);
 
             dispatcherTimer.Start();
-
-
-
         }
+
+
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -104,7 +103,7 @@ namespace TP
                 mainView.SelectedTpBillRefMv = mainView.TPBillRefs.FirstOrDefault();
             }
         }
-        
+        #endregion Timer
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -133,7 +132,7 @@ namespace TP
 
         private void QueryUser_OnClick(object sender, RoutedEventArgs e)
         {
-
+            //TODO
             MessageBox.Show(this.mainView.UsersTabView.TPBillRefMV.TPUser.FirstName);
 
             var userWindow = new UsersWindow();
@@ -151,15 +150,13 @@ namespace TP
                 
                 if (mainView.SelectedTpBillRefMv != null)
                 {
-
                     //Update userId
                     var currTPBillRefId = this.mainView.SelectedTpBillRefMv.BillRefId;
-
-
                     new TPBillRefBLL().UpdateBillRefUser(currTPBillRefId, userId);
 
-
+                    LoadTabControlView(currTPBillRefId);
                     //LoadView
+                    /**
                     var userMV = TPUserMV.Mapper(new TPUserBLL().GeTPUserById(userId));
                     mainView.SelectedTpBillRefMv.UserId_FK = userId;
                     mainView.SelectedTpBillRefMv.TPUser = userMV;
@@ -170,14 +167,22 @@ namespace TP
                     var addressMv = mainView.SelectedTpBillRefMv.TPUser.TPUserAddress;
                     addressMv.Clear();
                     userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
-                    
+                    **/
                 }
             }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
+            if ((TPUserAddressMV) ((ListBox) sender).SelectedItem != null)
+            {
+                mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV) ((ListBox) sender).SelectedItem;
+            }
+            else
+            {
+                mainView.UsersTabView.TPUserAddressMV = new TPUserAddressMV();
+            }
+            
         }
 
         #region User
@@ -197,6 +202,7 @@ namespace TP
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
             var userMV = mainView.UsersTabView.TPUserMV;
+            mainView.ErrorMsg = "test";
             
             var user = userMV.MapperTo();
             if (user.UserId == Guid.Empty)
@@ -205,8 +211,8 @@ namespace TP
             }
             var billRefId = mainView.UsersTabView.TPBillRefMV.BillRefId;
             new TPBillRefBLL().SaveUser(billRefId, user);
-            
-            mainView.UsersTabView = new UsersTabView(billRefId);
+
+            LoadTabControlView(billRefId);
         }
 
         #endregion User
@@ -240,8 +246,12 @@ namespace TP
             {
                 userAddress.UserId_FK = mainView.UsersTabView.TPBillRefMV.UserId_FK.Value;
 
+                
                 new TPBillRefBLL().SaveAddress(billRefId, userAddress);
-                mainView.UsersTabView = new UsersTabView(billRefId);
+                new TPBillRefBLL().SaveDliveryInfos(billRefId, 
+                    mainView.UsersTabView.TPBillRefMV.DeliverMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
+
+                LoadTabControlView(billRefId);
             }
             
         }

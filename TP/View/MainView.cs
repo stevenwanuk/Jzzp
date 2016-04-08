@@ -22,6 +22,22 @@ namespace TP.View
             _tPBillRefs = new ObservableCollection<TPBillRefMV>();
         }
 
+        private string _errorMsg;
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+            set
+            {
+                if (value != _errorMsg)
+                {
+
+                    _errorMsg = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         private UsersTabView _usersTabView;
         public UsersTabView UsersTabView
         {

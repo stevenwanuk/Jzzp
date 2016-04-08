@@ -49,6 +49,7 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <uc:PopUpUserControl ErrorMsg="{Binding Path=ErrorMsg}"></uc:PopUpUserControl>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <TextBlock Width="84">
@@ -166,7 +167,7 @@
                             </Grid.ColumnDefinitions>
 
                             <ListBox ItemsSource="{Binding Path=UsersTabView.TPUserAddressMVs}" SelectionChanged="ListBox_SelectionChanged" 
-                                     SelectedItem="{Binding Path=UsersTabView.TPUserAddressMV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                     SelectedItem="{Binding Path=UsersTabView.TPUserAddressMVs.SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                      >
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
@@ -243,10 +244,10 @@
                                 <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=UsersTabView.TPUserAddressMV.Country}"/>
 
                                 <Label Grid.Column="0" Grid.Row="8" Content="Delivery Miles" HorizontalAlignment="Right"/>
-                                <Label Grid.Column="1" Grid.Row="8" Content="{Binding Path=UsersTabView.TPBillRefMV.DeliverMiles}"/>
+                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverMiles}"/>
 
                                 <Label Grid.Column="0" Grid.Row="9" Content="Delivery Fee" HorizontalAlignment="Right"/>
-                                <Label Grid.Column="1" Grid.Row="9" Content="{Binding Path=UsersTabView.TPBillRefMV.DeliverFee}"/>
+                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFee}"/>
 
                                 <StackPanel Grid.ColumnSpan="2" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button HorizontalAlignment="Right" Click="UserAddressRemove_OnClick">Remove</Button>
