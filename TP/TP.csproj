@@ -233,6 +233,10 @@
       <Project>{a1b276f4-b92f-4b1a-9e60-46c1a4119343}</Project>
       <Name>EntitiesDABL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Themes\HR.Themes.Fischer.WPF\HR.Themes.Fischer.WPF.csproj">
+      <Project>{d8166ad7-25dd-4953-84dd-347cb0321582}</Project>
+      <Name>HR.Themes.Fischer.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

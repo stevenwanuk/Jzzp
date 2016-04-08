@@ -4,6 +4,7 @@
     <EntitySetMapping Name="TPBillRefs">
       <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
         <MappingFragment StoreEntitySet="TP_BillRef">
+          <ScalarProperty Name="DeliverFeeOrigin" ColumnName="DeliverFeeOrigin" />
           <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
@@ -70,6 +71,7 @@
     <EntitySetMapping Name="TPUserAddresses">
       <EntityTypeMapping TypeName="EntitiesDABL.TPUserAddress">
         <MappingFragment StoreEntitySet="TP_UserAddress">
+          <ScalarProperty Name="DeliveryMiles" ColumnName="DeliveryMiles" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="Postcode" ColumnName="Postcode" />
           <ScalarProperty Name="TownCity" ColumnName="TownCity" />

@@ -87,6 +87,12 @@ namespace TP.ModelView
             set { SetProperty(ref _country, value); }
         }
 
+        private decimal? _deliveryMiles;
+        public Nullable<decimal> DeliveryMiles {
+            get { return _deliveryMiles; }
+            set { SetProperty(ref _deliveryMiles, value); }
+        }
+
 
         private ObservableCollection<TPBillRefMV> _tPBillRef;
         public virtual ObservableCollection<TPBillRefMV> TPBillRef {

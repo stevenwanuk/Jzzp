@@ -109,7 +109,7 @@ namespace TP.BLL
             }
         }
 
-        public void SaveDliveryInfos(long billRefId, decimal? deliveryMiles, decimal? deliveryFee)
+        public void SaveDliveryInfos(long billRefId, decimal? deliveryMiles, decimal? deliveryFeeOrigin)
         {
 
             using (var entitites = new JZZPEntities())
@@ -118,7 +118,7 @@ namespace TP.BLL
                 if (billRef != null)
                 {
                     billRef.DeliverMiles = deliveryMiles;
-                    billRef.DeliverFee = deliveryFee;
+                    billRef.DeliverFeeOrigin = deliveryFeeOrigin;
                     entitites.SaveChanges();
                 }
 

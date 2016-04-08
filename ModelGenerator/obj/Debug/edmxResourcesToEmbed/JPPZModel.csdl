@@ -60,6 +60,7 @@
     <NavigationProperty Name="TPDeliver" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_BillRef" ToRole="TP_Deliver" />
     <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_BillRef" ToRole="TP_User" />
     <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_BillRef" ToRole="TP_UserAddress" />
+    <Property Name="DeliverFeeOrigin" Type="Decimal" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="TPCallIn">
     <Key>
@@ -129,6 +130,7 @@
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_UserAddress" ToRole="TP_BillRef" />
     <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_UserAddress_TP_User" FromRole="TP_UserAddress" ToRole="TP_User" />
+    <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="TPUserCell">
     <Key>

@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:TP"
              StartupUri="MainWindow.xaml" Startup="App_OnStartup">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Reference main style dictionary-->
+                <ResourceDictionary Source="pack://application:,,,/HR.Themes.Fischer.WPF;component/Style.xaml"/>
+                <!-- Reference color style -->
+                <ResourceDictionary Source="pack://application:,,,/HR.Themes.Fischer.WPF;component/Colors/Colors_Blue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

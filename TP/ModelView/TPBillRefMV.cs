@@ -71,7 +71,13 @@ namespace TP.ModelView
             set { SetProperty(ref _deliverFee, value); }
         }
 
-        
+        private decimal? _deliverFeeOrigin;
+        public Nullable<decimal> DeliverFeeOrigin {
+            get { return _deliverFeeOrigin; }
+            set { SetProperty(ref _deliverFeeOrigin, value); }
+        }
+
+
         private int _status;
         public int Status
         {

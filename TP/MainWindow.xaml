@@ -244,7 +244,7 @@
                                 <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=UsersTabView.TPUserAddressMV.Country}"/>
 
                                 <Label Grid.Column="0" Grid.Row="8" Content="Delivery Miles" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverMiles}"/>
+                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPUserAddressMV.DeliveryMiles}"/>
 
                                 <Label Grid.Column="0" Grid.Row="9" Content="Delivery Fee" HorizontalAlignment="Right"/>
                                 <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFee}"/>

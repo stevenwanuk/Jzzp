@@ -104,3 +104,6 @@ C:\kwan\work\c#\Jzzp\TP\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\kwan\work\c#\Jzzp\TP\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\PopUpUserControl.g.cs
 C:\kwan\work\c#\Jzzp\TP\obj\Debug\UserControl\PopUpUserControl.baml
+C:\kwan\work\c#\Jzzp\TP\obj\Debug\App.baml
+C:\kwan\work\c#\Jzzp\TP\bin\Debug\HR.Themes.Fischer.WPF.dll
+C:\kwan\work\c#\Jzzp\TP\bin\Debug\HR.Themes.Fischer.WPF.pdb

@@ -29,6 +29,7 @@ namespace EntitiesDABL
         public string TownCity { get; set; }
         public string Postcode { get; set; }
         public string Country { get; set; }
+        public Nullable<decimal> DeliveryMiles { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPBillRef> TPBillRef { get; set; }

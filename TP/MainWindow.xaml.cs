@@ -249,7 +249,7 @@ namespace TP
                 
                 new TPBillRefBLL().SaveAddress(billRefId, userAddress);
                 new TPBillRefBLL().SaveDliveryInfos(billRefId, 
-                    mainView.UsersTabView.TPBillRefMV.DeliverMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
+                    mainView.UsersTabView.TPUserAddressMV.DeliveryMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
 
                 LoadTabControlView(billRefId);
             }
