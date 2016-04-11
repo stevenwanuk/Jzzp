@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using EntitiesDABL.DAL;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using TP.BLL;
 using TP.Common;
@@ -21,20 +23,26 @@ namespace TP.View
             set { SetProperty(ref _tPBillRefMV, value); }
         }
 
+        private long? _lastBillRefId;
+        public long? LastBillRefId
+        {
+            get { return _lastBillRefId; }
+            set { SetProperty(ref _lastBillRefId, value); }
+        }
+
         public OrderHistoryTabView(long tPBillRef)
         {
 
-            var billRef = new TPBillRefBLL().GetUsersTabViewByTpBillRefId(tPBillRef);
+            var billRef = new TPBillRefBLL().GeBillRefWithUserByTpBillRefId(tPBillRef);
             _tPBillRefMV = TPBillRefMV.Mapper(billRef);
             _tPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
 
             if (billRef.TPUser != null)
             {
-                var userAddress = billRef.TPUser.TPUserAddress;
-                var addressMv = _tPBillRefMV.TPUser.TPUserAddress;
-                addressMv.Clear();
-                userAddress.ForEach(i => addressMv.Add(TPUserAddressMV.Mapper(i)));
+                _lastBillRefId = new TPBillRefBLL().GetLastBillRefIdByUser(billRef.TPUser.UserId);
             }
+            
+
         }
     }
 }

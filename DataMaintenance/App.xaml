@@ -1,0 +1,15 @@
+﻿<Application x:Class="DataMaintenance.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DataMaintenance">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Reference main style dictionary-->
+                <ResourceDictionary Source="pack://application:,,,/HR.Themes.Fischer.WPF;component/Style.xaml"/>
+                <!-- Reference color style -->
+                <ResourceDictionary Source="pack://application:,,,/HR.Themes.Fischer.WPF;component/Colors/Colors_Blue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

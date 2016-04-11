@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EntitiesDABL;
+using EntitiesDABL.DTO;
 using TP.ModelView;
 
 namespace TP.Common
@@ -71,6 +72,22 @@ namespace TP.Common
                 .ForMember(s => s.TPBillRef, m => m.Ignore())
                 .ForMember(s => s.TPUserAddress, m => m.Ignore())
                 .ForMember(s => s.TPUserCell, m => m.Ignore());
+
+            //TempBill
+            i.CreateMap<TempBill, TempBillMV > ();
+
+            //TempBillItem
+            i.CreateMap<TempBillItem, TempBillItemMV>();
+
+            //Bill
+            i.CreateMap<Bill, BillMV>();
+
+            //TempBillItem
+            i.CreateMap<BillItem, BillItemMV>();
+
+            //OrderHistory
+            i.CreateMap<OrderHistoryDTO, OrderHistoryMV>();
+
 
         });
 

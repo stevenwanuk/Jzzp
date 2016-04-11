@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="TP.UserControl.FavouriteOrderUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TP.UserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+        <!-- FavouriteOrders -->
+    <DataGrid ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, 
+            Path=OrderHistoryMVs, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" >
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="MenuName" Width="*" Binding="{Binding Path=MenuName, UpdateSourceTrigger=PropertyChanged}">
+            </DataGridTextColumn>
+            <DataGridTextColumn Header="AmountOfItem" Width="*" Binding="{Binding Path=TotalAmount, StringFormat=N0}">
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Margin" Value="0,0,10,0"></Setter>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+            </DataGridTextColumn>
+            <DataGridTextColumn Header="AmountOfOrder" Width="*" Binding="{Binding Path=TotalCount, StringFormat=N0}">
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Margin" Value="0,0,10,0"></Setter>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+            </DataGridTextColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'RMS_DB_1.dbo.bi_Bill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="bi_Bill">
     <Key>
       <PropertyRef Name="BillID" />
@@ -64,6 +66,8 @@
     <Property Name="OriginalID" Type="varchar" MaxLength="50" />
     <Property Name="ShiftID" Type="varchar" MaxLength="50" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="bi_BillItem">
     <Key>
       <PropertyRef Name="BillItemID" />
@@ -117,6 +121,8 @@
     <Property Name="TaxRate" Type="money" />
     <Property Name="SumOfTax" Type="money" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="bi_BillPayment">
     <Key>
       <PropertyRef Name="BillID" />
@@ -129,6 +135,8 @@
     <Property Name="PaySum" Type="money" />
     <Property Name="SumPaid" Type="money" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="bi_TempBill">
     <Key>
       <PropertyRef Name="BillID" />
@@ -193,6 +201,8 @@
     <Property Name="OriginalID" Type="varchar" MaxLength="50" />
     <Property Name="ShiftID" Type="varchar" MaxLength="50" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="bi_TempBillItem">
     <Key>
       <PropertyRef Name="BillItemID" />
@@ -255,6 +265,7 @@
     <Property Name="UserId_FK" Type="uniqueidentifier" />
     <Property Name="AddressId_FK" Type="bigint" />
     <Property Name="BillId_FK" Type="varchar" MaxLength="50" />
+    <Property Name="DeliverFeeOrigin" Type="decimal" Precision="10" Scale="2" />
     <Property Name="DeliverMiles" Type="decimal" Precision="10" Scale="2" />
     <Property Name="DeliverFee" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Status" Type="int" Nullable="false" />
@@ -319,6 +330,7 @@
     <Property Name="TownCity" Type="varchar" MaxLength="50" />
     <Property Name="Postcode" Type="varchar" MaxLength="50" />
     <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="DeliveryMiles" Type="decimal" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="TP_UserCell">
     <Key>
@@ -413,11 +425,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ModelEntitiesStoreContainer">
-    <EntitySet Name="bi_Bill" EntityType="Self.bi_Bill" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="bi_BillItem" EntityType="Self.bi_BillItem" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="bi_BillPayment" EntityType="Self.bi_BillPayment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="bi_TempBill" EntityType="Self.bi_TempBill" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="bi_TempBillItem" EntityType="Self.bi_TempBillItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />
@@ -426,6 +433,246 @@
     <EntitySet Name="TP_User" EntityType="Self.TP_User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_UserAddress" EntityType="Self.TP_UserAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_UserCell" EntityType="Self.TP_UserCell" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bi_Bill" EntityType="Self.bi_Bill" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [bi_Bill].[BillID] AS [BillID], 
+    [bi_Bill].[TableID] AS [TableID], 
+    [bi_Bill].[SubTableID] AS [SubTableID], 
+    [bi_Bill].[TableName] AS [TableName], 
+    [bi_Bill].[TableFullName] AS [TableFullName], 
+    [bi_Bill].[TableAreaID] AS [TableAreaID], 
+    [bi_Bill].[TableAreaName] AS [TableAreaName], 
+    [bi_Bill].[TableTypeID] AS [TableTypeID], 
+    [bi_Bill].[TableTypeName] AS [TableTypeName], 
+    [bi_Bill].[MemberID] AS [MemberID], 
+    [bi_Bill].[MemberCardID] AS [MemberCardID], 
+    [bi_Bill].[MemberName] AS [MemberName], 
+    [bi_Bill].[PeopleCount] AS [PeopleCount], 
+    [bi_Bill].[ChargePersonID] AS [ChargePersonID], 
+    [bi_Bill].[ChargePerson] AS [ChargePerson], 
+    [bi_Bill].[CreateTime] AS [CreateTime], 
+    [bi_Bill].[CreatePersonID] AS [CreatePersonID], 
+    [bi_Bill].[CreatePerson] AS [CreatePerson], 
+    [bi_Bill].[IsCheckOuting] AS [IsCheckOuting], 
+    [bi_Bill].[CheckOutTime] AS [CheckOutTime], 
+    [bi_Bill].[CheckOutPersonID] AS [CheckOutPersonID], 
+    [bi_Bill].[CheckOutPerson] AS [CheckOutPerson], 
+    [bi_Bill].[CheckOutNull] AS [CheckOutNull], 
+    [bi_Bill].[DeleteTime] AS [DeleteTime], 
+    [bi_Bill].[DeletePersonID] AS [DeletePersonID], 
+    [bi_Bill].[DeletePerson] AS [DeletePerson], 
+    [bi_Bill].[DiscountID] AS [DiscountID], 
+    [bi_Bill].[DiscountName] AS [DiscountName], 
+    [bi_Bill].[DiscountRate] AS [DiscountRate], 
+    [bi_Bill].[DiscountPersonID] AS [DiscountPersonID], 
+    [bi_Bill].[DiscountPerson] AS [DiscountPerson], 
+    [bi_Bill].[SumOfConsume] AS [SumOfConsume], 
+    [bi_Bill].[ServiceRate] AS [ServiceRate], 
+    [bi_Bill].[SumOfService] AS [SumOfService], 
+    [bi_Bill].[SumForDiscount] AS [SumForDiscount], 
+    [bi_Bill].[SumOfCarry] AS [SumOfCarry], 
+    [bi_Bill].[SumToPay] AS [SumToPay], 
+    [bi_Bill].[SumPaid] AS [SumPaid], 
+    [bi_Bill].[SumInCash] AS [SumInCash], 
+    [bi_Bill].[SumOfInvoice] AS [SumOfInvoice], 
+    [bi_Bill].[SumOfCashPaid] AS [SumOfCashPaid], 
+    [bi_Bill].[SumOfCashBack] AS [SumOfCashBack], 
+    [bi_Bill].[BillDate] AS [BillDate], 
+    [bi_Bill].[BillPeriod] AS [BillPeriod], 
+    [bi_Bill].[BillYear] AS [BillYear], 
+    [bi_Bill].[BillMonth] AS [BillMonth], 
+    [bi_Bill].[BillDay] AS [BillDay], 
+    [bi_Bill].[IsArchived] AS [IsArchived], 
+    [bi_Bill].[IsUploaded] AS [IsUploaded], 
+    [bi_Bill].[IsDeleted] AS [IsDeleted], 
+    [bi_Bill].[PrintCount] AS [PrintCount], 
+    [bi_Bill].[ReduceMantissa] AS [ReduceMantissa], 
+    [bi_Bill].[BranchID] AS [BranchID], 
+    [bi_Bill].[BranchName] AS [BranchName], 
+    [bi_Bill].[WorkStationID] AS [WorkStationID], 
+    [bi_Bill].[WorkStationName] AS [WorkStationName], 
+    [bi_Bill].[Remark] AS [Remark], 
+    [bi_Bill].[OriginalID] AS [OriginalID], 
+    [bi_Bill].[ShiftID] AS [ShiftID]
+    FROM [dbo].[bi_Bill] AS [bi_Bill]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="bi_BillItem" EntityType="Self.bi_BillItem" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [bi_BillItem].[BillItemID] AS [BillItemID], 
+    [bi_BillItem].[BillID] AS [BillID], 
+    [bi_BillItem].[MenuID] AS [MenuID], 
+    [bi_BillItem].[MenuName] AS [MenuName], 
+    [bi_BillItem].[MenuUnitID] AS [MenuUnitID], 
+    [bi_BillItem].[MenuUnitName] AS [MenuUnitName], 
+    [bi_BillItem].[MenuTypeID] AS [MenuTypeID], 
+    [bi_BillItem].[MenuTypeName] AS [MenuTypeName], 
+    [bi_BillItem].[DepartID] AS [DepartID], 
+    [bi_BillItem].[DepartName] AS [DepartName], 
+    [bi_BillItem].[DepartTypeID] AS [DepartTypeID], 
+    [bi_BillItem].[DepartTypeName] AS [DepartTypeName], 
+    [bi_BillItem].[AmountOrder] AS [AmountOrder], 
+    [bi_BillItem].[AmountOnTable] AS [AmountOnTable], 
+    [bi_BillItem].[AmountCancel] AS [AmountCancel], 
+    [bi_BillItem].[MenuPrice] AS [MenuPrice], 
+    [bi_BillItem].[MenuPrice2] AS [MenuPrice2], 
+    [bi_BillItem].[SumOfConsume] AS [SumOfConsume], 
+    [bi_BillItem].[SumForDiscount] AS [SumForDiscount], 
+    [bi_BillItem].[SumOfService] AS [SumOfService], 
+    [bi_BillItem].[SumOfCookWay] AS [SumOfCookWay], 
+    [bi_BillItem].[CookWayID] AS [CookWayID], 
+    [bi_BillItem].[CookWay] AS [CookWay], 
+    [bi_BillItem].[CookWayPrice] AS [CookWayPrice], 
+    [bi_BillItem].[MenuPart] AS [MenuPart], 
+    [bi_BillItem].[Request] AS [Request], 
+    [bi_BillItem].[TasteType] AS [TasteType], 
+    [bi_BillItem].[CreatePersonID] AS [CreatePersonID], 
+    [bi_BillItem].[CreatePerson] AS [CreatePerson], 
+    [bi_BillItem].[CreateTime] AS [CreateTime], 
+    [bi_BillItem].[ServingState] AS [ServingState], 
+    [bi_BillItem].[IsSentMenu] AS [IsSentMenu], 
+    [bi_BillItem].[IsSent] AS [IsSent], 
+    [bi_BillItem].[Remark] AS [Remark], 
+    [bi_BillItem].[IsSpecialPrice] AS [IsSpecialPrice], 
+    [bi_BillItem].[IsDiscount] AS [IsDiscount], 
+    [bi_BillItem].[DiscountRate] AS [DiscountRate], 
+    [bi_BillItem].[IsPrinted] AS [IsPrinted], 
+    [bi_BillItem].[PrintTime] AS [PrintTime], 
+    [bi_BillItem].[IsOnTable] AS [IsOnTable], 
+    [bi_BillItem].[OnTableTime] AS [OnTableTime], 
+    [bi_BillItem].[MenuSetID] AS [MenuSetID], 
+    [bi_BillItem].[MenuSetName] AS [MenuSetName], 
+    [bi_BillItem].[MenuSetPrefix] AS [MenuSetPrefix], 
+    [bi_BillItem].[MenuSetItemID] AS [MenuSetItemID], 
+    [bi_BillItem].[CostPrice] AS [CostPrice], 
+    [bi_BillItem].[TaxRate] AS [TaxRate], 
+    [bi_BillItem].[SumOfTax] AS [SumOfTax]
+    FROM [dbo].[bi_BillItem] AS [bi_BillItem]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="bi_BillPayment" EntityType="Self.bi_BillPayment" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [bi_BillPayment].[BillID] AS [BillID], 
+    [bi_BillPayment].[SubjectID] AS [SubjectID], 
+    [bi_BillPayment].[SubjectName] AS [SubjectName], 
+    [bi_BillPayment].[ExchangeRate] AS [ExchangeRate], 
+    [bi_BillPayment].[PaySum] AS [PaySum], 
+    [bi_BillPayment].[SumPaid] AS [SumPaid]
+    FROM [dbo].[bi_BillPayment] AS [bi_BillPayment]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="bi_TempBill" EntityType="Self.bi_TempBill" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [bi_TempBill].[BillID] AS [BillID], 
+    [bi_TempBill].[TableID] AS [TableID], 
+    [bi_TempBill].[SubTableID] AS [SubTableID], 
+    [bi_TempBill].[TableName] AS [TableName], 
+    [bi_TempBill].[TableFullName] AS [TableFullName], 
+    [bi_TempBill].[TableAreaID] AS [TableAreaID], 
+    [bi_TempBill].[TableAreaName] AS [TableAreaName], 
+    [bi_TempBill].[TableTypeID] AS [TableTypeID], 
+    [bi_TempBill].[TableTypeName] AS [TableTypeName], 
+    [bi_TempBill].[MemberID] AS [MemberID], 
+    [bi_TempBill].[MemberCardID] AS [MemberCardID], 
+    [bi_TempBill].[MemberName] AS [MemberName], 
+    [bi_TempBill].[PeopleCount] AS [PeopleCount], 
+    [bi_TempBill].[ChargePersonID] AS [ChargePersonID], 
+    [bi_TempBill].[ChargePerson] AS [ChargePerson], 
+    [bi_TempBill].[CreateTime] AS [CreateTime], 
+    [bi_TempBill].[CreatePersonID] AS [CreatePersonID], 
+    [bi_TempBill].[CreatePerson] AS [CreatePerson], 
+    [bi_TempBill].[IsCheckOuting] AS [IsCheckOuting], 
+    [bi_TempBill].[CheckOutTime] AS [CheckOutTime], 
+    [bi_TempBill].[CheckOutPersonID] AS [CheckOutPersonID], 
+    [bi_TempBill].[CheckOutPerson] AS [CheckOutPerson], 
+    [bi_TempBill].[CheckOutNull] AS [CheckOutNull], 
+    [bi_TempBill].[DeleteTime] AS [DeleteTime], 
+    [bi_TempBill].[DeletePersonID] AS [DeletePersonID], 
+    [bi_TempBill].[DeletePerson] AS [DeletePerson], 
+    [bi_TempBill].[DiscountID] AS [DiscountID], 
+    [bi_TempBill].[DiscountName] AS [DiscountName], 
+    [bi_TempBill].[DiscountRate] AS [DiscountRate], 
+    [bi_TempBill].[DiscountPersonID] AS [DiscountPersonID], 
+    [bi_TempBill].[DiscountPerson] AS [DiscountPerson], 
+    [bi_TempBill].[SumOfConsume] AS [SumOfConsume], 
+    [bi_TempBill].[ServiceRate] AS [ServiceRate], 
+    [bi_TempBill].[SumOfService] AS [SumOfService], 
+    [bi_TempBill].[SumForDiscount] AS [SumForDiscount], 
+    [bi_TempBill].[SumOfCarry] AS [SumOfCarry], 
+    [bi_TempBill].[SumToPay] AS [SumToPay], 
+    [bi_TempBill].[SumPaid] AS [SumPaid], 
+    [bi_TempBill].[SumInCash] AS [SumInCash], 
+    [bi_TempBill].[SumOfInvoice] AS [SumOfInvoice], 
+    [bi_TempBill].[SumOfCashPaid] AS [SumOfCashPaid], 
+    [bi_TempBill].[SumOfCashBack] AS [SumOfCashBack], 
+    [bi_TempBill].[BillDate] AS [BillDate], 
+    [bi_TempBill].[BillPeriod] AS [BillPeriod], 
+    [bi_TempBill].[BillYear] AS [BillYear], 
+    [bi_TempBill].[BillMonth] AS [BillMonth], 
+    [bi_TempBill].[BillDay] AS [BillDay], 
+    [bi_TempBill].[IsArchived] AS [IsArchived], 
+    [bi_TempBill].[IsUploaded] AS [IsUploaded], 
+    [bi_TempBill].[IsDeleted] AS [IsDeleted], 
+    [bi_TempBill].[PrintCount] AS [PrintCount], 
+    [bi_TempBill].[ReduceMantissa] AS [ReduceMantissa], 
+    [bi_TempBill].[BranchID] AS [BranchID], 
+    [bi_TempBill].[BranchName] AS [BranchName], 
+    [bi_TempBill].[WorkStationID] AS [WorkStationID], 
+    [bi_TempBill].[WorkStationName] AS [WorkStationName], 
+    [bi_TempBill].[Remark] AS [Remark], 
+    [bi_TempBill].[OriginalID] AS [OriginalID], 
+    [bi_TempBill].[ShiftID] AS [ShiftID]
+    FROM [dbo].[bi_TempBill] AS [bi_TempBill]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="bi_TempBillItem" EntityType="Self.bi_TempBillItem" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [bi_TempBillItem].[BillItemID] AS [BillItemID], 
+    [bi_TempBillItem].[BillID] AS [BillID], 
+    [bi_TempBillItem].[MenuID] AS [MenuID], 
+    [bi_TempBillItem].[MenuName] AS [MenuName], 
+    [bi_TempBillItem].[MenuUnitID] AS [MenuUnitID], 
+    [bi_TempBillItem].[MenuUnitName] AS [MenuUnitName], 
+    [bi_TempBillItem].[MenuTypeID] AS [MenuTypeID], 
+    [bi_TempBillItem].[MenuTypeName] AS [MenuTypeName], 
+    [bi_TempBillItem].[DepartID] AS [DepartID], 
+    [bi_TempBillItem].[DepartName] AS [DepartName], 
+    [bi_TempBillItem].[DepartTypeID] AS [DepartTypeID], 
+    [bi_TempBillItem].[DepartTypeName] AS [DepartTypeName], 
+    [bi_TempBillItem].[AmountOrder] AS [AmountOrder], 
+    [bi_TempBillItem].[AmountOnTable] AS [AmountOnTable], 
+    [bi_TempBillItem].[AmountCancel] AS [AmountCancel], 
+    [bi_TempBillItem].[MenuPrice] AS [MenuPrice], 
+    [bi_TempBillItem].[MenuPrice2] AS [MenuPrice2], 
+    [bi_TempBillItem].[SumOfConsume] AS [SumOfConsume], 
+    [bi_TempBillItem].[SumForDiscount] AS [SumForDiscount], 
+    [bi_TempBillItem].[SumOfService] AS [SumOfService], 
+    [bi_TempBillItem].[SumOfCookWay] AS [SumOfCookWay], 
+    [bi_TempBillItem].[CookWayID] AS [CookWayID], 
+    [bi_TempBillItem].[CookWay] AS [CookWay], 
+    [bi_TempBillItem].[CookWayPrice] AS [CookWayPrice], 
+    [bi_TempBillItem].[MenuPart] AS [MenuPart], 
+    [bi_TempBillItem].[Request] AS [Request], 
+    [bi_TempBillItem].[TasteType] AS [TasteType], 
+    [bi_TempBillItem].[CreatePersonID] AS [CreatePersonID], 
+    [bi_TempBillItem].[CreatePerson] AS [CreatePerson], 
+    [bi_TempBillItem].[CreateTime] AS [CreateTime], 
+    [bi_TempBillItem].[ServingState] AS [ServingState], 
+    [bi_TempBillItem].[IsSentMenu] AS [IsSentMenu], 
+    [bi_TempBillItem].[IsSent] AS [IsSent], 
+    [bi_TempBillItem].[Remark] AS [Remark], 
+    [bi_TempBillItem].[IsSpecialPrice] AS [IsSpecialPrice], 
+    [bi_TempBillItem].[IsDiscount] AS [IsDiscount], 
+    [bi_TempBillItem].[DiscountRate] AS [DiscountRate], 
+    [bi_TempBillItem].[IsPrinted] AS [IsPrinted], 
+    [bi_TempBillItem].[PrintTime] AS [PrintTime], 
+    [bi_TempBillItem].[IsOnTable] AS [IsOnTable], 
+    [bi_TempBillItem].[OnTableTime] AS [OnTableTime], 
+    [bi_TempBillItem].[MenuSetID] AS [MenuSetID], 
+    [bi_TempBillItem].[MenuSetName] AS [MenuSetName], 
+    [bi_TempBillItem].[MenuSetPrefix] AS [MenuSetPrefix], 
+    [bi_TempBillItem].[MenuSetItemID] AS [MenuSetItemID], 
+    [bi_TempBillItem].[CostPrice] AS [CostPrice], 
+    [bi_TempBillItem].[TaxRate] AS [TaxRate], 
+    [bi_TempBillItem].[SumOfTax] AS [SumOfTax]
+    FROM [dbo].[bi_TempBillItem] AS [bi_TempBillItem]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="Self.FK_TP_BillRef_TP_CallIn">
       <End Role="TP_CallIn" EntitySet="TP_CallIn" />
       <End Role="TP_BillRef" EntitySet="TP_BillRef" />
