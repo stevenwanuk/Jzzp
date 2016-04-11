@@ -136,6 +136,9 @@
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
+    <Compile Include="Common\StartupConfigurationCollection.cs" />
+    <Compile Include="Common\StartupConfigurationElement.cs" />
+    <Compile Include="Common\StartupConfigurationSection.cs" />
     <Compile Include="Common\SumConverter.cs" />
     <Compile Include="ModelView\BillItemMV.cs" />
     <Compile Include="ModelView\BillMV.cs" />

@@ -12,9 +12,10 @@ namespace TP.BLL
 {
     public class TPDriverBLL
     {
-        public ICollection<TPDriver> GetDriversIfAvailable(bool? isAvailable = null)
+
+        public List<TPDriver> GetDriversIfAvailable(bool? isAvailable = null)
         {
-            ICollection<TPDriver> result = new List<TPDriver>();
+            List<TPDriver> result = new List<TPDriver>();
             using (var entities = new JZZPEntities())
             {
 
