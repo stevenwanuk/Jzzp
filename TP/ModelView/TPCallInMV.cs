@@ -3,15 +3,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AutoMapper;
-using ModelGenerator;
 using TP.Annotations;
 using TP.Common;
 
 namespace TP.ModelView
 {
+    using EntitiesDABL;
     using System;
     using System.Collections.Generic;
-    
+
     public class TPCallInMV : BindableBase
     {
         public TPCallInMV()

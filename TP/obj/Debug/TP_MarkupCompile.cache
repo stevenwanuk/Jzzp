@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\kwan\work\c#\Jzzp\TP\App.xaml
-2-350642818
+5-1111798317
 
-21-1962313665
-19423537391
-MainWindow.xaml;WindowForm\UsersWindow.xaml;
+43-1514934923
+34-1302627842
+MainWindow.xaml;UserControl\BillUserControl.xaml;UserControl\FavouriteOrderUserControl.xaml;UserControl\PopUpUserControl.xaml;WindowForm\UsersWindow.xaml;
 
 False
 

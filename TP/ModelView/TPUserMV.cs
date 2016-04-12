@@ -1,11 +1,11 @@
-﻿using System;
+﻿using EntitiesDABL;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ModelGenerator;
 using TP.Common;
 
 namespace TP.ModelView
@@ -16,6 +16,11 @@ namespace TP.ModelView
         public static TPUserMV Mapper(TPUser entity)
         {
             return AutoMapperUtils.GetMapper().Map<TPUser, TPUserMV>(entity);
+        }
+
+        public TPUser MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUserMV, TPUser>(this);
         }
 
         public TPUserMV()
@@ -83,7 +88,7 @@ namespace TP.ModelView
                 switch (columnName)
                 {
                     case "FirstName":
-                        if (!_firstName.Equals("111"))
+                        if (!("111").Equals(_firstName))
                         i = "testttt";
                         break;
                 }

@@ -7,3 +7,13 @@ C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.xml
 C:\kwan\work\c#\Jzzp\ModelGenerator\bin\Debug\EntityFramework.SqlServer.xml
 C:\kwan\work\c#\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.dll
 C:\kwan\work\c#\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.pdb
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.pdb
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\EntityFramework.dll
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\EntityFramework.SqlServer.dll
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\EntityFramework.xml
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\EntityFramework.SqlServer.xml
+D:\work\jzzp\branch\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.pdb
+D:\work\jzzp\branch\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.csprojResolveAssemblyReference.cache
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.exe.config
+D:\work\jzzp\branch\Jzzp\ModelGenerator\bin\Debug\ModelGenerator.exe
+D:\work\jzzp\branch\Jzzp\ModelGenerator\obj\Debug\ModelGenerator.exe

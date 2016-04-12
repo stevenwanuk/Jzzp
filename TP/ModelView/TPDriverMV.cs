@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelGenerator;
 using TP.Common;
+using EntitiesDABL;
 
 namespace TP.ModelView
 {
@@ -15,6 +16,11 @@ namespace TP.ModelView
         public static TPDriverMV Mapper(TPDriver entity)
         {
             return AutoMapperUtils.GetMapper().Map<TPDriver, TPDriverMV>(entity);
+        }
+
+        public TPDriver MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPDriverMV, TPDriver>(this);
         }
 
         public TPDriverMV()

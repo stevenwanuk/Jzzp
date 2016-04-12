@@ -7,8 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.Internal;
-using Jzzp.DAL;
-using ModelGenerator;
+
 using TP.Annotations;
 using TP.Common;
 using TP.ModelView;
@@ -23,11 +22,41 @@ namespace TP.View
             _tPBillRefs = new ObservableCollection<TPBillRefMV>();
         }
 
+        private string _errorMsg;
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+            set
+            {
+                if (value != _errorMsg)
+                {
+
+                    _errorMsg = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
         private UsersTabView _usersTabView;
         public UsersTabView UsersTabView
         {
             get { return _usersTabView; }
             set { SetProperty(ref _usersTabView, value); }
+        }
+
+        private DeliveryTabView _deliveryTabView;
+        public DeliveryTabView DeliveryTabView
+        {
+            get { return _deliveryTabView; }
+            set { SetProperty(ref _deliveryTabView, value); }
+        }
+
+        private OrderHistoryTabView _orderHistoryTabView;
+        public OrderHistoryTabView OrderHistoryTabView
+        {
+            get { return _orderHistoryTabView; }
+            set { SetProperty(ref _orderHistoryTabView, value); }
         }
 
 

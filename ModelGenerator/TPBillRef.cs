@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModelGenerator
+namespace EntitiesDABL
 {
     using System;
     using System.Collections.Generic;
@@ -23,10 +23,11 @@ namespace ModelGenerator
         public Nullable<decimal> DeliverFee { get; set; }
         public int Status { get; set; }
         public Nullable<long> DeliverId_FK { get; set; }
+        public Nullable<decimal> DeliverFeeOrigin { get; set; }
     
         public virtual TPCallIn TPCallIn { get; set; }
+        public virtual TPDeliver TPDeliver { get; set; }
         public virtual TPUser TPUser { get; set; }
         public virtual TPUserAddress TPUserAddress { get; set; }
-        public virtual TPDeliver TPDeliver { get; set; }
     }
 }

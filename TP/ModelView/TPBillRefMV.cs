@@ -1,19 +1,20 @@
 
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using AutoMapper;
-using ModelGenerator;
-using TP.Annotations;
+
 using TP.Common;
+using EntitiesDABL;
+using System;
 
 namespace TP.ModelView
 {
-    using System;
-    using System.Collections.Generic;
-    
+
+
+
     public class TPBillRefMV : BindableBase
     {
+
+        public TPBillRefMV()
+        {
+        }
 
         public static TPBillRefMV Mapper(TPBillRef entity)
         {
@@ -70,7 +71,13 @@ namespace TP.ModelView
             set { SetProperty(ref _deliverFee, value); }
         }
 
-        
+        private decimal? _deliverFeeOrigin;
+        public Nullable<decimal> DeliverFeeOrigin {
+            get { return _deliverFeeOrigin; }
+            set { SetProperty(ref _deliverFeeOrigin, value); }
+        }
+
+
         private int _status;
         public int Status
         {
@@ -109,5 +116,7 @@ namespace TP.ModelView
             get { return _tPDeliver; }
             set { SetProperty(ref _tPDeliver, value); }
         }
+
+        
     }
 }
