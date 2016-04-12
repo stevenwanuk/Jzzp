@@ -16,6 +16,22 @@ namespace DataMaintenance.View
             _tpDriverMvs = new ObservableCollection<TPDriverMV>();
         }
 
+
+        private bool _isEdit;
+
+        public bool IsEdit
+        {
+            get { return _isEdit; }
+            set { SetProperty(ref _isEdit, value); }
+        }
+
+        private bool _isDelete;
+        public bool IsDelete
+        {
+            get { return _isDelete; }
+            set { SetProperty(ref _isDelete, value); }
+        }
+
         private ObservableCollection<TPDriverMV> _tpDriverMvs;
 
         public ObservableCollection<TPDriverMV> TpDriverMvs

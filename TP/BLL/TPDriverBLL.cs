@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,28 @@ namespace TP.BLL
             }
 
             return result;
+        }
+
+        public void SaveOrUpdate(TPDriver driver)
+        {
+            using (var entities = new JZZPEntities())
+            {
+                entities.TPDrivers.AddOrUpdate(driver);
+                entities.SaveChanges();
+            }
+        }
+
+        public void Remove(long driverId)
+        {
+            using (var entities = new JZZPEntities())
+            {
+                var driver = entities.TPDrivers.Where(i => i.DriverId == driverId).ToList().FirstOrDefault();
+                if (driver != null)
+                {
+                    entities.TPDrivers.Remove(driver);
+                    entities.SaveChanges();
+                }
+            }
         }
 
         public void SaveOrUpdate(long driverId, long billRefId)

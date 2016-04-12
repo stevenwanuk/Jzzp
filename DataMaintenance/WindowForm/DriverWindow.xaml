@@ -5,21 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataMaintenance.WindowForm"
         xmlns:view="clr-namespace:DataMaintenance.View"
+        xmlns:common="clr-namespace:TP.Common;assembly=TP"
         mc:Ignorable="d" Loaded="DriverWindow_OnLoaded"
         Title="DriverWindow" Height="300" Width="300">
     <Window.DataContext>
         <view:DriverWindowView></view:DriverWindowView>
     </Window.DataContext>
+    <Window.Resources>
+        <common:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
     <Border>
         <Grid>
-            <Button Content="添加"   Name="BtnAdd"  Click=" btnAdd_Click" />
-            <Button Content="保存"  Name="BtnSave" Click="btnSave_Click" />
-            <DataGrid  AutoGenerateColumns="False" ItemsSource="{Binding DriverWv}" CanUserAddRows="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Refresh"   Name="Refresh"  Click="DriverWindow_OnLoaded" />
+                <Button Content="Edit"   Name="BtnEdit"  Click="BtnEdit_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" />
+                <Button Content="Save"  Name="BtnSave" Click="BtnSave_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"/>
+                <Button Content="Delete" Name="BtnDelete" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" Click="BtnDelete_OnClick" />
+            </StackPanel>
+            <DataGrid x:Name="DriverGrid" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding TpDriverMvs}" CanUserAddRows="False"
+                      IsReadOnly="True" CanUserDeleteRows="False"
+                      >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="操作" Width="40">
+                    <DataGridTemplateColumn Width="40" Header="Select">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox ></CheckBox>
+                                <CheckBox Click="ToggleButton_OnChecked" Tag="{Binding DriverId}" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}"></CheckBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
