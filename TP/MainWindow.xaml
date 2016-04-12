@@ -10,8 +10,8 @@
         xmlns:uc="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
         x:Name="MWindow"
-        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" >
-    <!--WindowState="Maximized" WindowStyle="None"-->
+        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" WindowState="Maximized" WindowStyle="None">
+    
     <Window.DataContext>
         <vm:MainView></vm:MainView>
     </Window.DataContext>

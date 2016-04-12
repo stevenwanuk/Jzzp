@@ -30,7 +30,20 @@ namespace TP.BLL
         {
             using (var entities = new JZZPEntities())
             {
-                entities.TPDrivers.AddOrUpdate(driver);
+
+                var count = entities.TPDrivers.Where(i => i.DriverId == driver.DriverId).Count();
+                if (count <= 0)
+                {
+                    entities.TPDrivers.Add(driver);
+                }
+                else
+                {
+
+                    //msserver 2000 doesn't work with top (2).....
+                    entities.TPDrivers.Attach(driver);
+                    entities.Entry(driver).State = System.Data.Entity.EntityState.Modified;
+
+                }
                 entities.SaveChanges();
             }
         }
@@ -75,9 +88,7 @@ namespace TP.BLL
                     };
                     entities.TPDelivers.Add(deliver);
 
-
-                    billRef.DeliverId_FK = deliver.DeliverId;
-
+                    billRef.TPDeliver = deliver;
                     entities.SaveChanges();
                 }
             }

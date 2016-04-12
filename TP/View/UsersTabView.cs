@@ -47,6 +47,8 @@ namespace TP.View
         public UsersTabView(long tPBillRef)
         {
 
+            _tPUserAddressMVs = new SelectionCollection<TPUserAddressMV>();
+
             var billRef = new TPBillRefBLL().GeBillRefWithUserAndUserAddressByTpBillRefId(tPBillRef);
             TPBillRefMV = TPBillRefMV.Mapper(billRef);
 
@@ -57,7 +59,6 @@ namespace TP.View
                 _tPUserMV = TPUserMV.Mapper(billRef.TPUser);
 
                 var userAddress = billRef.TPUser.TPUserAddress;
-                _tPUserAddressMVs = new SelectionCollection<TPUserAddressMV>(); ;
                 userAddress.ForEach(i => _tPUserAddressMVs.Add(TPUserAddressMV.Mapper(i)));
             }
             else
