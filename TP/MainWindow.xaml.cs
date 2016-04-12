@@ -108,6 +108,9 @@ namespace TP
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             var billRefId = (long)((ToggleButton) sender).Tag;
+
+            mainView.SelectedTpBillRefMv = mainView.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+
             LoadTabControlView(billRefId);
 
         }
@@ -202,7 +205,7 @@ namespace TP
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
             var userMV = mainView.UsersTabView.TPUserMV;
-            mainView.ErrorMsg = "test";
+            mainView.ErrorMsg = "Saved";
             
             var user = userMV.MapperTo();
             if (user.UserId == Guid.Empty)
