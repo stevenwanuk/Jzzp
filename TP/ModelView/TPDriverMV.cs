@@ -18,6 +18,11 @@ namespace TP.ModelView
             return AutoMapperUtils.GetMapper().Map<TPDriver, TPDriverMV>(entity);
         }
 
+        public TPDriver MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPDriverMV, TPDriver>(this);
+        }
+
         public TPDriverMV()
         {
             _tPDeliver = new ObservableCollection<TPDeliver>();

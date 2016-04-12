@@ -134,6 +134,7 @@
     <Compile Include="Common\CompareConverter.cs" />
     <Compile Include="Common\CSharpComplilerUtils.cs" />
     <Compile Include="Common\CustomEventArgs.cs" />
+    <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
     <Compile Include="Common\StartupConfigurationCollection.cs" />
