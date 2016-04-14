@@ -17,6 +17,12 @@ namespace TP.ModelView
             return AutoMapperUtils.GetMapper().Map<TPUserCell, TPUserCellMV>(entity);
         }
 
+        public TPUserCell MapperTo()
+        {
+            return AutoMapperUtils.GetMapper().Map<TPUserCellMV, TPUserCell>(this);
+        }
+
+
         private long _userCellId;
         public long UserCellId
         {

@@ -6,48 +6,59 @@
         xmlns:local="clr-namespace:DataMaintenance.WindowForm"
         xmlns:view="clr-namespace:DataMaintenance.View"
         xmlns:common="clr-namespace:TP.Common;assembly=TP"
+        xmlns:userControl="clr-namespace:TP.UserControl;assembly=TP"
         mc:Ignorable="d" Loaded="DriverWindow_OnLoaded"
         Title="DriverWindow" Height="300" Width="300">
     <Window.DataContext>
         <view:DriverWindowView></view:DriverWindowView>
     </Window.DataContext>
     <Window.Resources>
-        <common:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <common:InverseBooleanConverter x:Key="InverseBooleanConverter"></common:InverseBooleanConverter>
+        <common:ValueConverterGroup x:Key="LongToVisibilityConverter">
+            <common:LongToBoolenConverter></common:LongToBoolenConverter>
+            <common:BoolToVisibilityConverter TrueValue="Hidden" FalseValue="Visible"></common:BoolToVisibilityConverter>
+        </common:ValueConverterGroup>
     </Window.Resources>
-    <Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Refresh"   Name="Refresh"  Click="DriverWindow_OnLoaded" />
-                <Button Content="Edit"   Name="BtnEdit"  Click="BtnEdit_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" />
-                <Button Content="Save"  Name="BtnSave" Click="BtnSave_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"/>
-                <Button Content="Delete" Name="BtnDelete" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" Click="BtnDelete_OnClick" />
-            </StackPanel>
-            <DataGrid x:Name="DriverGrid" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding TpDriverMvs}" CanUserAddRows="False"
+    <Grid>
+        <userControl:PopUpUserControl ErrorMsg="{Binding Path=ErrorMsg}"></userControl:PopUpUserControl>
+        <Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Refresh"   Name="Refresh"  Click="DriverWindow_OnLoaded" />
+                    <Button Content="Edit"   Name="BtnEdit"  Click="BtnEdit_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" />
+                    <Button Content="Save"  Name="BtnSave" Click="BtnSave_OnClick" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"/>
+                    <Button Content="Delete" Name="BtnDelete" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" Click="BtnDelete_OnClick" />
+                </StackPanel>
+                <DataGrid x:Name="DriverGrid" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding TpDriverMvs}" CanUserAddRows="False"
                       IsReadOnly="True" CanUserDeleteRows="False"
                       >
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="40" Header="Select">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox Click="ToggleButton_OnChecked" Tag="{Binding DriverId}" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}"></CheckBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="CellName" Width="*" Binding="{Binding CellName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </Border>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="40" Header="Select">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Click="ToggleButton_OnChecked" Tag="{Binding DriverId}" IsEnabled="{Binding ElementName=DriverGrid, Path=IsReadOnly}" 
+                                              Visibility="{Binding Path=DeliverCount, Converter={StaticResource LongToVisibilityConverter}}"
+                                              >
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="CellName" Width="*" Binding="{Binding CellName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

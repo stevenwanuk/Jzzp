@@ -16,6 +16,12 @@ namespace DataMaintenance.View
             _tpDriverMvs = new ObservableCollection<TPDriverMV>();
         }
 
+        private string _errorMsg;
+        public string ErrorMsg
+        {
+            get { return _errorMsg; }
+            set { SetProperty(ref _errorMsg, value); }
+        }
 
         private bool _isEdit;
 

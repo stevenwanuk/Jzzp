@@ -131,16 +131,19 @@
     <Compile Include="BLL\TPUserAddressBLL.cs" />
     <Compile Include="BLL\TPUserBLL.cs" />
     <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="Common\BoolToVisibilityConverter.cs" />
     <Compile Include="Common\CompareConverter.cs" />
     <Compile Include="Common\CSharpComplilerUtils.cs" />
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
+    <Compile Include="Common\LongToBoolenConverter.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
     <Compile Include="Common\StartupConfigurationCollection.cs" />
     <Compile Include="Common\StartupConfigurationElement.cs" />
     <Compile Include="Common\StartupConfigurationSection.cs" />
     <Compile Include="Common\SumConverter.cs" />
+    <Compile Include="Common\ValueConverterGroup.cs" />
     <Compile Include="ModelView\BillItemMV.cs" />
     <Compile Include="ModelView\BillMV.cs" />
     <Compile Include="ModelView\OrderHistoryMV.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="View\DeliveryTabView.cs" />
     <Compile Include="View\MainView.cs" />
     <Compile Include="View\OrderHistoryTabView.cs" />
+    <Compile Include="View\UserQueryWindowView.cs" />
     <Compile Include="View\UsersTabView.cs" />
     <Compile Include="WindowForm\UsersWindow.xaml.cs">
       <DependentUpon>UsersWindow.xaml</DependentUpon>

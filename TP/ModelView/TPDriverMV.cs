@@ -57,6 +57,14 @@ namespace TP.ModelView
             set { SetProperty(ref _cellName, value); }
         }
 
+        private long _deliverCount;
+
+        public long DeliverCount
+        {
+            get { return _deliverCount; }
+            set { SetProperty(ref _deliverCount, value); }
+        }
+
         private ObservableCollection<TPDeliver> _tPDeliver;
         public virtual ObservableCollection<TPDeliver> TPDeliver
         {

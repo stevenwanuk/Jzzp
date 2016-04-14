@@ -11,6 +11,48 @@ namespace TP.BLL
     public class TPBillRefBLL
     {
 
+        public List<TPBillRef> GetBillRefssWithParameters(TPBillRef qBillRef, int? queryStatus, long? driverId, DateTime? qStartDate, DateTime? qEndDate)
+        {
+
+            var result = new List<TPBillRef>();
+            using (var entities = new JZZPEntities())
+            {
+                var query = entities.TPBillRefs.AsQueryable();
+
+                if (qBillRef != null)
+                {
+
+                    if (qBillRef.UserId_FK != null)
+                    {
+                        query = query.Where(i => qBillRef.UserId_FK.Equals(i.UserId_FK));
+                    }
+                    
+                }
+
+                if (driverId != null)
+                {
+                    query = query.Where(i => i.TPDeliver != null && driverId == i.TPDeliver.DriverId_FK);
+                }
+
+                if (queryStatus != null)
+                {
+                    query = query.Where(i => queryStatus == i.Status);
+                }
+
+                if (qStartDate != null)
+                {
+                    query = query.Where(i => i.TPCallIn.StartDate >= qStartDate);
+                }
+                if (qEndDate != null)
+                {
+                    query = query.Where(i => i.TPCallIn.EndDate <= qEndDate);
+                }
+                result = query.Include(i => i.TPUser).Include(i => i.TPDeliver.TPDriver).ToList();
+            }
+
+            return result;
+        }
+
         public ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
         {
             ICollection<TPBillRef> result = null;

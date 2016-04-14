@@ -26,6 +26,16 @@ namespace TP.BLL
             return result;
         }
 
+        public long GetDeliverCount(long driverId)
+        {
+            var result = 0;
+            using (var entities = new JZZPEntities())
+            {
+                result = entities.TPDelivers.Where(i => i.DriverId_FK == driverId).Count();
+            }
+            return result;
+        }
+
         public void SaveOrUpdate(TPDriver driver)
         {
             using (var entities = new JZZPEntities())
