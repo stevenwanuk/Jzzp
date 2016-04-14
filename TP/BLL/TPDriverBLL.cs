@@ -31,6 +31,7 @@ namespace TP.BLL
             var result = 0;
             using (var entities = new JZZPEntities())
             {
+
                 result = entities.TPDelivers.Where(i => i.DriverId_FK == driverId).Count();
             }
             return result;
@@ -40,7 +41,7 @@ namespace TP.BLL
         {
             using (var entities = new JZZPEntities())
             {
-
+                /**
                 var count = entities.TPDrivers.Where(i => i.DriverId == driver.DriverId).Count();
                 if (count <= 0)
                 {
@@ -49,12 +50,16 @@ namespace TP.BLL
                 else
                 {
 
-                    //msserver 2000 doesn't work with top (2).....
+                    
                     entities.TPDrivers.Attach(driver);
                     entities.Entry(driver).State = System.Data.Entity.EntityState.Modified;
 
                 }
+                **/
+                entities.TPDrivers.AddOrUpdate(driver);
                 entities.SaveChanges();
+
+
             }
         }
 

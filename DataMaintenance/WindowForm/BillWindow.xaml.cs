@@ -73,10 +73,25 @@ namespace DataMaintenance.WindowForm
                 BillWv.QStartDate,
                 BillWv.QEndDate
                 );
-
-            var temp = new ObservableCollection<TPBillRefMV>();
-            billRefs.ForEach(i => TPBillRefMV.Mapper(i));
-            BillWv.BillRefMvs = temp;
+            BillWv.BillRefMvs.Clear();
+            foreach(var billRef in billRefs)
+            {
+                var tempMv = TPBillRefMV.Mapper(billRef);
+                if(billRef.TPUser != null)
+                {
+                    tempMv.TPUser = TPUserMV.Mapper(billRef.TPUser);
+                }
+                if (billRef.TPDeliver != null)
+                {
+                    tempMv.TPDeliver = TPDeliverMV.Mapper(billRef.TPDeliver);
+                    if (billRef.TPDeliver.TPDriver != null)
+                    {
+                        tempMv.TPDeliver.TPDriver = TPDriverMV.Mapper(billRef.TPDeliver.TPDriver);
+                    }
+                }
+                BillWv.BillRefMvs.Add(tempMv);
+            }
+            
         }
     }
 }

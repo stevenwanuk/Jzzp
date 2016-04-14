@@ -24,7 +24,7 @@ namespace TP.BLL
 
                     if (qBillRef.UserId_FK != null)
                     {
-                        query = query.Where(i => qBillRef.UserId_FK.Equals(i.UserId_FK));
+                        query = query.Where(i => i.TPUser != null && qBillRef.UserId_FK == i.UserId_FK);
                     }
                     
                 }

@@ -33,6 +33,7 @@ namespace TP.WindowForm
         public UsersWindow()
         {
             InitializeComponent();
+            QUserWv = new UserQueryWindowView();
             this.DataContext = QUserWv;
         }
 
@@ -55,9 +56,9 @@ namespace TP.WindowForm
             var users = new TPUserBLL().GetUsersWithParameters(QUserWv.QUserMv.MapperTo(), 
                 QUserWv.QAddressMv.MapperTo(),
                 QUserWv.QUserCellMv.MapperTo());
-            var temp = new ObservableCollection<TPUserMV>();
-            users.ForEach(i => temp.Add(TPUserMV.Mapper(i)));
-            QUserWv.UserMvs = temp;
+            QUserWv.UserMvs.Clear();
+            users.ForEach(i => QUserWv.UserMvs.Add(TPUserMV.Mapper(i)));
+            
         }
     }
 }

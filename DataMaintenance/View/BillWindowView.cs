@@ -55,8 +55,9 @@ namespace DataMaintenance.View
         public BillWindowView()
         {
             _qBillRefMv = new TPBillRefMV();
-            _qStartDate = DateTime.Now.Date;
-            _qEndDate = DateTime.Now.Date.AddDays(1);
+            BillRefMvs = new ObservableCollection<TPBillRefMV>();
+            //_qStartDate = DateTime.Now.Date;
+            //_qEndDate = DateTime.Now.Date.AddDays(1);
         }
 
         private string _errorMsg;

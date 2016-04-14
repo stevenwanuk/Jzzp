@@ -7,7 +7,7 @@
         xmlns:userControl="clr-namespace:TP.UserControl;assembly=TP"
         xmlns:view="clr-namespace:DataMaintenance.View"
         mc:Ignorable="d"
-        Title="BillWindow" Height="300" Width="300">
+        Title="BillWindow" Height="600" Width="800">
     <Window.DataContext>
         <view:BillWindowView></view:BillWindowView>
     </Window.DataContext>
@@ -27,6 +27,9 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -51,27 +54,30 @@
                     <TextBox Grid.Row="1" Grid.Column="3" Margin="3" Text="{Binding QBillRefMv.TPUser.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding QBillRefMv.BillId_FK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="BillId:"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding QBillRefMv.BillId_FK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding QStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="QStartDate:"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Margin="3" Text="{Binding QStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding QEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="3" Grid.Column="2" Content="QEndDate:"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" Margin="3" Text="{Binding QEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Clear" Click="Clear_OnClick" />
-                    <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Query" Click="Query_OnClick" />
+                    <StackPanel Grid.Row="4" Grid.Column="3" Orientation="Horizontal" >
+                        <Button  HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Clear" Click="Clear_OnClick" />
+                        <Button  HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Query" Click="Query_OnClick" />
+                    </StackPanel>
+                    
                 </Grid>
 
                 <DataGrid x:Name="UserGrid" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding BillRefMvs}" CanUserAddRows="False"
                           IsReadOnly="True" CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="BillId" Width="*" Binding="{Binding BillId_FK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding TPUser.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding TPUser.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding TPDeliver.TPDriver.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding TPDeliver.TPDriver.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="User.FirstName" Width="*" Binding="{Binding TPUser.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="User.LastName" Width="*" Binding="{Binding TPUser.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Driver.FirstName" Width="*" Binding="{Binding TPDeliver.TPDriver.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Driver.LastName" Width="*" Binding="{Binding TPDeliver.TPDriver.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

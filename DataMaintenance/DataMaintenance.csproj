@@ -69,8 +69,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\BillWindowView.cs" />
     <Compile Include="View\DriverWindowView.cs" />
     <Compile Include="View\MainWindowView.cs" />
+    <Compile Include="WindowForm\BillWindow.xaml.cs">
+      <DependentUpon>BillWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowForm\DriverWindow.xaml.cs">
       <DependentUpon>DriverWindow.xaml</DependentUpon>
     </Compile>
@@ -86,6 +90,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WindowForm\BillWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WindowForm\DriverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
