@@ -12,6 +12,22 @@ namespace TP.BLL
     public class TPBillRefBLL
     {
 
+        public void BindingBillId(long billRefId, string billId)
+        {
+            if (!string.IsNullOrEmpty(billId))
+            {
+                using (var entities = new JZZPEntities())
+                {
+                    var billRef = entities.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+                    if (billRef != null)
+                    {
+                        billRef.BillId_FK = billId;
+                        entities.SaveChanges();
+                    }
+                }
+            }
+        }
+
         public List<TPBillRef> GetBillRefssWithParameters(TPBillRef qBillRef, int? queryStatus, long? driverId, DateTime? qStartDate, DateTime? qEndDate)
         {
 

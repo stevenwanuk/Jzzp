@@ -248,3 +248,10 @@ C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\map\map.html
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\map\map_route.html
 C:\kwan\work\c#\fixbug\Jzzp\TP\obj\Debug\WindowForm\TestMap.g.cs
 C:\kwan\work\c#\fixbug\Jzzp\TP\obj\Debug\WindowForm\TestMap.baml
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\UserControl\GoogleMapUserControl.g.cs
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\WindowForm\TestMap.g.cs
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\TP_Content.g.cs
+D:\work\jzzp\branch\FixBug\Jzzp\TP\bin\Debug\map\map.html
+D:\work\jzzp\branch\FixBug\Jzzp\TP\bin\Debug\map\map_route.html
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\UserControl\GoogleMapUserControl.baml
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\WindowForm\TestMap.baml

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\kwan\work\c#\fixbug\Jzzp\TP\obj\Debug\
+D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\
 TP
 none
 false
 DEBUG;TRACE
-C:\kwan\work\c#\fixbug\Jzzp\TP\App.xaml
+D:\work\jzzp\branch\FixBug\Jzzp\TP\App.xaml
 715120824
 3-1357243533
-51242237841
-33-1435385821
+51-295628937
+33-412394027
 MainWindow.xaml;UserControl\BillUserControl.xaml;UserControl\FavouriteOrderUserControl.xaml;UserControl\GoogleMapUserControl.xaml;UserControl\PopUpUserControl.xaml;WindowForm\TestMap.xaml;WindowForm\UsersWindow.xaml;
 
 False

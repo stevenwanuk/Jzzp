@@ -310,7 +310,16 @@ namespace TP
             var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
             if (item != null)
             {
-                
+                if (mainView.SelectedTpBillRefMv != null)
+                {
+                    var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
+                    if (!string.IsNullOrEmpty(billId_FK) && !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
+
+                        //Bind billid
+                        new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
+
+                    }
+                }
             }
             BUControl.LoadBill();
         }
