@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntitiesDABL;
 using EntitiesDABL.DAL;
+using Jzzp.Enum;
 using TP.ModelView;
 
 namespace TP.BLL
@@ -104,6 +105,7 @@ namespace TP.BLL
                     entities.TPDelivers.Add(deliver);
 
                     billRef.TPDeliver = deliver;
+                    TPBillRefBLL.BillRefStatusProcess(billRef, (int)BillRefStatus.Distributed);
                     entities.SaveChanges();
                 }
             }

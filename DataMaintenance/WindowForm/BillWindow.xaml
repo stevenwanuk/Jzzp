@@ -7,7 +7,7 @@
         xmlns:userControl="clr-namespace:TP.UserControl;assembly=TP"
         xmlns:view="clr-namespace:DataMaintenance.View"
         mc:Ignorable="d"
-        Title="BillWindow" Height="600" Width="800">
+        Title="BillWindow" Height="300" Width="400">
     <Window.DataContext>
         <view:BillWindowView></view:BillWindowView>
     </Window.DataContext>

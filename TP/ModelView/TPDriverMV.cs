@@ -32,7 +32,7 @@ namespace TP.ModelView
         public long DriverId
         {
             get { return _driverId; }
-            set { SetProperty(ref _driverId, value); }
+            set { SetProperty(ref _driverId, value, "DriverId"); }
         }
 
 
@@ -40,21 +40,21 @@ namespace TP.ModelView
         public string FirstName
         {
             get { return _firstName; }
-            set { SetProperty(ref _firstName, value); }
+            set { SetProperty(ref _firstName, value, "FirstName"); }
         }
 
         private string _lastName;
         public string LastName
         {
             get { return _lastName; }
-            set { SetProperty(ref _lastName, value); }
+            set { SetProperty(ref _lastName, value, "LastName"); }
         }
 
         private string _cellName;
         public string CellName
         {
             get { return _cellName; }
-            set { SetProperty(ref _cellName, value); }
+            set { SetProperty(ref _cellName, value, "CellName"); }
         }
 
         private long _deliverCount;
@@ -62,14 +62,14 @@ namespace TP.ModelView
         public long DeliverCount
         {
             get { return _deliverCount; }
-            set { SetProperty(ref _deliverCount, value); }
+            set { SetProperty(ref _deliverCount, value, "DeliverCount"); }
         }
 
         private ObservableCollection<TPDeliver> _tPDeliver;
         public virtual ObservableCollection<TPDeliver> TPDeliver
         {
             get { return _tPDeliver; }
-            set { SetProperty(ref _tPDeliver, value); }
+            set { SetProperty(ref _tPDeliver, value, "TPDeliver"); }
         }
     }
 }

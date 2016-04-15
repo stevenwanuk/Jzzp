@@ -20,7 +20,7 @@ namespace TP.ModelView
         public string BillID
         {
             get { return _billId; }
-            set { SetProperty(ref _billId, value); }
+            set { SetProperty(ref _billId, value, "BillID"); }
         }
         public string TableID { get; set; }
         public Nullable<int> SubTableID { get; set; }
@@ -29,7 +29,7 @@ namespace TP.ModelView
         public string TableName
         {
             get { return _tableName; }
-            set { SetProperty(ref _tableName, value); }
+            set { SetProperty(ref _tableName, value, "TableName"); }
         }
         public string TableFullName { get; set; }
         public string TableAreaID { get; set; }
@@ -40,7 +40,7 @@ namespace TP.ModelView
         public string TableTypeID
         {
             get { return _tableTypeId; }
-            set { SetProperty(ref _tableTypeId, value); }
+            set { SetProperty(ref _tableTypeId, value, "TableTypeID"); }
         }
 
         public string TableTypeName { get; set; }
@@ -73,28 +73,28 @@ namespace TP.ModelView
         public Nullable<decimal> SumOfConsume
         {
             get { return _sumOfConsume; }
-            set { SetProperty(ref _sumOfConsume, value); }
+            set { SetProperty(ref _sumOfConsume, value, "SumOfConsume"); }
         }
 
         private decimal? _serviceRate;
         public Nullable<decimal> ServiceRate
         {
             get { return _serviceRate; }
-            set { SetProperty(ref _serviceRate, value); }
+            set { SetProperty(ref _serviceRate, value, "ServiceRate"); }
         }
 
         private decimal? _sumOfService;
         public Nullable<decimal> SumOfService
         {
             get { return _sumOfService; }
-            set { SetProperty(ref _sumOfService, value); }
+            set { SetProperty(ref _sumOfService, value, "SumOfService"); }
         }
 
         private decimal? _sumForDiscount;
         public Nullable<decimal> SumForDiscount
         {
             get { return _sumForDiscount; }
-            set { SetProperty(ref _sumForDiscount, value); }
+            set { SetProperty(ref _sumForDiscount, value, "SumForDiscount"); }
         }
 
         private decimal? _sumOfCarry;
@@ -102,7 +102,7 @@ namespace TP.ModelView
         public Nullable<decimal> SumOfCarry
         {
             get { return _sumOfCarry; }
-            set { SetProperty(ref _sumOfCarry, value); }
+            set { SetProperty(ref _sumOfCarry, value, "SumOfCarry"); }
         }
 
         private decimal? _sumToPay;
@@ -110,7 +110,7 @@ namespace TP.ModelView
         public Nullable<decimal> SumToPay
         {
             get { return _sumToPay; }
-            set { SetProperty(ref _sumToPay, value); }
+            set { SetProperty(ref _sumToPay, value, "SumToPay"); }
         }
         public Nullable<decimal> SumPaid { get; set; }
         public Nullable<decimal> SumInCash { get; set; }

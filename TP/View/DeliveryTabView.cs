@@ -20,24 +20,31 @@ namespace TP.View
         public TPBillRefMV TPBillRefMV
         {
             get { return _tPBillRefMV; }
-            set { SetProperty(ref _tPBillRefMV, value); }
+            set { SetProperty(ref _tPBillRefMV, value, "TPBillRefMV"); }
         }
 
 
+        private SelectionCollection<BillMV> _unBindingBillMvs;
+
+        public SelectionCollection<BillMV> UnBindingBillMvs
+        {
+            get { return _unBindingBillMvs; }
+            set { SetProperty(ref _unBindingBillMvs, value, "BillMvs"); }
+        }
 
         private TPDeliverMV _tPDeliverMV;
 
         public TPDeliverMV TPDeliverMV
         {
             get { return _tPDeliverMV; }
-            set { SetProperty(ref _tPDeliverMV, value); }
+            set { SetProperty(ref _tPDeliverMV, value, "TPDeliverMV"); }
         }
 
         private ObservableCollection<TPDriverMV> _tPDriverMVs;
         public ObservableCollection<TPDriverMV> TpDriverMVs
         {
             get { return _tPDriverMVs; }
-            set { SetProperty(ref _tPDriverMVs, value); }
+            set { SetProperty(ref _tPDriverMVs, value, "TpDriverMVs"); }
         }
 
 
@@ -58,7 +65,10 @@ namespace TP.View
             TpDriverMVs = new ObservableCollection<TPDriverMV>();
             drivers.ForEach(i => TpDriverMVs.Add(TPDriverMV.Mapper(i)));
 
-            
+            var unBindingList = new JzzpBillBLL().GetUnBindListWithCurrentBillId(billRef.BillId_FK);
+            UnBindingBillMvs = new SelectionCollection<BillMV>();
+            unBindingList.ForEach(i => UnBindingBillMvs.Add(BillMV.Mapper(i)));
+            UnBindingBillMvs.SelectedItem = UnBindingBillMvs.Where(i => i.BillID == billRef.BillId_FK).FirstOrDefault();
         }
     }
 }

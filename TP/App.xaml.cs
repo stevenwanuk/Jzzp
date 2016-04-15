@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using TP.Common;
 
 namespace TP
 {
@@ -21,8 +22,7 @@ namespace TP
 
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
+            ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
         }
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

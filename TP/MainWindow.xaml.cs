@@ -304,5 +304,15 @@ namespace TP
             }
             
         }
+
+        private void BillCbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
+            if (item != null)
+            {
+                
+            }
+            BUControl.LoadBill();
+        }
     }
 }

@@ -19,28 +19,28 @@ namespace TP.View
         public TPBillRefMV TPBillRefMV
         {
             get { return _tPBillRefMV; }
-            set { SetProperty(ref _tPBillRefMV, value); }
+            set { SetProperty(ref _tPBillRefMV, value, "TPBillRefMV"); }
         }
 
         private TPUserMV _tPUserMV;
         public TPUserMV TPUserMV
         {
             get { return _tPUserMV; }
-            set { SetProperty(ref _tPUserMV, value); }
+            set { SetProperty(ref _tPUserMV, value, "TPUserMV"); }
         }
 
         private SelectionCollection<TPUserAddressMV> _tPUserAddressMVs;
         public SelectionCollection<TPUserAddressMV> TPUserAddressMVs
         {
             get { return _tPUserAddressMVs; }
-            set { SetProperty(ref _tPUserAddressMVs, value); }
+            set { SetProperty(ref _tPUserAddressMVs, value, "TPUserAddressMVs"); }
         }
 
         private TPUserAddressMV _tPUserAddressMV;
         public TPUserAddressMV TPUserAddressMV
         {
             get { return _tPUserAddressMV; }
-            set { SetProperty(ref _tPUserAddressMV, value); }
+            set { SetProperty(ref _tPUserAddressMV, value, "TPUserAddressMV"); }
         }
 
 

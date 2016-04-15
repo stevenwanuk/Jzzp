@@ -16,7 +16,7 @@ namespace TP.View
         public TPUserMV QUserMv
         {
             get { return _qUserMv; }
-            set { SetProperty(ref _qUserMv, value); }
+            set { SetProperty(ref _qUserMv, value, "QUserMv"); }
         }
 
         private TPUserAddressMV _qAddressMv;
@@ -24,7 +24,7 @@ namespace TP.View
         public TPUserAddressMV QAddressMv
         {
             get { return _qAddressMv; }
-            set { SetProperty(ref _qAddressMv, value); }
+            set { SetProperty(ref _qAddressMv, value, "QAddressMv"); }
         }
 
         private TPUserCellMV _tpUserCellMv;
@@ -32,7 +32,7 @@ namespace TP.View
         public TPUserCellMV QUserCellMv
         {
             get { return _tpUserCellMv; }
-            set { SetProperty(ref _tpUserCellMv, value); }
+            set { SetProperty(ref _tpUserCellMv, value, "QUserCellMv"); }
         }
 
         public ObservableCollection<TPUserMV> UserMvs { get; set; }
@@ -50,7 +50,7 @@ namespace TP.View
         public string ErrorMsg
         {
             get { return _errorMsg; }
-            set { SetProperty(ref _errorMsg, value); }
+            set { SetProperty(ref _errorMsg, value, "ErrorMsg"); }
         }
     }
 }

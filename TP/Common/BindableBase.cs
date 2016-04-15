@@ -31,7 +31,7 @@ namespace TP.Common
         ///     True if the value was changed, false if the existing value matched the
         ///     desired value.
         /// </returns>
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, string propertyName)
         {
             if (Equals(storage, value))
             {
@@ -51,7 +51,7 @@ namespace TP.Common
         ///     value is optional and can be provided automatically when invoked from compilers
         ///     that support <see cref="CallerMemberNameAttribute" />.
         /// </param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

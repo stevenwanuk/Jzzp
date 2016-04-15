@@ -20,7 +20,7 @@ namespace DataMaintenance.View
         public string ErrorMsg
         {
             get { return _errorMsg; }
-            set { SetProperty(ref _errorMsg, value); }
+            set { SetProperty(ref _errorMsg, value, "ErrorMsg"); }
         }
 
         private bool _isEdit;
@@ -28,14 +28,14 @@ namespace DataMaintenance.View
         public bool IsEdit
         {
             get { return _isEdit; }
-            set { SetProperty(ref _isEdit, value); }
+            set { SetProperty(ref _isEdit, value, "IsEdit"); }
         }
 
         private bool _isDelete;
         public bool IsDelete
         {
             get { return _isDelete; }
-            set { SetProperty(ref _isDelete, value); }
+            set { SetProperty(ref _isDelete, value, "IsDelete"); }
         }
 
         private ObservableCollection<TPDriverMV> _tpDriverMvs;
@@ -43,7 +43,7 @@ namespace DataMaintenance.View
         public ObservableCollection<TPDriverMV> TpDriverMvs
         {
             get { return _tpDriverMvs; }
-            set { SetProperty(ref _tpDriverMvs, value); }
+            set { SetProperty(ref _tpDriverMvs, value, "TpDriverMvs"); }
         }
     }
 }

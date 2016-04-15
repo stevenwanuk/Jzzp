@@ -22,8 +22,7 @@ namespace DataMaintenance
 
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
+            ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
         }
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

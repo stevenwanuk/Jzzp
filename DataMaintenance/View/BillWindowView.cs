@@ -16,7 +16,7 @@ namespace DataMaintenance.View
         public TPBillRefMV QBillRefMv
         {
             get { return _qBillRefMv; }
-            set { SetProperty(ref _qBillRefMv, value); }
+            set { SetProperty(ref _qBillRefMv, value, "QBillRefMv"); }
         }
 
         private DateTime? _qStartDate;
@@ -24,14 +24,14 @@ namespace DataMaintenance.View
         public DateTime? QStartDate
         {
             get { return _qStartDate; }
-            set { SetProperty(ref _qStartDate, value); }
+            set { SetProperty(ref _qStartDate, value, "QStartDate"); }
         }
 
         private DateTime? _qEndDate;
         public DateTime? QEndDate
         {
             get { return _qEndDate; }
-            set { SetProperty(ref _qEndDate, value); }
+            set { SetProperty(ref _qEndDate, value, "QEndDate"); }
         }
 
         private int? _qStatus;
@@ -39,7 +39,7 @@ namespace DataMaintenance.View
         public int? QStatus
         {
             get { return _qStatus; }
-            set { SetProperty(ref _qStatus, value); }
+            set { SetProperty(ref _qStatus, value, "QStatus"); }
         }
 
         private long? _qDriverId;
@@ -47,10 +47,15 @@ namespace DataMaintenance.View
         public long? QDriverId
         {
             get { return _qDriverId; }
-            set { SetProperty(ref _qDriverId, value); }
+            set { SetProperty(ref _qDriverId, value, "QDriverId"); }
         }
 
-        public ObservableCollection<TPBillRefMV> BillRefMvs { get; set; }
+        private ObservableCollection<TPBillRefMV> _billRefMvs;
+        public ObservableCollection<TPBillRefMV> BillRefMvs
+        {
+            get { return _billRefMvs; }
+            set { SetProperty(ref _billRefMvs, value, "BillRefMvs"); }
+        }
 
         public BillWindowView()
         {
@@ -64,7 +69,7 @@ namespace DataMaintenance.View
         public string ErrorMsg
         {
             get { return _errorMsg; }
-            set { SetProperty(ref _errorMsg, value); }
+            set { SetProperty(ref _errorMsg, value, "ErrorMsg"); }
         }
 
     }

@@ -20,7 +20,7 @@ namespace TP.ModelView
         public string MenuID
         {
             get { return _menuId; }
-            set { SetProperty(ref _menuId, value); }
+            set { SetProperty(ref _menuId, value, "MenuID"); }
         }
 
         private string _menuName;
@@ -28,19 +28,19 @@ namespace TP.ModelView
         public string MenuName
         {
             get { return _menuName; }
-            set { SetProperty(ref _menuName, value); }
+            set { SetProperty(ref _menuName, value, "MenuName"); }
         }
 
         private decimal? _totalAmount;
         public decimal? TotalAmount {
             get { return _totalAmount; }
-            set { SetProperty(ref _totalAmount, value); }
+            set { SetProperty(ref _totalAmount, value, "TotalAmount"); }
         }
 
         private int _totalCount;
         public int TotalCount {
             get { return _totalCount; }
-            set { SetProperty(ref _totalCount, value); }
+            set { SetProperty(ref _totalCount, value, "TotalCount"); }
         }
 
     }

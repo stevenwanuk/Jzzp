@@ -26,37 +26,30 @@ namespace TP.View
         public string ErrorMsg
         {
             get { return _errorMsg; }
-            set
-            {
-                if (value != _errorMsg)
-                {
-
-                    _errorMsg = value;
-                    OnPropertyChanged();
-                }
-            }
+            set { SetProperty(ref _errorMsg, value, "ErrorMsg"); }
         }
+
 
 
         private UsersTabView _usersTabView;
         public UsersTabView UsersTabView
         {
             get { return _usersTabView; }
-            set { SetProperty(ref _usersTabView, value); }
+            set { SetProperty(ref _usersTabView, value, "UsersTabView"); }
         }
 
         private DeliveryTabView _deliveryTabView;
         public DeliveryTabView DeliveryTabView
         {
             get { return _deliveryTabView; }
-            set { SetProperty(ref _deliveryTabView, value); }
+            set { SetProperty(ref _deliveryTabView, value, "DeliveryTabView"); }
         }
 
         private OrderHistoryTabView _orderHistoryTabView;
         public OrderHistoryTabView OrderHistoryTabView
         {
             get { return _orderHistoryTabView; }
-            set { SetProperty(ref _orderHistoryTabView, value); }
+            set { SetProperty(ref _orderHistoryTabView, value, "OrderHistoryTabView"); }
         }
 
 
@@ -64,14 +57,14 @@ namespace TP.View
         public TPBillRefMV SelectedTpBillRefMv
         {
             get { return _selectedTPBillRefMv; }
-            set { SetProperty(ref _selectedTPBillRefMv, value); }
+            set { SetProperty(ref _selectedTPBillRefMv, value, "SelectedTpBillRefMv"); }
         }
 
         private ObservableCollection<TPBillRefMV> _tPBillRefs;
         public ObservableCollection<TPBillRefMV> TPBillRefs
         {
             get { return _tPBillRefs; }
-            set { SetProperty(ref _tPBillRefs, value); }
+            set { SetProperty(ref _tPBillRefs, value, "TPBillRefs"); }
         }
 
     }
