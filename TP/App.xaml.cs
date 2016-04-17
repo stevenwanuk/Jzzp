@@ -7,7 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Newtonsoft.Json;
+using TP.BLL;
 using TP.Common;
+using TP.Gmap;
+using TP.ModelView;
 
 namespace TP
 {
@@ -19,24 +23,77 @@ namespace TP
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-
+            //Binding error handler
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
+
+            //Setup chulture to GB
             ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
+
+            //Init Automapper
+            Log4netUtil.For(this).Info("Init Automapper start");
+            AutoMapperUtils.InitAutoMapper();
+            Log4netUtil.For(this).Info("Init Automapper end");
+            //DB Test
+            Log4netUtil.For(this).Info("Test db start");
+            new DBBLL().DBTestBillRef();
+            Log4netUtil.For(this).Info("Test db end");
+            test();
         }
+
+
+        public void test()
+        {
+            var a = new TPUserAddressMV();
+            var postCode = "WC1H9JP";
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                
+                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        a.RenderFromGoogleGeoCodeResponse(geoResponse);
+                    }
+                });
+
+                GmapUtils.GetDriection(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        a.RenderFromGoogleDirectionsResponse(geoResponse);
+                    }
+                });
+            }
+        }
+
+
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+
+            Log4netUtil.For(this).Error(e.ToString(), e.Exception);
+
 #if DEBUG // In debug mode do not custom-handle the exception, let Visual Studio handle it
 
             //e.Handled = false;
 
 #else
 
-            
+            ShowUnhandeledException(e);
 
 #endif
-            ShowUnhandeledException(e);
+
         }
 
         void ShowUnhandeledException(DispatcherUnhandledExceptionEventArgs e)

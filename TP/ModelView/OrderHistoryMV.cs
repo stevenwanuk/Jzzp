@@ -13,7 +13,7 @@ namespace TP.ModelView
     {
         public static OrderHistoryMV Mapper(OrderHistoryDTO entity)
         {
-            return AutoMapperUtils.GetMapper().Map<OrderHistoryDTO, OrderHistoryMV>(entity);
+            return AutoMapper.Mapper.Map<OrderHistoryDTO, OrderHistoryMV>(entity);
         }
 
         private string _menuId;

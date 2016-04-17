@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ModelGenerator;
 using TP.Common;
 using EntitiesDABL;
+using TP.Gmap;
 
 namespace TP.ModelView
 {
@@ -20,11 +21,61 @@ namespace TP.ModelView
 
         public static TPUserAddressMV Mapper(TPUserAddress entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserAddress, TPUserAddressMV>(entity);
+            return AutoMapper.Mapper.Map<TPUserAddress, TPUserAddressMV>(entity);
         }
         public TPUserAddress MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserAddressMV, TPUserAddress>(this);
+            return AutoMapper.Mapper.Map<TPUserAddressMV, TPUserAddress>(this);
+        }
+
+        public void RenderFromGoogleGeoCodeResponse(GoogleGeoCodeResponse response)
+        {
+            
+            if ("OK".Equals(response?.status, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var result = response.results.FirstOrDefault();
+                if (result != null)
+                {
+                    var addressComponents = result.address_components;
+                    if (addressComponents != null)
+                    {
+                        this.Postcode =
+                            addressComponents.Where(i => i.types.Contains("postal_code")).Select(i => i.long_name).FirstOrDefault();
+                        this.AddressField2 =
+                            addressComponents.Where(i => i.types.Contains("route")).Select(i => i.long_name).FirstOrDefault();
+                        this.AddressField3 =
+                            addressComponents.Where(i => i.types.Contains("locality")).Select(i => i.long_name).FirstOrDefault();
+                        this.TownCity =
+                            addressComponents.Where(i => i.types.Contains("postal_town")).Select(i => i.long_name).FirstOrDefault();
+                        this.Country =
+                            addressComponents.Where(i => i.types.Contains("country")).Select(i => i.long_name).FirstOrDefault();
+                    }
+                }
+            }
+        }
+
+        public void RenderFromGoogleDirectionsResponse(GoogleDirectionsResponse response)
+        {
+            if ("OK".Equals(response?.status, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var result = response.routes.FirstOrDefault();
+                if (result != null)
+                {
+                    var legs = result.legs;
+                    if (legs != null)
+                    {
+
+                        var leg = legs.FirstOrDefault();
+                        if (leg != null)
+                        {
+                            if (leg.distance != null && leg.distance.value > 0)
+                            {
+                                this.DeliveryMiles = Decimal.Round(leg.distance.value / 1000 * (decimal)0.621371192, 2);
+                            };
+                        }
+                    }
+                }
+            }
         }
 
 

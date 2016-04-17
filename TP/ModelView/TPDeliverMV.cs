@@ -19,7 +19,7 @@ namespace TP.ModelView
         }
         public static TPDeliverMV Mapper(TPDeliver entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPDeliver, TPDeliverMV>(entity);
+            return AutoMapper.Mapper.Map<TPDeliver, TPDeliverMV>(entity);
         }
 
         private long _deliverId;

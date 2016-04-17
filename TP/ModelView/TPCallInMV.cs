@@ -21,7 +21,7 @@ namespace TP.ModelView
 
         public static TPCallInMV Mapper(TPCallIn entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPCallIn, TPCallInMV>(entity);
+            return AutoMapper.Mapper.Map<TPCallIn, TPCallInMV>(entity);
         }
 
         private long _callinId;

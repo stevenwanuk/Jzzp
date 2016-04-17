@@ -14,7 +14,9 @@ using TP.View;
 using TP.WindowForm;
 using EntitiesDABL.DAL;
 using EntitiesDABL;
+using Newtonsoft.Json;
 using TP.BLL;
+using TP.Gmap;
 
 namespace TP
 {
@@ -323,5 +325,41 @@ namespace TP
             }
             BUControl.LoadBill();
         }
+
+        private void PostCodeTextbox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                //looking for address
+                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                    }
+                });
+
+                GmapUtils.GetDriection(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
+                    }
+                });
+            }
+        }
+
+
     }
 }

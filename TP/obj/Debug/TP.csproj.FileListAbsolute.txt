@@ -187,7 +187,6 @@ C:\kwan\work\c#\fixbug\Jzzp\TP\obj\Debug\TP_MarkupCompile.lref
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\TP.exe.config
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\TP.exe
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\TP.pdb
-C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\AutoMapper.dll
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\EntitiesDABL.dll
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\EntityFramework.dll
 C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\EntityFramework.SqlServer.dll
@@ -255,3 +254,15 @@ D:\work\jzzp\branch\FixBug\Jzzp\TP\bin\Debug\map\map.html
 D:\work\jzzp\branch\FixBug\Jzzp\TP\bin\Debug\map\map_route.html
 D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\UserControl\GoogleMapUserControl.baml
 D:\work\jzzp\branch\FixBug\Jzzp\TP\obj\Debug\WindowForm\TestMap.baml
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\AutoMapper.Net4.dll
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\AutoMapper.dll
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\log4net.dll
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.dll
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.presentation.dll
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\AutoMapper.pdb
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\AutoMapper.Net4.pdb
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\log4net.xml
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.pdb
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.xml
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.presentation.pdb
+C:\kwan\work\c#\fixbug\Jzzp\TP\bin\Debug\zxing.presentation.xml

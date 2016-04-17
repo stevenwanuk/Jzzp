@@ -18,12 +18,12 @@ namespace TP.ModelView
 
         public static TPBillRefMV Mapper(TPBillRef entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPBillRef, TPBillRefMV>(entity);
+            return AutoMapper.Mapper.Map<TPBillRef, TPBillRefMV>(entity);
         }
 
         public TPBillRef MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPBillRefMV, TPBillRef>(this);
+            return AutoMapper.Mapper.Map<TPBillRefMV, TPBillRef>(this);
         }
 
         private long _billRefId;

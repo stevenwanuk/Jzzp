@@ -14,12 +14,12 @@ namespace TP.ModelView
 
         public static TPUserCellMV Mapper(TPUserCell entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserCell, TPUserCellMV>(entity);
+            return AutoMapper.Mapper.Map<TPUserCell, TPUserCellMV>(entity);
         }
 
         public TPUserCell MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserCellMV, TPUserCell>(this);
+            return AutoMapper.Mapper.Map<TPUserCellMV, TPUserCell>(this);
         }
 
 

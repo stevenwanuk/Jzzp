@@ -15,12 +15,12 @@ namespace TP.ModelView
 
         public static TPDriverMV Mapper(TPDriver entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPDriver, TPDriverMV>(entity);
+            return AutoMapper.Mapper.Map<TPDriver, TPDriverMV>(entity);
         }
 
         public TPDriver MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPDriverMV, TPDriver>(this);
+            return AutoMapper.Mapper.Map<TPDriverMV, TPDriver>(this);
         }
 
         public TPDriverMV()

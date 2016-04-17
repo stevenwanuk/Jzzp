@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml.XPath;
+using TP.BLL;
 using TP.Common;
 
 namespace DataMaintenance
@@ -20,9 +21,21 @@ namespace DataMaintenance
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
 
+            //Binding error handler
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
+
+            //Setup chulture to GB
             ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
+
+            //Init Automapper
+            Log4netUtil.For(this).Info("Init Automapper start");
+            AutoMapperUtils.InitAutoMapper();
+            Log4netUtil.For(this).Info("Init Automapper end");
+            //DB Test
+            Log4netUtil.For(this).Info("Test db start");
+            new DBBLL().DBTestBillRef();
+            Log4netUtil.For(this).Info("Test db end");
         }
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

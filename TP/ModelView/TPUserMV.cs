@@ -15,12 +15,12 @@ namespace TP.ModelView
 
         public static TPUserMV Mapper(TPUser entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPUser, TPUserMV>(entity);
+            return AutoMapper.Mapper.Map<TPUser, TPUserMV>(entity);
         }
 
         public TPUser MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserMV, TPUser>(this);
+            return AutoMapper.Mapper.Map<TPUserMV, TPUser>(this);
         }
 
         public TPUserMV()
