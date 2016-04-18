@@ -14,7 +14,9 @@ using TP.View;
 using TP.WindowForm;
 using EntitiesDABL.DAL;
 using EntitiesDABL;
+using Newtonsoft.Json;
 using TP.BLL;
+using TP.Gmap;
 
 namespace TP
 {
@@ -108,6 +110,9 @@ namespace TP
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
             var billRefId = (long)((ToggleButton) sender).Tag;
+
+            mainView.SelectedTpBillRefMv = mainView.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+
             LoadTabControlView(billRefId);
 
         }
@@ -202,7 +207,7 @@ namespace TP
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
             var userMV = mainView.UsersTabView.TPUserMV;
-            mainView.ErrorMsg = "test";
+            mainView.ErrorMsg = "Saved";
             
             var user = userMV.MapperTo();
             if (user.UserId == Guid.Empty)
@@ -301,5 +306,60 @@ namespace TP
             }
             
         }
+
+        private void BillCbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
+            if (item != null)
+            {
+                if (mainView.SelectedTpBillRefMv != null)
+                {
+                    var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
+                    if (!string.IsNullOrEmpty(billId_FK) && !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
+
+                        //Bind billid
+                        new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
+
+                    }
+                }
+            }
+            BUControl.LoadBill();
+        }
+
+        private void PostCodeTextbox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                //looking for address
+                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                    }
+                });
+
+                GmapUtils.GetDriection(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
+                    }
+                });
+            }
+        }
+
+
     }
 }

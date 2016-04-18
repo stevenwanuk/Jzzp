@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP.Common
 {
-    public class CustomEventArgs
+    public class CustomEventArgs : EventArgs
     {
         public CustomEventArgs(string s)
         {

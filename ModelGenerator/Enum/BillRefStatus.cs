@@ -8,10 +8,10 @@ namespace Jzzp.Enum
 {
     public enum BillRefStatus
     {
-        Inital = 0,
+        Initial = 0,
         Started = 2,
         Distributed = 4,
-        OnDeliver = 6,
+        OnDelivery = 6,
         Done = 10,
         Cancelled = 11
     }

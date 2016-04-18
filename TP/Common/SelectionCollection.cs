@@ -18,14 +18,14 @@ namespace TP.Common
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedItem");
             }
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {

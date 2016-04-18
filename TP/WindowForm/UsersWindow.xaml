@@ -4,65 +4,71 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP.WindowForm"
+        xmlns:userControl="clr-namespace:TP.UserControl"
+        xmlns:view="clr-namespace:TP.View"
         mc:Ignorable="d"
         Title="UsersWindow" Height="800" Width="600">
+    <Window.DataContext>
+        <view:UserQueryWindowView/>
+    </Window.DataContext>
     <Grid>
-        <DockPanel>
-
-            <Grid DockPanel.Dock="Top">
-                <Grid.RowDefinitions >
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="20" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Row="0" Grid.Column="0" Content="UserId:"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="3" />
-                <Label  Grid.Row="0"  Grid.Column="2" Content="Cell:"/>
-                <TextBox Grid.Row="0" Grid.Column="3" Margin="3" />
-
-                <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="3" />
-                <Label  Grid.Row="1"  Grid.Column="2" Content="LastName:"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Margin="3" />
-
-                <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Send" Name="Confirm" Click="Confirm_OnClick" />
-            </Grid>
-
+        <userControl:PopUpUserControl ErrorMsg="{Binding Path=ErrorMsg}"></userControl:PopUpUserControl>
+        <Border>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="UserId:"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="3" />
-                <Label  Grid.Row="0"  Grid.Column="2" Content="Cell:"/>
-                <TextBox Grid.Row="0" Grid.Column="3" Margin="3" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="UserId:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding QUserMv.UserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label  Grid.Row="0"  Grid.Column="2" Content="Cell:"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Margin="3" Text="{Binding QUserCellMv.CellNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="3" />
-                <Label  Grid.Row="1"  Grid.Column="2" Content="LastName:"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Margin="3" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="FirstName:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding QUserMv.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label  Grid.Row="1"  Grid.Column="2" Content="LastName:"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" Margin="3" Text="{Binding QUserMv.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Clear" Click="Clear_OnClick" />
+                    <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Query" Click="Query_OnClick" />
+                </Grid>
 
-                <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,31,10" Content="Send"  />
+                <DataGrid x:Name="UserGrid" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  AutoGenerateColumns="False" ItemsSource="{Binding UserMvs}" CanUserAddRows="False"
+                          IsReadOnly="True" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="40" Header="Select">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <RadioButton Tag="{Binding UserId}" Content="select" Checked="Confirm_OnClick" >
+                                    </RadioButton>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="UserId" Width="*" Binding="{Binding UserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="FirstName" Width="*" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="LastName" Width="*" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-
-
-        </DockPanel>
+        </Border>
     </Grid>
 </Window>

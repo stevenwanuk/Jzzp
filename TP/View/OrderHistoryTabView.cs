@@ -20,14 +20,14 @@ namespace TP.View
         public TPBillRefMV TPBillRefMV
         {
             get { return _tPBillRefMV; }
-            set { SetProperty(ref _tPBillRefMV, value); }
+            set { SetProperty(ref _tPBillRefMV, value, "TPBillRefMV"); }
         }
 
         private long? _lastBillRefId;
         public long? LastBillRefId
         {
             get { return _lastBillRefId; }
-            set { SetProperty(ref _lastBillRefId, value); }
+            set { SetProperty(ref _lastBillRefId, value, "LastBillRefId"); }
         }
 
         public OrderHistoryTabView(long tPBillRef)

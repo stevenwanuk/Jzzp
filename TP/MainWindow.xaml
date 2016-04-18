@@ -10,8 +10,12 @@
         xmlns:uc="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
         x:Name="MWindow"
-        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" >
+        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" 
+        
+        >
     <!--WindowState="Maximized" WindowStyle="None"-->
+    
+    
     <Window.DataContext>
         <vm:MainView></vm:MainView>
     </Window.DataContext>
@@ -238,7 +242,7 @@
                                 <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=UsersTabView.TPUserAddressMV.TownCity}"/>
 
                                 <Label Grid.Column="0" Grid.Row="6" Content="Postcode" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}"/>
+                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}" TextChanged="PostCodeTextbox_OnTextChanged"/>
 
                                 <Label Grid.Column="0" Grid.Row="7" Content="Country" HorizontalAlignment="Right"/>
                                 <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=UsersTabView.TPUserAddressMV.Country}"/>
@@ -353,6 +357,21 @@
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" HorizontalAlignment="Center" Content="Bill Infos" FontSize="14" FontWeight="Bold">
                                 </Label>
+                                <ComboBox ItemsSource="{Binding DeliveryTabView.UnBindingBillMvs}" SelectedItem="{Binding Path=DeliveryTabView.UnBindingBillMvs.SelectedItem}" 
+                                          SelectionChanged="BillCbx_OnSelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding Path=TableName}"></TextBlock>
+                                                <TextBlock Grid.Column="1" Text="{Binding Path=BillID}"></TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
                                     <uc:BillUserControl x:Name="BUControl" BillRefId="{Binding Path=DeliveryTabView.TPBillRefMV.BillRefId}"/>
                                 </Border>
