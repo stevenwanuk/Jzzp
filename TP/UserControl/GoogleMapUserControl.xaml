@@ -8,8 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel Loaded="DockPanel_Loaded">
         
-        <WebBrowser DockPanel.Dock="Right" Loaded="MapWb_OnLoaded" Name="MapWb" />
-        
+        <WebBrowser DockPanel.Dock="Right"  Name="MapWb" />
         
     </DockPanel>
 </UserControl>

@@ -196,6 +196,9 @@
     <Compile Include="View\OrderHistoryTabView.cs" />
     <Compile Include="View\UserQueryWindowView.cs" />
     <Compile Include="View\UsersTabView.cs" />
+    <Compile Include="WindowForm\GMapWindow.xaml.cs">
+      <DependentUpon>GMapWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowForm\TestMap.xaml.cs">
       <DependentUpon>TestMap.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl\PopUpUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowForm\GMapWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
