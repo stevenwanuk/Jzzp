@@ -88,11 +88,13 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -162,6 +164,7 @@
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\Log4netUtil.cs" />
     <Compile Include="Common\LongToBoolenConverter.cs" />
+    <Compile Include="Common\PrintUtils.cs" />
     <Compile Include="Common\ProjectSetUpUtils.cs" />
     <Compile Include="Common\QRCodeUtils.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
@@ -297,6 +300,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="print.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Resource Include="map\down2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

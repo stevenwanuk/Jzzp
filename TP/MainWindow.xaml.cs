@@ -17,6 +17,11 @@ using EntitiesDABL;
 using Newtonsoft.Json;
 using TP.BLL;
 using TP.Gmap;
+using System.IO;
+using System.Xml;
+using System.Windows.Markup;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
 
 namespace TP
 {
@@ -75,7 +80,7 @@ namespace TP
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            
+
             var tPBillRefs = new TPBillRefBLL().GetUnCompletedCallIns(terminalId);
 
             foreach (var existedMV in mainView.TPBillRefs)
@@ -109,7 +114,7 @@ namespace TP
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            var billRefId = (long)((ToggleButton) sender).Tag;
+            var billRefId = (long)((ToggleButton)sender).Tag;
 
             mainView.SelectedTpBillRefMv = mainView.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
 
@@ -148,11 +153,11 @@ namespace TP
 
         protected void QUeryUserCallBack(object sender, CustomEventArgs e)
         {
-            
+
             Guid userId;
             if (!string.IsNullOrEmpty(e.Message) && Guid.TryParse(e.Message, out userId))
             {
-                
+
                 if (mainView.SelectedTpBillRefMv != null)
                 {
                     //Update userId
@@ -179,15 +184,15 @@ namespace TP
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((TPUserAddressMV) ((ListBox) sender).SelectedItem != null)
+            if ((TPUserAddressMV)((ListBox)sender).SelectedItem != null)
             {
-                mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV) ((ListBox) sender).SelectedItem;
+                mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
             }
             else
             {
                 mainView.UsersTabView.TPUserAddressMV = new TPUserAddressMV();
             }
-            
+
         }
 
         #region User
@@ -208,7 +213,7 @@ namespace TP
         {
             var userMV = mainView.UsersTabView.TPUserMV;
             mainView.ErrorMsg = "Saved";
-            
+
             var user = userMV.MapperTo();
             if (user.UserId == Guid.Empty)
             {
@@ -234,11 +239,11 @@ namespace TP
             var selectedItem = mainView.UsersTabView.TPUserAddressMV;
             if (selectedItem != null && mainView.UsersTabView.TPUserAddressMVs.Any(i => i.UserAddressId == selectedItem.UserAddressId))
             {
-                
+
                 new TPBillRefBLL().RemoveUserAddress(mainView.UsersTabView.TPBillRefMV.BillRefId, selectedItem.UserAddressId);
                 mainView.UsersTabView = new UsersTabView(mainView.UsersTabView.TPBillRefMV.BillRefId);
             }
-            
+
         }
 
         private void UserAddressSave_OnClick(object sender, RoutedEventArgs e)
@@ -251,14 +256,14 @@ namespace TP
             {
                 userAddress.UserId_FK = mainView.UsersTabView.TPBillRefMV.UserId_FK.Value;
 
-                
+
                 new TPBillRefBLL().SaveAddress(billRefId, userAddress);
-                new TPBillRefBLL().SaveDliveryInfos(billRefId, 
+                new TPBillRefBLL().SaveDliveryInfos(billRefId,
                     mainView.UsersTabView.TPUserAddressMV.DeliveryMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
 
                 LoadTabControlView(billRefId);
             }
-            
+
         }
 
         #endregion UserAddress
@@ -290,6 +295,17 @@ namespace TP
             }
         }
 
+        private void DeliveryCaculator_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            var deliverMiles = mainView.DeliveryTabView.TPBillRefMV.DeliverMiles;
+            if (deliverMiles != null)
+            {
+
+                var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles.Value);
+                mainView.DeliveryTabView.TPBillRefMV.DeliverFee = deliveryFee;
+            }
+        }
         private void DeliverySave_OnClick(object sender, RoutedEventArgs e)
         {
             if (mainView.DeliveryTabView.TPBillRefMV != null)
@@ -375,6 +391,68 @@ namespace TP
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            var currTextBox = sender as TextBox;
+            decimal deliverMiles = 0;
+            if (Decimal.TryParse(currTextBox.Text, out deliverMiles))
+            {
+                var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles);
+                mainView.UsersTabView.TPBillRefMV.DeliverFee = deliveryFee;
+            }
+        }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var doc1 = new System.Windows.Documents.FlowDocument();
+
+                //Add res image
+                var resPath = ConfigurationManager.AppSettings["PrintResImagePath"];
+                if (!string.IsNullOrEmpty(resPath))
+                {
+                    var resImg = new Image();
+                    var path = Path.Combine(Environment.CurrentDirectory, resPath);
+                    resImg.Source = new BitmapImage(new Uri(path));
+                    InlineUIContainer resContainer = new InlineUIContainer(resImg);
+                    Paragraph resPar = new Paragraph(resContainer);
+                    resPar.TextAlignment = TextAlignment.Center;
+                    doc1.Blocks.Add(resPar);
+                }
+
+                //Add print body
+                var reader = new StreamReader(ConfigurationManager.AppSettings["PrintFile"]);
+                var xmalString = reader.ReadToEnd();
+                StringReader stringReader = new StringReader(xmalString);
+                var xmlReader = XmlReader.Create(stringReader);
+                var sec = XamlReader.Load(xmlReader) as Section;
+                doc1.Blocks.Add(sec);
+
+                
+                //Add qr image
+                var qrImg = new Image();
+                var bitmap = QRCodeUtils.GetQrCode(string.Format(ConfigurationManager.AppSettings["DirectionUrl"], mainView.DeliveryTabView.TPBillRefMV.TPUserAddress.Postcode), 
+                    int.Parse(ConfigurationManager.AppSettings["QRHeight"]),
+                    int.Parse(ConfigurationManager.AppSettings["QRWidth"]), 
+                    0);
+                qrImg.Source = bitmap;
+                InlineUIContainer qrContainer = new InlineUIContainer(qrImg);
+                Paragraph qrPar = new Paragraph(qrContainer);
+                qrPar.TextAlignment = TextAlignment.Center;
+                doc1.Blocks.Add(qrPar);
+
+                PrintUtils.DoPreview("test", doc1);
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 }
