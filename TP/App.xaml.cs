@@ -23,6 +23,7 @@ namespace TP
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+
             //Binding error handler
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
@@ -38,7 +39,13 @@ namespace TP
             Log4netUtil.For(this).Info("Test db start");
             new DBBLL().DBTestBillRef();
             Log4netUtil.For(this).Info("Test db end");
-            //test();
+
+            //DeliveryCaculator test
+            Log4netUtil.For(this).Info("DeliveryCaculator test start");
+            var i = DeliveryFeeCaculator.GetDeliveryFee(5);
+            var j = DeliveryFeeCaculator.GetDeliveryFee(2, 5);
+            Log4netUtil.For(this).Info("DeliveryCaculator test end");
+
         }
 
 

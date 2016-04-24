@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using System.Xml.XPath;
 using TP.BLL;
 using TP.Common;
+using TP.Common.CustomConfig;
 
 namespace DataMaintenance
 {

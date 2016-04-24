@@ -21,6 +21,7 @@ using System.Security.Policy;
 using DataMaintenance.View;
 using Microsoft.Practices.Prism.Commands;
 using TP.Common;
+using TP.Common.CustomConfig;
 
 namespace DataMaintenance
 {

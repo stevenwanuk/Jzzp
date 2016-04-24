@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TP.Common;
+using TP.Common.CustomConfig;
 
 namespace DataMaintenance.View
 {
