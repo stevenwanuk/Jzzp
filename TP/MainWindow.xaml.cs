@@ -326,7 +326,19 @@ namespace TP
             BUControl.LoadBill();
         }
 
-        private void PostCodeTextbox_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void GmapBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if(!string.IsNullOrEmpty(postCode))
+            {
+                var gmap = new GMapWindow();
+                gmap.Owner = this;
+                gmap.GMapUC.DPostCode = postCode;
+                gmap.Show();
+            }
+        }
+
+        private void GCodeBtn_Click(object sender, RoutedEventArgs e)
         {
             var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
             if (!string.IsNullOrEmpty(postCode))
@@ -335,7 +347,7 @@ namespace TP
                 GmapUtils.GetGeoCode(postCode, (o, args) =>
                 {
 
-                    MessageBox.Show(args.Result);
+                    //MessageBox.Show(args.Result);
                     var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
 
                     if (geoResponse != null)
@@ -348,7 +360,7 @@ namespace TP
                 GmapUtils.GetDriection(postCode, (o, args) =>
                 {
 
-                    MessageBox.Show(args.Result);
+                    //MessageBox.Show(args.Result);
                     var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
 
                     if (geoResponse != null)
@@ -360,6 +372,9 @@ namespace TP
             }
         }
 
-
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

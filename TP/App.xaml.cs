@@ -38,7 +38,7 @@ namespace TP
             Log4netUtil.For(this).Info("Test db start");
             new DBBLL().DBTestBillRef();
             Log4netUtil.For(this).Info("Test db end");
-            test();
+            //test();
         }
 
 

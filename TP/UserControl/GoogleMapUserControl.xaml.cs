@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,14 +21,47 @@ namespace TP.UserControl
     /// <summary>
     /// Interaction logic for GoogleMapUserControl.xaml
     /// </summary>
-    public partial class GoogleMapUserControl : System.Windows.Controls.UserControl
+    public partial class GoogleMapUserControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
+
+        public string OPostCode
+        {
+            get { return (string)GetValue(OPostCodeProperty); }
+            set { SetValue(OPostCodeProperty, value); }
+        }
+        public static readonly DependencyProperty OPostCodeProperty = DependencyProperty.Register("OPostCode", typeof(string), typeof(GoogleMapUserControl), new PropertyMetadata(OnCustomerChangedCallBack));
+
+        private static void OnCustomerChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var thiscontrol = sender as GoogleMapUserControl;
+
+            if (thiscontrol != null && (!string.IsNullOrEmpty(thiscontrol.OPostCode) || !string.IsNullOrEmpty(thiscontrol.DPostCode)))
+            {
+                thiscontrol.Load(thiscontrol.OPostCode, thiscontrol.DPostCode);
+            }
+        }
+
+        public string DPostCode
+        {
+            get { return (string)GetValue(DPostCodeProperty); }
+            set { SetValue(DPostCodeProperty, value); }
+        }
+        public static readonly DependencyProperty DPostCodeProperty = DependencyProperty.Register("DPostCode", typeof(string), typeof(GoogleMapUserControl), new PropertyMetadata(OnCustomerChangedCallBack));
+
 
         string mapURL = AppDomain.CurrentDomain.BaseDirectory + "map/map.html";
         private string routeUrl = "map/map_route.html";
+
+        private string GMapUrl = ConfigurationManager.AppSettings["GMap"];
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void DockPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            Load("25.520581,-103.40607", "25.520581, -103.50607");
+            if (!string.IsNullOrEmpty(OPostCode) && !string.IsNullOrEmpty(DPostCode))
+            {
+                Load(OPostCode, DPostCode);
+            }
         }
 
 
@@ -37,6 +72,14 @@ namespace TP.UserControl
 
         protected void Load(string origin, string destination)
         {
+
+            if (!string.IsNullOrEmpty(GMapUrl))
+            {
+                //var url = string.Format(GMapUrl, this.OPostCode, this.DPostCode);
+                var url = string.Format(GMapUrl, this.DPostCode);
+                MapWb.Navigate(url);
+            }
+            /**
             if (File.Exists(routeUrl))
             {
                 using (var streamReader = new StreamReader(routeUrl))
@@ -47,19 +90,7 @@ namespace TP.UserControl
                     MapWb.NavigateToString(line);
                 }
             }
-        }
-
-        private void MapWb_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            //((WebBrowser)sender).ObjectForScripting = new HtmlInteropInternalTestClass();
-        }
-        [System.Runtime.InteropServices.ComVisibleAttribute(true)]
-        public class HtmlInteropInternalTestClass
-        {
-            public void endDragMarkerCS(Decimal Lat, Decimal Lng)
-            {
-                //((GoogleMapUserControl)Application.Current.MainWindow.Content).tbLocation.Text = Math.Round(Lat, 5) + "," + Math.Round(Lng, 5);
-            }
+            **/
         }
     }
 }

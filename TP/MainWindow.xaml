@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" 
-        
+        WindowState="Maximized" WindowStyle="None"
         >
     <!--WindowState="Maximized" WindowStyle="None"-->
     
@@ -54,12 +54,18 @@
     </Window.Resources>
     <Grid>
         <uc:PopUpUserControl ErrorMsg="{Binding Path=ErrorMsg}"></uc:PopUpUserControl>
+
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <TextBlock Width="84">
-                    <Label Width="84">Waitting List</Label>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Width="84" Grid.Column="0">
+                <Label Width="84">Waitting List</Label>
                 </TextBlock>
-                <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=TPBillRefs}">
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -78,7 +84,11 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
+
+                <Button Content="exit" Click="ExitBtn_Click" Grid.Column="2" Height="50"></Button>
+                
+            </Grid>
+            
 
             <StackPanel DockPanel.Dock="Top">
                 <Grid Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -93,6 +103,7 @@
 
                         <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="1" Content="Cell:"/>
@@ -104,7 +115,10 @@
                     <Label Grid.Column="5" Content="End:"/>
                     <Label Grid.Column="6" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.EndDate}"/>
 
+
                 </Grid>
+
+                
             </StackPanel>
 
             <TabControl TabStripPlacement="Left" x:Name="tPTabControl" Margin="1,0,0,0" SelectionChanged="TPTabControl_OnSelectionChanged">
@@ -124,7 +138,7 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="UserDetails" Foreground="Blue" Height="80" >
+                <TabItem Header="UserDetails" Foreground="Blue" Height="80" IsSelected="True">
                     <StackPanel Margin="2,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -242,7 +256,20 @@
                                 <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=UsersTabView.TPUserAddressMV.TownCity}"/>
 
                                 <Label Grid.Column="0" Grid.Row="6" Content="Postcode" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}" TextChanged="PostCodeTextbox_OnTextChanged"/>
+                                <Grid Grid.Column="1" Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox  Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button HorizontalAlignment="Right"  Content="GCode" Click="GCodeBtn_Click"/>
+                                        <Button HorizontalAlignment="Right"  Content="Gmap" Click="GmapBtn_Click"/>
+                                    </StackPanel>
+                                    
+                                </Grid>
+                                
 
                                 <Label Grid.Column="0" Grid.Row="7" Content="Country" HorizontalAlignment="Right"/>
                                 <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=UsersTabView.TPUserAddressMV.Country}"/>
@@ -260,7 +287,7 @@
                                 </StackPanel>
                             </Grid>
                         </Grid>
-
+<!-- example of validation
                         <TextBox Height="30" x:Name="txtinput" Background="AliceBlue" Width="189" AllowDrop="True" Text="{Binding UsersTabView.TPBillRefMV.TPUser.FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" />
                         <Button Content="Query" Name="QueryUser" Click="QueryUser_OnClick">
                             <Button.Style>
@@ -277,6 +304,7 @@
                                 </Style>
                             </Button.Style>
                         </Button>
+-->                        
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80" >
@@ -328,7 +356,7 @@
                     </DockPanel>
                 </TabItem>
 
-                <TabItem Header="Delivery" Foreground="Green" Height="80" IsSelected="True">
+                <TabItem Header="Delivery" Foreground="Green" Height="80" >
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top">
                             <!-- user infos -->
