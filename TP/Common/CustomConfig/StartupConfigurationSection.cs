@@ -4,8 +4,9 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TP.Common.CustomConfig;
 
-namespace TP.Common
+namespace TP.Common.CustomConfig
 {
     public class StartupConfigurationSection : ConfigurationSection
     {

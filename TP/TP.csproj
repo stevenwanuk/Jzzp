@@ -152,7 +152,12 @@
     <Compile Include="Common\BoolToVisibilityConverter.cs" />
     <Compile Include="Common\CompareConverter.cs" />
     <Compile Include="Common\CSharpComplilerUtils.cs" />
+    <Compile Include="Common\CustomConfig\DeliveryDiscountConfigurationElement.cs" />
+    <Compile Include="Common\CustomConfig\DispatcherConfigurationSection.cs" />
+    <Compile Include="Common\CustomConfig\DeliveryFeeConfigurationElement.cs" />
+    <Compile Include="Common\CustomConfig\GenericConfigurationElementCollection.cs" />
     <Compile Include="Common\CustomEventArgs.cs" />
+    <Compile Include="Common\DeliveryFeeCaculator.cs" />
     <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\Log4netUtil.cs" />
@@ -160,9 +165,9 @@
     <Compile Include="Common\ProjectSetUpUtils.cs" />
     <Compile Include="Common\QRCodeUtils.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
-    <Compile Include="Common\StartupConfigurationCollection.cs" />
-    <Compile Include="Common\StartupConfigurationElement.cs" />
-    <Compile Include="Common\StartupConfigurationSection.cs" />
+    <Compile Include="Common\CustomConfig\StartupConfigurationCollection.cs" />
+    <Compile Include="Common\CustomConfig\StartupConfigurationElement.cs" />
+    <Compile Include="Common\CustomConfig\StartupConfigurationSection.cs" />
     <Compile Include="Common\SumConverter.cs" />
     <Compile Include="Common\ValueConverterGroup.cs" />
     <Compile Include="Gmap\GmapUtils.cs" />
