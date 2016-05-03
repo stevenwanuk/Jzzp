@@ -38,5 +38,6 @@ namespace EntitiesDABL
         public virtual DbSet<TempBill> TempBills { get; set; }
         public virtual DbSet<TempBillItem> TempBillItems { get; set; }
         public virtual DbSet<BillPayment> BillPayments { get; set; }
+        public virtual DbSet<TPAddress> TPAddresses { get; set; }
     }
 }

@@ -86,6 +86,15 @@ namespace TP.Common
 
             //OrderHistory
             Mapper.CreateMap<OrderHistoryDTO, OrderHistoryMV>();
+
+            //TPUserAddress to TPAdress
+            Mapper.CreateMap<TPUserAddress, TPAddress>()
+                .ForMember(s => s.HouseNumber, m => m.Ignore());
+
+            Mapper.CreateMap<TPAddress, TPUserAddressMV>()
+                .ForMember(s => s.HouseNumber, m => m.Ignore())
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPUser, m => m.Ignore());
         }
 
 

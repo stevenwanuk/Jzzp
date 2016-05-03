@@ -261,6 +261,20 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="TaxRate" Type="money" />
           <Property Name="SumOfTax" Type="money" />
         </EntityType>
+        <EntityType Name="TP_Address">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseNumber" Type="varchar" MaxLength="10" />
+          <Property Name="AddressField1" Type="varchar" MaxLength="50" />
+          <Property Name="AddressField2" Type="varchar" MaxLength="50" />
+          <Property Name="AddressField3" Type="varchar" MaxLength="50" />
+          <Property Name="TownCity" Type="varchar" MaxLength="50" />
+          <Property Name="Postcode" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryMiles" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
         <EntityType Name="TP_BillRef">
           <Key>
             <PropertyRef Name="BillRefId" />
@@ -430,6 +444,7 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelEntitiesStoreContainer">
+          <EntitySet Name="TP_Address" EntityType="Self.TP_Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />
@@ -753,6 +768,7 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <EntitySet Name="TempBills" EntityType="EntitiesDABL.TempBill" />
           <EntitySet Name="TempBillItems" EntityType="EntitiesDABL.TempBillItem" />
           <EntitySet Name="BillPayments" EntityType="EntitiesDABL.BillPayment" />
+          <EntitySet Name="TPAddresses" EntityType="EntitiesDABL.TPAddress" />
         </EntityContainer>
         <EntityType Name="TPBillRef">
           <Key>
@@ -1182,6 +1198,20 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="PaySum" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="TPAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1527,6 +1557,21 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPAddresses">
+            <EntityTypeMapping TypeName="EntitiesDABL.TPAddress">
+              <MappingFragment StoreEntitySet="TP_Address">
+                <ScalarProperty Name="DeliveryMiles" ColumnName="DeliveryMiles" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="TownCity" ColumnName="TownCity" />
+                <ScalarProperty Name="AddressField3" ColumnName="AddressField3" />
+                <ScalarProperty Name="AddressField2" ColumnName="AddressField2" />
+                <ScalarProperty Name="AddressField1" ColumnName="AddressField1" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

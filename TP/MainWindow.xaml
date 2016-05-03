@@ -22,6 +22,8 @@
     <Window.Resources>
         <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
+        <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Hidden" FalseValue="Visible"></common:BoolToVisibilityConverter>
+        <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden"></common:BoolToVisibilityConverter>
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -264,8 +266,12 @@
 
                                     <TextBox  Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}"/>
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button HorizontalAlignment="Right"  Content="GCode" Click="GCodeBtn_Click"/>
-                                        <Button HorizontalAlignment="Right"  Content="Gmap" Click="GmapBtn_Click"/>
+                                        <Button HorizontalAlignment="Right"  Content="LCode" Click="LCodeBtn_Click" 
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource ReversedBoolToVisibilityConverter}}"/>
+                                        <Button HorizontalAlignment="Right"  Content="GCode" Click="GCodeBtn_Click"
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        <Button HorizontalAlignment="Right"  Content="Gmap" Click="GmapBtn_Click"
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                     </StackPanel>
                                     
                                 </Grid>

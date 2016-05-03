@@ -96,6 +96,9 @@
       <DependentUpon>JPPZModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Test\TestEntity.cs" />
+    <Compile Include="TPAddress.cs">
+      <DependentUpon>JPPZModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TPBillRef.cs">
       <DependentUpon>JPPZModel.tt</DependentUpon>
     </Compile>

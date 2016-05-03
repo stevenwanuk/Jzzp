@@ -22,6 +22,8 @@ using System.Xml;
 using System.Windows.Markup;
 using System.Windows.Documents;
 using System.Windows.Media.Imaging;
+using TP.Common.StringLib;
+using Xceed.Wpf.AvalonDock.Controls;
 
 namespace TP
 {
@@ -354,6 +356,19 @@ namespace TP
             }
         }
 
+        private void LCodeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                var address = new TPAddressBLL().GetAddressByPostCode(postCode);
+                if (address != null)
+                {
+                    mainView.UsersTabView.TPUserAddressMV.RenderFromTpAddress(address);
+                }
+            }
+        }
+
         private void GCodeBtn_Click(object sender, RoutedEventArgs e)
         {
             var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
@@ -428,11 +443,30 @@ namespace TP
                 //Add print body
                 var reader = new StreamReader(ConfigurationManager.AppSettings["PrintFile"]);
                 var xmalString = reader.ReadToEnd();
+
+
+                //Query Bill Infos
+                var billInfo = new JzzpBillBLL().GetBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
+                //Parse the value
+                xmalString = xmalString.HaackFormat(
+                    new {
+                    
+                        TPBillRef = mainView.DeliveryTabView.TPBillRefMV,
+                        TPUser = mainView.DeliveryTabView.TPBillRefMV.TPUser,
+                        TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
+                        Bill = billInfo.Bill
+                    });
                 StringReader stringReader = new StringReader(xmalString);
                 var xmlReader = XmlReader.Create(stringReader);
                 var sec = XamlReader.Load(xmlReader) as Section;
-                doc1.Blocks.Add(sec);
 
+                //Looking for billItem 
+                var table = sec.Blocks.Where(i => i is Table).OfType<Table>().FirstOrDefault();
+                if (table != null)
+                {
+                    buildBillItemTable(table, billInfo.BillItems);
+                }
+                doc1.Blocks.Add(sec);
                 
                 //Add qr image
                 var qrImg = new Image();
@@ -452,7 +486,30 @@ namespace TP
             {
                 MessageBox.Show(ex.ToString());
             }
-            
         }
+
+        private void buildBillItemTable(Table table, ICollection<BillItem> billItems)
+        {
+
+            var reader = new StreamReader(ConfigurationManager.AppSettings["PrintItemSampleFile"]);
+            var xmalString = reader.ReadToEnd();
+
+            foreach (var billItem in billItems)
+            {
+                var billItemXmal = xmalString.HaackFormat(new
+                {
+                    BillItem = billItem,
+                    Amount = billItem.AmountOrder - billItem.AmountCancel,
+                    Price = billItem.SumOfConsume - billItem.SumForDiscount
+                });
+
+                StringReader stringReader = new StringReader(billItemXmal);
+                var xmlReader = XmlReader.Create(stringReader);
+                var row = XamlReader.Load(xmlReader) as TableRow;
+                table.RowGroups[0].Rows.Add(row);
+            }
+        }
+
+
     }
 }

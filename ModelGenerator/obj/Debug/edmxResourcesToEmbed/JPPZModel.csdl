@@ -42,6 +42,7 @@
     <EntitySet Name="TempBills" EntityType="EntitiesDABL.TempBill" />
     <EntitySet Name="TempBillItems" EntityType="EntitiesDABL.TempBillItem" />
     <EntitySet Name="BillPayments" EntityType="EntitiesDABL.BillPayment" />
+    <EntitySet Name="TPAddresses" EntityType="EntitiesDABL.TPAddress" />
   </EntityContainer>
   <EntityType Name="TPBillRef">
     <Key>
@@ -470,5 +471,19 @@
     <Property Name="ExchangeRate" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="PaySum" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="TPAddress">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
   </EntityType>
 </Schema>
