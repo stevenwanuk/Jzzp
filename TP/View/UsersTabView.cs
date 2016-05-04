@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ namespace TP.View
 {
     public class UsersTabView : BindableBase
     {
+
+        public bool EnabledGmap { get; set; }
+
         private TPBillRefMV _tPBillRefMV;
         public TPBillRefMV TPBillRefMV
         {
@@ -46,6 +50,13 @@ namespace TP.View
 
         public UsersTabView(long tPBillRef)
         {
+            EnabledGmap = true;
+            bool appsetting;
+            if (bool.TryParse(ConfigurationManager.AppSettings["EnabledGmap"], out appsetting))
+            {
+                EnabledGmap = appsetting;
+            }
+            
 
             _tPUserAddressMVs = new SelectionCollection<TPUserAddressMV>();
 

@@ -343,5 +343,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TPAddresses">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPAddress">
+        <MappingFragment StoreEntitySet="TP_Address">
+          <ScalarProperty Name="DeliveryMiles" ColumnName="DeliveryMiles" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+          <ScalarProperty Name="TownCity" ColumnName="TownCity" />
+          <ScalarProperty Name="AddressField3" ColumnName="AddressField3" />
+          <ScalarProperty Name="AddressField2" ColumnName="AddressField2" />
+          <ScalarProperty Name="AddressField1" ColumnName="AddressField1" />
+          <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

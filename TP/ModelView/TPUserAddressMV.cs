@@ -78,6 +78,21 @@ namespace TP.ModelView
             }
         }
 
+        public void RenderFromTpAddress(TPAddress address)
+        {
+            if (address != null)
+            {
+
+                this.Postcode = address.Postcode;
+                this.AddressField1 = address.AddressField1;
+                this.AddressField2 = address.AddressField2;
+                this.AddressField3 = address.AddressField3;
+                this.TownCity = address.TownCity;
+                this.Country = address.Country;
+            }
+
+        }
+
 
         private long _userAddressId;
         public long UserAddressId

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b9b12726839240e6b38f6d215c48c05f" Name="Diagram1">
+      <Diagram DiagramId="b9b12726839240e6b38f6d215c48c05f" Name="Diagram1" ZoomLevel="101">
         <EntityTypeShape EntityType="EntitiesDABL.TPBillRef" Width="1.5" PointX="5.25" PointY="7.5" />
         <EntityTypeShape EntityType="EntitiesDABL.TPCallIn" Width="1.5" PointX="3" PointY="6.625" />
         <EntityTypeShape EntityType="EntitiesDABL.TPDeliver" Width="1.5" PointX="3" PointY="14.5" />
@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="EntitiesDABL.TempBill" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="EntitiesDABL.TempBillItem" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="EntitiesDABL.BillPayment" Width="1.5" PointX="13.375" PointY="11.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPAddress" Width="1.5" PointX="5.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

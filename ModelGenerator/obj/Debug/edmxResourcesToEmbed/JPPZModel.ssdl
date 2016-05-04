@@ -256,6 +256,20 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     <Property Name="TaxRate" Type="money" />
     <Property Name="SumOfTax" Type="money" />
   </EntityType>
+  <EntityType Name="TP_Address">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HouseNumber" Type="varchar" MaxLength="10" />
+    <Property Name="AddressField1" Type="varchar" MaxLength="50" />
+    <Property Name="AddressField2" Type="varchar" MaxLength="50" />
+    <Property Name="AddressField3" Type="varchar" MaxLength="50" />
+    <Property Name="TownCity" Type="varchar" MaxLength="50" />
+    <Property Name="Postcode" Type="varchar" MaxLength="50" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="DeliveryMiles" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
   <EntityType Name="TP_BillRef">
     <Key>
       <PropertyRef Name="BillRefId" />
@@ -425,6 +439,7 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ModelEntitiesStoreContainer">
+    <EntitySet Name="TP_Address" EntityType="Self.TP_Address" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />

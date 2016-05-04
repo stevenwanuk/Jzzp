@@ -88,11 +88,14 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -144,6 +147,7 @@
     </ApplicationDefinition>
     <Compile Include="BLL\DBBLL.cs" />
     <Compile Include="BLL\JzzpBillBLL.cs" />
+    <Compile Include="BLL\TPAddressBLL.cs" />
     <Compile Include="BLL\TPBillRefBLL.cs" />
     <Compile Include="BLL\TPDriverBLL.cs" />
     <Compile Include="BLL\TPUserAddressBLL.cs" />
@@ -158,16 +162,22 @@
     <Compile Include="Common\CustomConfig\GenericConfigurationElementCollection.cs" />
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\DeliveryFeeCaculator.cs" />
+    <Compile Include="Common\DependencyValidationUtils.cs" />
     <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\Log4netUtil.cs" />
     <Compile Include="Common\LongToBoolenConverter.cs" />
+    <Compile Include="Common\PrintUtils.cs" />
     <Compile Include="Common\ProjectSetUpUtils.cs" />
     <Compile Include="Common\QRCodeUtils.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
     <Compile Include="Common\CustomConfig\StartupConfigurationCollection.cs" />
     <Compile Include="Common\CustomConfig\StartupConfigurationElement.cs" />
     <Compile Include="Common\CustomConfig\StartupConfigurationSection.cs" />
+    <Compile Include="Common\StringLib\FormatExpression.cs" />
+    <Compile Include="Common\StringLib\HaackFormatter.cs" />
+    <Compile Include="Common\StringLib\ITextExpression.cs" />
+    <Compile Include="Common\StringLib\LiteralFormat.cs" />
     <Compile Include="Common\SumConverter.cs" />
     <Compile Include="Common\ValueConverterGroup.cs" />
     <Compile Include="Gmap\GmapUtils.cs" />
@@ -297,6 +307,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="print_BillItem.txt" />
+    <EmbeddedResource Include="print.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Resource Include="map\down2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

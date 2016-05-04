@@ -54,6 +54,7 @@ namespace TP.View
             var billRef = new TPBillRefBLL().GeBillRefWithUserAndDriverByTpBillRefId(tPBillRef);
             TPBillRefMV = TPBillRefMV.Mapper(billRef);
             TPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
+            TPBillRefMV.TPUserAddress = TPUserAddressMV.Mapper(billRef.TPUserAddress);
 
             TPDeliverMV = TPDeliverMV.Mapper(billRef.TPDeliver);
             if (billRef.TPDeliver != null)
