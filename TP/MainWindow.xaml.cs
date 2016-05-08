@@ -426,7 +426,7 @@ namespace TP
             try
             {
                 var doc1 = new System.Windows.Documents.FlowDocument();
-
+                doc1.PageWidth = 600;
                 //Add res image
                 var resPath = ConfigurationManager.AppSettings["PrintResImagePath"];
                 if (!string.IsNullOrEmpty(resPath))
@@ -437,7 +437,9 @@ namespace TP
                     InlineUIContainer resContainer = new InlineUIContainer(resImg);
                     Paragraph resPar = new Paragraph(resContainer);
                     resPar.TextAlignment = TextAlignment.Center;
-                    doc1.Blocks.Add(resPar);
+                    Section s = new Section();
+                    s.Blocks.Add(resPar);
+                    doc1.Blocks.Add(s);
                 }
 
                 //Add print body
@@ -448,6 +450,7 @@ namespace TP
                 //Query Bill Infos
                 var billInfo = new JzzpBillBLL().GetBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
                 //Parse the value
+
                 xmalString = xmalString.HaackFormat(
                     new {
                     
@@ -456,6 +459,7 @@ namespace TP
                         TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
                         Bill = billInfo.Bill
                     });
+
                 StringReader stringReader = new StringReader(xmalString);
                 var xmlReader = XmlReader.Create(stringReader);
                 var sec = XamlReader.Load(xmlReader) as Section;
@@ -478,7 +482,9 @@ namespace TP
                 InlineUIContainer qrContainer = new InlineUIContainer(qrImg);
                 Paragraph qrPar = new Paragraph(qrContainer);
                 qrPar.TextAlignment = TextAlignment.Center;
-                doc1.Blocks.Add(qrPar);
+                Section sqr = new Section();
+                sqr.Blocks.Add(qrPar);
+                doc1.Blocks.Add(sqr);
 
                 PrintUtils.DoPreview("test", doc1);
 

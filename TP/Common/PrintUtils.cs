@@ -20,8 +20,8 @@ namespace TP.Common
         xmlns                 ='http://schemas.microsoft.com/netfx/2007/xaml/presentation'
         xmlns:x               ='http://schemas.microsoft.com/winfx/2006/xaml'
         Title                 ='Print Preview - @@TITLE'
-        Height                ='200'
-        Width                 ='300'
+        Height                ='800'
+        Width                 ='600'
         WindowStartupLocation ='CenterOwner'>
         <DocumentViewer Name='dv1'/>
      </Window>";

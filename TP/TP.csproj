@@ -17,7 +17,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -194,6 +194,8 @@
     <Compile Include="ModelView\TPUserAddressMV.cs" />
     <Compile Include="ModelView\TPUserCellMV.cs" />
     <Compile Include="ModelView\TPUserMV.cs" />
+    <Compile Include="Pstn\brichiperr.cs" />
+    <Compile Include="Pstn\BriSDKLib.cs" />
     <Compile Include="UserControl\BillUserControl.xaml.cs">
       <DependentUpon>BillUserControl.xaml</DependentUpon>
     </Compile>
@@ -307,7 +309,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="print_BillItem.txt" />
+    <EmbeddedResource Include="print_BillItem.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="print.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
