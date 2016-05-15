@@ -583,7 +583,7 @@ namespace TP
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            AddNewBillRef("123456");
+            AddNewBillRef(string.Empty);
             mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
             if (mainView.SelectedTpBillRefMv != null)
             {
