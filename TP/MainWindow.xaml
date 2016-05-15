@@ -10,18 +10,26 @@
         xmlns:uc="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
         x:Name="MWindow"
-        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" 
-
+        Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
+        WindowState="Maximized" WindowStyle="None"
         >
-    <!--WindowState="Maximized" WindowStyle="None"-->
-    
-    
+
+
     <Window.DataContext>
         <vm:MainView></vm:MainView>
     </Window.DataContext>
     <Window.Resources>
-        <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
+        <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
+            <Setter Property="Background" Value="Blue"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
+        <common:EmptyStringConverter x:Key="EmptyStringConverter"></common:EmptyStringConverter>
+        
         <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Hidden" FalseValue="Visible"></common:BoolToVisibilityConverter>
         <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden"></common:BoolToVisibilityConverter>
         <Style TargetType="{x:Type TextBox}">
@@ -63,19 +71,21 @@
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Width="84" Grid.Column="0">
                 <Label Width="84">Waitting List</Label>
                 </TextBlock>
-                <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}" >
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
+                            <WrapPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding TPCallIn.CellNumber}" Height="50" Width="60" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Checked="ToggleButton_OnChecked">
+                            <RadioButton Content="{Binding TPCallIn.CellNumber}" Height="60" Width="80" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Click="RadioButton_Click" Checked="ToggleButton_OnChecked">
                                 <RadioButton.IsChecked>
                                     <MultiBinding Converter="{StaticResource CompareConverter}">
                                         <Binding Path="BillRefId"></Binding>
@@ -87,41 +97,53 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Button Content="exit" Click="ExitBtn_Click" Grid.Column="2" Height="50"></Button>
+
+                <Button Content="Add" Click="Add_Click" Grid.Column="2" Height="50"></Button>
+                <Button Content="Close" Click="CloseCurrTab_Click" Grid.Column="3" Height="50"></Button>
+                <Button Content="exit" Click="ExitBtn_Click" Grid.Column="4" Height="50"></Button>
                 
             </Grid>
-            
 
-            <StackPanel DockPanel.Dock="Top">
-                <Grid Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+
+            <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="3*" />
+
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="3*" />
+
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="1" Content="Cell:"/>
+
+                <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="1*" />
-
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="3*" />
-
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="3*" />
-
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="1" Content="Cell:"/>
-                    <Label Grid.Column="2" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"/>
-
-                    <Label Grid.Column="3" Content="Start:"/>
-                    <Label Grid.Column="4" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.StartDate}"/>
-
-                    <Label Grid.Column="5" Content="End:"/>
-                    <Label Grid.Column="6" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.EndDate}"/>
-
-
+                    <TextBox x:Name="callIdTB" Grid.Column="0" Text="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"  IsReadOnly="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber, Converter={StaticResource EmptyStringConverter}}"/>
+                    <Button Grid.Column="1" Visibility="{Binding ElementName=callIdTB, Path=IsReadOnly, Converter={StaticResource ReversedBoolToVisibilityConverter}}" Click="CallInSave_Click">Save</Button>
                 </Grid>
 
                 
-            </StackPanel>
+                
+
+                <Label Grid.Column="3" Content="Start:"/>
+                <Label Grid.Column="4" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.StartDate}"/>
+
+                <Label Grid.Column="5" Content="End:"/>
+                <Label Grid.Column="6" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.EndDate}"/>
+
+
+            </Grid>
+
 
             <TabControl TabStripPlacement="Left" x:Name="tPTabControl" Margin="1,0,0,0" SelectionChanged="TPTabControl_OnSelectionChanged">
                 <TabControl.Resources>

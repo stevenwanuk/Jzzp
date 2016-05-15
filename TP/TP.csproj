@@ -145,10 +145,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppStatic\TPConfig.cs" />
     <Compile Include="BLL\DBBLL.cs" />
     <Compile Include="BLL\JzzpBillBLL.cs" />
     <Compile Include="BLL\TPAddressBLL.cs" />
     <Compile Include="BLL\TPBillRefBLL.cs" />
+    <Compile Include="BLL\TPCallInBLL.cs" />
     <Compile Include="BLL\TPDriverBLL.cs" />
     <Compile Include="BLL\TPUserAddressBLL.cs" />
     <Compile Include="BLL\TPUserBLL.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Common\CustomEventArgs.cs" />
     <Compile Include="Common\DeliveryFeeCaculator.cs" />
     <Compile Include="Common\DependencyValidationUtils.cs" />
+    <Compile Include="Common\EmptyStringConverter.cs" />
     <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\Log4netUtil.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="Common\StringLib\HaackFormatter.cs" />
     <Compile Include="Common\StringLib\ITextExpression.cs" />
     <Compile Include="Common\StringLib\LiteralFormat.cs" />
+    <Compile Include="Common\StringUtils.cs" />
     <Compile Include="Common\SumConverter.cs" />
     <Compile Include="Common\ValueConverterGroup.cs" />
     <Compile Include="Gmap\GmapUtils.cs" />
@@ -194,6 +198,7 @@
     <Compile Include="ModelView\TPUserAddressMV.cs" />
     <Compile Include="ModelView\TPUserCellMV.cs" />
     <Compile Include="ModelView\TPUserMV.cs" />
+    <Compile Include="printing\Printer.cs" />
     <Compile Include="Pstn\brichiperr.cs" />
     <Compile Include="Pstn\BriSDKLib.cs" />
     <Compile Include="UserControl\BillUserControl.xaml.cs">
@@ -318,7 +323,9 @@
     <Resource Include="map\down2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="log4net.xml" />
+    <EmbeddedResource Include="log4net.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="map\HTMLPage1.html" />
     <Content Include="map\map.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

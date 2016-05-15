@@ -70,6 +70,24 @@ namespace TP.BLL
             return result;
         }
 
+        public ICollection<TPBillRef> GetDisplayedTPBillRef(int terminalId)
+        {
+            var result = new List<TPBillRef>();
+
+            using (var entities = new JZZPEntities())
+            {
+
+                var query = from br in entities.TPBillRefs
+                            where br.ShowOnMain 
+                            && br.TPCallIn != null 
+                            && br.TPCallIn.TerminalId == terminalId
+                            select br;
+                result = query.Include(i => i.TPCallIn).ToList();
+            }
+
+            return result;
+        }
+
         public ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
         {
             ICollection<TPBillRef> result = null;
@@ -256,6 +274,60 @@ namespace TP.BLL
             return result;
         }
 
+        public TPBillRef CreatNewBillRef(string telno, int terminalId)
+        {
 
+            TPBillRef billRef = null;
+            using (var entities = new JZZPEntities())
+            {
+                billRef = new TPBillRef()
+                {
+                    Status = (int)BillRefStatus.Initial,
+                    ShowOnMain = true
+                };
+                entities.TPBillRefs.Add(billRef);
+                var callIn = new TPCallIn()
+                {
+                    TerminalId = terminalId,
+                    StartDate = DateTime.Now
+                };
+                entities.TPCallIns.Add(callIn);
+                billRef.TPCallIn = callIn;
+                if (!string.IsNullOrEmpty(telno))
+                {   
+                    callIn.CellNumber = telno;
+
+                    //looking for useraddress
+                    var query = entities.TPBillRefs.Where(i => i.TPCallIn != null
+                        && i.TPCallIn.CellNumber == telno && i.BillRefId != billRef.BillRefId)
+                        .OrderByDescending(i => i.BillRefId).FirstOrDefault();
+
+                    if (query != null)
+                    {
+                        billRef.UserId_FK = query.UserId_FK;
+                        billRef.AddressId_FK = query.AddressId_FK;
+                    }
+
+                }
+                entities.SaveChanges();
+            }
+            return billRef;
+        }
+
+        public void UpdateShowStatus(long tpBillRefId, bool isShow)
+        {
+
+            using (var entities = new JZZPEntities())
+            {
+
+                var billRef = entities.TPBillRefs.Where(i => i.BillRefId == tpBillRefId).FirstOrDefault();
+                if (billRef != null)
+                {
+                    billRef.ShowOnMain = isShow;
+                    entities.SaveChanges();
+                }
+
+            }
+        }
     }
 }

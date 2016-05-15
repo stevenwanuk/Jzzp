@@ -1,33 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelEntitiesStoreContainer" CdmEntityContainer="JZZPEntities">
-    <EntitySetMapping Name="TPBillRefs">
-      <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
-        <MappingFragment StoreEntitySet="TP_BillRef">
-          <ScalarProperty Name="DeliverFeeOrigin" ColumnName="DeliverFeeOrigin" />
-          <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
-          <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
-          <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
-          <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
-          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
-          <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
-          <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TPCallIns">
-      <EntityTypeMapping TypeName="EntitiesDABL.TPCallIn">
-        <MappingFragment StoreEntitySet="TP_CallIn">
-          <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
-          <ScalarProperty Name="CallInId" ColumnName="CallInId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TPDelivers">
       <EntityTypeMapping TypeName="EntitiesDABL.TPDeliver">
         <MappingFragment StoreEntitySet="TP_Deliver">
@@ -355,6 +328,34 @@
           <ScalarProperty Name="AddressField1" ColumnName="AddressField1" />
           <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
           <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TPCallIns">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPCallIn">
+        <MappingFragment StoreEntitySet="TP_CallIn">
+          <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+          <ScalarProperty Name="CallInId" ColumnName="CallInId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TPBillRefs">
+      <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
+        <MappingFragment StoreEntitySet="TP_BillRef">
+          <ScalarProperty Name="ShowOnMain" ColumnName="ShowOnMain" />
+          <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
+          <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
+          <ScalarProperty Name="DeliverFeeOrigin" ColumnName="DeliverFeeOrigin" />
+          <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
+          <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
+          <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
+          <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
+          <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

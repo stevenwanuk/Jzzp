@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -24,6 +23,12 @@ using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 using TP.Common.StringLib;
 using Xceed.Wpf.AvalonDock.Controls;
+using TP.Pstn;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using TP.printing;
+using System.Text;
+using TP.AppStatic;
 
 namespace TP
 {
@@ -32,6 +37,7 @@ namespace TP
     /// </summary>
     public partial class MainWindow : Window
     {
+        HwndSource source;
 
         #region Init
         public MainWindow()
@@ -44,7 +50,7 @@ namespace TP
 
         protected void InitConfig()
         {
-            terminalId = Convert.ToInt32(ConfigurationManager.AppSettings["TerminalId"]);
+            terminalId = TPConfig.TerminalId;
         }
 
 
@@ -75,7 +81,7 @@ namespace TP
 
             dispatcherTimer_Tick(this, null);
 
-            dispatcherTimer.Start();
+            //dispatcherTimer.Start();
         }
 
 
@@ -83,14 +89,14 @@ namespace TP
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
 
-            var tPBillRefs = new TPBillRefBLL().GetUnCompletedCallIns(terminalId);
+            var tPBillRefs = new TPBillRefBLL().GetDisplayedTPBillRef(terminalId);
 
             foreach (var existedMV in mainView.TPBillRefs)
             {
 
                 if (!tPBillRefs.Any(i => i.BillRefId.Equals(existedMV.BillRefId)))
                 {
-                    mainView.TPBillRefs.Remove(existedMV);
+                    //mainView.TPBillRefs.Remove(existedMV);
                 }
             }
 
@@ -425,68 +431,7 @@ namespace TP
         {
             try
             {
-                var doc1 = new System.Windows.Documents.FlowDocument();
-                doc1.PageWidth = 600;
-                //Add res image
-                var resPath = ConfigurationManager.AppSettings["PrintResImagePath"];
-                if (!string.IsNullOrEmpty(resPath))
-                {
-                    var resImg = new Image();
-                    var path = Path.Combine(Environment.CurrentDirectory, resPath);
-                    resImg.Source = new BitmapImage(new Uri(path));
-                    InlineUIContainer resContainer = new InlineUIContainer(resImg);
-                    Paragraph resPar = new Paragraph(resContainer);
-                    resPar.TextAlignment = TextAlignment.Center;
-                    Section s = new Section();
-                    s.Blocks.Add(resPar);
-                    doc1.Blocks.Add(s);
-                }
-
-                //Add print body
-                var reader = new StreamReader(ConfigurationManager.AppSettings["PrintFile"]);
-                var xmalString = reader.ReadToEnd();
-
-
-                //Query Bill Infos
-                var billInfo = new JzzpBillBLL().GetBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
-                //Parse the value
-
-                xmalString = xmalString.HaackFormat(
-                    new {
-                    
-                        TPBillRef = mainView.DeliveryTabView.TPBillRefMV,
-                        TPUser = mainView.DeliveryTabView.TPBillRefMV.TPUser,
-                        TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
-                        Bill = billInfo.Bill
-                    });
-
-                StringReader stringReader = new StringReader(xmalString);
-                var xmlReader = XmlReader.Create(stringReader);
-                var sec = XamlReader.Load(xmlReader) as Section;
-
-                //Looking for billItem 
-                var table = sec.Blocks.Where(i => i is Table).OfType<Table>().FirstOrDefault();
-                if (table != null)
-                {
-                    buildBillItemTable(table, billInfo.BillItems);
-                }
-                doc1.Blocks.Add(sec);
-                
-                //Add qr image
-                var qrImg = new Image();
-                var bitmap = QRCodeUtils.GetQrCode(string.Format(ConfigurationManager.AppSettings["DirectionUrl"], mainView.DeliveryTabView.TPBillRefMV.TPUserAddress.Postcode), 
-                    int.Parse(ConfigurationManager.AppSettings["QRHeight"]),
-                    int.Parse(ConfigurationManager.AppSettings["QRWidth"]), 
-                    0);
-                qrImg.Source = bitmap;
-                InlineUIContainer qrContainer = new InlineUIContainer(qrImg);
-                Paragraph qrPar = new Paragraph(qrContainer);
-                qrPar.TextAlignment = TextAlignment.Center;
-                Section sqr = new Section();
-                sqr.Blocks.Add(qrPar);
-                doc1.Blocks.Add(sqr);
-
-                PrintUtils.DoPreview("test", doc1);
+                Printer.Priview(mainView);
 
             } catch (Exception ex)
             {
@@ -494,28 +439,192 @@ namespace TP
             }
         }
 
-        private void buildBillItemTable(Table table, ICollection<BillItem> billItems)
+        
+
+        #region winmsg
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                case BriSDKLib.BRI_EVENT_MESSAGE:
+                    {
+                        BriSDKLib.TBriEvent_Data EventData = (BriSDKLib.TBriEvent_Data)Marshal.PtrToStructure(lParam, typeof(BriSDKLib.TBriEvent_Data));
+                        string strValue = "";
+                        switch (EventData.lEventType)
+                        {
+                            case BriSDKLib.BriEvent_PhoneHook:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机摘机";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_PhoneHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机挂机";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_CallIn:
+                                {////两声响铃结束后开始呼叫转移到CC
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：来电响铃";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_GetCallID:
+                                {
+
+                                    var telno = StringUtils.FromASCIIByteArray(EventData.szData);
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + telno;
+
+                                    AddNewBillRef(telno);
+
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_StopCallIn:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：停止呼入，产生一个未接电话 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_GetDTMFChar: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到按键 " + StringUtils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RemoteHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：远程挂机 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_Busy:
+                                {
+
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到忙音,线路已经断开 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_DialTone: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：检测到拨号音 "; break;
+                            case BriSDKLib.BriEvent_PhoneDial: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机拨号 " + StringUtils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RingBack: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：拨号后接收到回铃音 "; break;
+                            case BriSDKLib.BriEvent_DevErr:
+                                {
+                                    if (EventData.lResult == 3)
+                                    {
+                                        strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：设备可能被移除 ";
+                                    }
+                                }
+                                break;
+                            default: break;
+                        }
+                        if (strValue.Length > 0)
+                        {
+                            AppendStatus(strValue);
+                        }
+
+                        handled = true;
+                    }
+                    break;
+            }
+            return IntPtr.Zero;
+        }
+
+        private void AddNewBillRef(string telno)
         {
 
-            var reader = new StreamReader(ConfigurationManager.AppSettings["PrintItemSampleFile"]);
-            var xmalString = reader.ReadToEnd();
-
-            foreach (var billItem in billItems)
+            var billRef = new TPBillRefBLL().CreatNewBillRef(telno, terminalId);
+            if (mainView.TPBillRefs != null)
             {
-                var billItemXmal = xmalString.HaackFormat(new
-                {
-                    BillItem = billItem,
-                    Amount = billItem.AmountOrder - billItem.AmountCancel,
-                    Price = billItem.SumOfConsume - billItem.SumForDiscount
-                });
 
-                StringReader stringReader = new StringReader(billItemXmal);
-                var xmlReader = XmlReader.Create(stringReader);
-                var row = XamlReader.Load(xmlReader) as TableRow;
-                table.RowGroups[0].Rows.Add(row);
+                var billRefMv = TPBillRefMV.Mapper(billRef);
+                if (billRef.TPCallIn != null)
+                {
+                    billRefMv.TPCallIn = TPCallInMV.Mapper(billRef.TPCallIn);
+                }
+                
+                mainView.TPBillRefs.Add(billRefMv);
+            }
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            source = PresentationSource.FromVisual(this) as HwndSource;
+            AppendStatus("register handle with source:" + source.Handle);
+            source.AddHook(WndProc);
+
+            //open device
+
+            if (BriSDKLib.QNV_OpenDevice(BriSDKLib.ODT_LBRIDGE, 0, "") <= 0 || BriSDKLib.QNV_DevInfo(0, BriSDKLib.QNV_DEVINFO_GETCHANNELS) <= 0)
+            {
+
+                MessageBox.Show("can't open fax modem");
+                //throw new IOException("can't open fax modem");
+            }
+
+            for (Int16 i = 0; i < BriSDKLib.QNV_DevInfo(-1, BriSDKLib.QNV_DEVINFO_GETCHANNELS); i++)
+            {//在windowproc处理接收到的消息
+                BriSDKLib.QNV_Event(i, BriSDKLib.QNV_EVENT_REGWND, (Int32)source.Handle, "", new StringBuilder(0), 0);
+            }
+
+            AppendStatus("打开设备成功");
+        }
+
+        private void AppendStatus(string str)
+        {
+            Log4netUtil.For(this).Info(str);
+        }
+
+        private void MWindow_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                BriSDKLib.QNV_CloseDevice(BriSDKLib.ODT_ALL, 0);
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        #endregion winmsg
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewBillRef("123456");
+            mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
             }
         }
 
 
+        private void CallInSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv.TPCallIn != null)
+            {
+                var telno = mainView.SelectedTpBillRefMv.TPCallIn.CellNumber;
+                if (!String.IsNullOrEmpty(telno))
+                {
+                    new TPCallInBLL().UpdateCellNumber(telno, mainView.SelectedTpBillRefMv.TPCallIn.CallInId, mainView.SelectedTpBillRefMv.BillRefId);
+                    LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
+                }
+            }
+
+            
+        }
+
+        private void CloseCurrTab_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                new TPBillRefBLL().UpdateShowStatus(mainView.SelectedTpBillRefMv.BillRefId, false);
+                mainView.TPBillRefs.Remove(mainView.SelectedTpBillRefMv);
+                mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
+                if (mainView.SelectedTpBillRefMv != null)
+                {
+                    LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
+                }
+                
+            }
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as ToggleButton).IsChecked = true;
+        }
     }
 }

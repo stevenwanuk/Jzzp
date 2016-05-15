@@ -5,18 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b9b12726839240e6b38f6d215c48c05f" Name="Diagram1" ZoomLevel="101">
-        <EntityTypeShape EntityType="EntitiesDABL.TPBillRef" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="EntitiesDABL.TPCallIn" Width="1.5" PointX="3" PointY="6.625" />
         <EntityTypeShape EntityType="EntitiesDABL.TPDeliver" Width="1.5" PointX="3" PointY="14.5" />
         <EntityTypeShape EntityType="EntitiesDABL.TPDriver" Width="1.5" PointX="0.75" PointY="14.625" />
         <EntityTypeShape EntityType="EntitiesDABL.TPPrintSetting" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="EntitiesDABL.TPUser" Width="1.5" PointX="0.75" PointY="5.125" />
         <EntityTypeShape EntityType="EntitiesDABL.TPUserAddress" Width="1.5" PointX="3" PointY="10.25" />
         <EntityTypeShape EntityType="EntitiesDABL.TPUserCell" Width="1.5" PointX="3" PointY="3.5" />
-        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn" />
-        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver" />
-        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_User" />
-        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" />
         <AssociationConnector Association="EntitiesDABL.FK_TP_Deliver_TP_Driver" />
         <AssociationConnector Association="EntitiesDABL.FK_TP_UserAddress_TP_User" />
         <AssociationConnector Association="EntitiesDABL.FK_TP_UserCell_TP_UserCell" />
@@ -26,6 +20,12 @@
         <EntityTypeShape EntityType="EntitiesDABL.TempBillItem" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="EntitiesDABL.BillPayment" Width="1.5" PointX="13.375" PointY="11.75" />
         <EntityTypeShape EntityType="EntitiesDABL.TPAddress" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPCallIn" Width="1.5" PointX="7.375" PointY="14.875" />
+        <EntityTypeShape EntityType="EntitiesDABL.TPBillRef" Width="1.5" PointX="9.625" PointY="14.125" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_User" />
+        <AssociationConnector Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

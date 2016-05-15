@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2000" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_Bill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_Bill”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="bi_Bill">
     <Key>
       <PropertyRef Name="BillID" />
@@ -66,8 +66,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_Bill' does not have a primary key 
     <Property Name="OriginalID" Type="varchar" MaxLength="50" />
     <Property Name="ShiftID" Type="varchar" MaxLength="50" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_BillItem”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="bi_BillItem">
     <Key>
       <PropertyRef Name="BillItemID" />
@@ -121,8 +121,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillItem' does not have a primary 
     <Property Name="TaxRate" Type="money" />
     <Property Name="SumOfTax" Type="money" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_BillPayment”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="bi_BillPayment">
     <Key>
       <PropertyRef Name="BillID" />
@@ -135,8 +135,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillPayment' does not have a prima
     <Property Name="PaySum" Type="money" />
     <Property Name="SumPaid" Type="money" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_TempBill”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="bi_TempBill">
     <Key>
       <PropertyRef Name="BillID" />
@@ -201,8 +201,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBill' does not have a primary 
     <Property Name="OriginalID" Type="varchar" MaxLength="50" />
     <Property Name="ShiftID" Type="varchar" MaxLength="50" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_TempBillItem”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="bi_TempBillItem">
     <Key>
       <PropertyRef Name="BillItemID" />
@@ -256,6 +256,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     <Property Name="TaxRate" Type="money" />
     <Property Name="SumOfTax" Type="money" />
   </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.TP_Address”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
   <EntityType Name="TP_Address">
     <Key>
       <PropertyRef Name="AddressId" />
@@ -284,13 +286,14 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     <Property Name="DeliverFee" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Status" Type="int" Nullable="false" />
     <Property Name="DeliverId_FK" Type="bigint" />
+    <Property Name="ShowOnMain" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="TP_CallIn">
     <Key>
       <PropertyRef Name="CallInId" />
     </Key>
     <Property Name="CallInId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CellNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CellNumber" Type="varchar" MaxLength="50" />
     <Property Name="StartDate" Type="datetime" />
     <Property Name="EndDate" Type="datetime" />
     <Property Name="TerminalId" Type="int" Nullable="false" />
@@ -439,7 +442,6 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ModelEntitiesStoreContainer">
-    <EntitySet Name="TP_Address" EntityType="Self.TP_Address" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_BillRef" EntityType="Self.TP_BillRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_CallIn" EntityType="Self.TP_CallIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TP_Deliver" EntityType="Self.TP_Deliver" Schema="dbo" store:Type="Tables" />
@@ -687,6 +689,19 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     [bi_TempBillItem].[TaxRate] AS [TaxRate], 
     [bi_TempBillItem].[SumOfTax] AS [SumOfTax]
     FROM [dbo].[bi_TempBillItem] AS [bi_TempBillItem]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TP_Address" EntityType="Self.TP_Address" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TP_Address].[AddressId] AS [AddressId], 
+    [TP_Address].[HouseNumber] AS [HouseNumber], 
+    [TP_Address].[AddressField1] AS [AddressField1], 
+    [TP_Address].[AddressField2] AS [AddressField2], 
+    [TP_Address].[AddressField3] AS [AddressField3], 
+    [TP_Address].[TownCity] AS [TownCity], 
+    [TP_Address].[Postcode] AS [Postcode], 
+    [TP_Address].[Country] AS [Country], 
+    [TP_Address].[DeliveryMiles] AS [DeliveryMiles]
+    FROM [dbo].[TP_Address] AS [TP_Address]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="Self.FK_TP_BillRef_TP_CallIn">
       <End Role="TP_CallIn" EntitySet="TP_CallIn" />

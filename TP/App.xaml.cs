@@ -12,6 +12,7 @@ using TP.BLL;
 using TP.Common;
 using TP.Gmap;
 using TP.ModelView;
+using TP.AppStatic;
 
 namespace TP
 {
@@ -28,8 +29,16 @@ namespace TP
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
 
+            //config log4net
+            log4net.Config.XmlConfigurator.Configure();
+
             //Setup chulture to GB
             ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
+
+            //Load Appsetting
+            Log4netUtil.For(this).Info("Init App setting start");
+            var tpLoad = TPConfig.Load();
+            Log4netUtil.For(this).Info("Init App setting end:" + tpLoad);
 
             //Init Automapper
             Log4netUtil.For(this).Info("Init Automapper start");
@@ -45,7 +54,6 @@ namespace TP
             var i = DeliveryFeeCaculator.GetDeliveryFee(5);
             var j = DeliveryFeeCaculator.GetDeliveryFee(2, 5);
             Log4netUtil.For(this).Info("DeliveryCaculator test end");
-
         }
 
 
