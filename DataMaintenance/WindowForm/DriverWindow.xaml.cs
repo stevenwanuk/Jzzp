@@ -44,6 +44,13 @@ namespace DataMaintenance.WindowForm
             DriverWv.TpDriverMvs.Clear();
             var drivers = new TPDriverBLL().GetDriversIfAvailable();
             drivers.ForEach(i => DriverWv.TpDriverMvs.Add(TPDriverMV.Mapper(i)));
+
+
+            foreach (var tpDriverMv in DriverWv.TpDriverMvs)
+            {
+                tpDriverMv.DeliverCount = new TPDriverBLL().GetDeliverCount(tpDriverMv.DriverId);
+            }
+
             RemovingList.Clear();
         }
 
@@ -82,6 +89,7 @@ namespace DataMaintenance.WindowForm
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
+
             var select = (sender as CheckBox);
             var driverId = (long) select.Tag;
             if (select.IsChecked.Value)
@@ -90,7 +98,6 @@ namespace DataMaintenance.WindowForm
                 {
                     RemovingList.Add(driverId);
                 }
-                
             }
             else
             {

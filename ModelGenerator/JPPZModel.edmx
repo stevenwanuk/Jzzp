@@ -4,9 +4,9 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_Bill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="ModelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2000" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_Bill”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="bi_Bill">
           <Key>
             <PropertyRef Name="BillID" />
@@ -71,8 +71,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_Bill' does not have a primary key 
           <Property Name="OriginalID" Type="varchar" MaxLength="50" />
           <Property Name="ShiftID" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_BillItem”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="bi_BillItem">
           <Key>
             <PropertyRef Name="BillItemID" />
@@ -126,8 +126,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillItem' does not have a primary 
           <Property Name="TaxRate" Type="money" />
           <Property Name="SumOfTax" Type="money" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_BillPayment”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="bi_BillPayment">
           <Key>
             <PropertyRef Name="BillID" />
@@ -140,8 +140,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_BillPayment' does not have a prima
           <Property Name="PaySum" Type="money" />
           <Property Name="SumPaid" Type="money" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_TempBill”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="bi_TempBill">
           <Key>
             <PropertyRef Name="BillID" />
@@ -206,8 +206,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBill' does not have a primary 
           <Property Name="OriginalID" Type="varchar" MaxLength="50" />
           <Property Name="ShiftID" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.bi_TempBillItem”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="bi_TempBillItem">
           <Key>
             <PropertyRef Name="BillItemID" />
@@ -261,6 +261,22 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="TaxRate" Type="money" />
           <Property Name="SumOfTax" Type="money" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RMS_DB.dbo.TP_Address”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="TP_Address">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseNumber" Type="varchar" MaxLength="10" />
+          <Property Name="AddressField1" Type="varchar" MaxLength="50" />
+          <Property Name="AddressField2" Type="varchar" MaxLength="50" />
+          <Property Name="AddressField3" Type="varchar" MaxLength="50" />
+          <Property Name="TownCity" Type="varchar" MaxLength="50" />
+          <Property Name="Postcode" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryMiles" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
         <EntityType Name="TP_BillRef">
           <Key>
             <PropertyRef Name="BillRefId" />
@@ -275,13 +291,14 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="DeliverFee" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="DeliverId_FK" Type="bigint" />
+          <Property Name="ShowOnMain" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TP_CallIn">
           <Key>
             <PropertyRef Name="CallInId" />
           </Key>
           <Property Name="CallInId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CellNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CellNumber" Type="varchar" MaxLength="50" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="TerminalId" Type="int" Nullable="false" />
@@ -678,6 +695,19 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     [bi_TempBillItem].[SumOfTax] AS [SumOfTax]
     FROM [dbo].[bi_TempBillItem] AS [bi_TempBillItem]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="TP_Address" EntityType="Self.TP_Address" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TP_Address].[AddressId] AS [AddressId], 
+    [TP_Address].[HouseNumber] AS [HouseNumber], 
+    [TP_Address].[AddressField1] AS [AddressField1], 
+    [TP_Address].[AddressField2] AS [AddressField2], 
+    [TP_Address].[AddressField3] AS [AddressField3], 
+    [TP_Address].[TownCity] AS [TownCity], 
+    [TP_Address].[Postcode] AS [Postcode], 
+    [TP_Address].[Country] AS [Country], 
+    [TP_Address].[DeliveryMiles] AS [DeliveryMiles]
+    FROM [dbo].[TP_Address] AS [TP_Address]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="Self.FK_TP_BillRef_TP_CallIn">
             <End Role="TP_CallIn" EntitySet="TP_CallIn" />
             <End Role="TP_BillRef" EntitySet="TP_BillRef" />
@@ -712,30 +742,12 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
     <edmx:ConceptualModels>
       <Schema Namespace="EntitiesDABL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="JZZPEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TPBillRefs" EntityType="EntitiesDABL.TPBillRef" />
-          <EntitySet Name="TPCallIns" EntityType="EntitiesDABL.TPCallIn" />
           <EntitySet Name="TPDelivers" EntityType="EntitiesDABL.TPDeliver" />
           <EntitySet Name="TPDrivers" EntityType="EntitiesDABL.TPDriver" />
           <EntitySet Name="TPPrintSettings" EntityType="EntitiesDABL.TPPrintSetting" />
           <EntitySet Name="TPUsers" EntityType="EntitiesDABL.TPUser" />
           <EntitySet Name="TPUserAddresses" EntityType="EntitiesDABL.TPUserAddress" />
           <EntitySet Name="TPUserCells" EntityType="EntitiesDABL.TPUserCell" />
-          <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn">
-            <End Role="TP_CallIn" EntitySet="TPCallIns" />
-            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TP_BillRef_TP_Deliver" Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver">
-            <End Role="TP_Deliver" EntitySet="TPDelivers" />
-            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TP_BillRef_TP_User" Association="EntitiesDABL.FK_TP_BillRef_TP_User">
-            <End Role="TP_User" EntitySet="TPUsers" />
-            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TP_BillRef_TP_UserAddress" Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress">
-            <End Role="TP_UserAddress" EntitySet="TPUserAddresses" />
-            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-          </AssociationSet>
           <AssociationSet Name="FK_TP_Deliver_TP_Driver" Association="EntitiesDABL.FK_TP_Deliver_TP_Driver">
             <End Role="TP_Driver" EntitySet="TPDrivers" />
             <End Role="TP_Deliver" EntitySet="TPDelivers" />
@@ -753,37 +765,26 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <EntitySet Name="TempBills" EntityType="EntitiesDABL.TempBill" />
           <EntitySet Name="TempBillItems" EntityType="EntitiesDABL.TempBillItem" />
           <EntitySet Name="BillPayments" EntityType="EntitiesDABL.BillPayment" />
+          <EntitySet Name="TPAddresses" EntityType="EntitiesDABL.TPAddress" />
+          <EntitySet Name="TPCallIns" EntityType="EntitiesDABL.TPCallIn" />
+          <EntitySet Name="TPBillRefs" EntityType="EntitiesDABL.TPBillRef" />
+          <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn">
+            <End Role="TPCallIn" EntitySet="TPCallIns" />
+            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TP_BillRef_TP_Deliver" Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver">
+            <End Role="TPDeliver" EntitySet="TPDelivers" />
+            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TP_BillRef_TP_User" Association="EntitiesDABL.FK_TP_BillRef_TP_User">
+            <End Role="TPUser" EntitySet="TPUsers" />
+            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TP_BillRef_TP_UserAddress" Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress">
+            <End Role="TPUserAddress" EntitySet="TPUserAddresses" />
+            <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TPBillRef">
-          <Key>
-            <PropertyRef Name="BillRefId" />
-          </Key>
-          <Property Name="BillRefId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CallInId_FK" Type="Int64" />
-          <Property Name="UserId_FK" Type="Guid" />
-          <Property Name="AddressId_FK" Type="Int64" />
-          <Property Name="BillId_FK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeliverMiles" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="DeliverFee" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="DeliverId_FK" Type="Int64" />
-          <NavigationProperty Name="TPCallIn" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_BillRef" ToRole="TP_CallIn" />
-          <NavigationProperty Name="TPDeliver" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_BillRef" ToRole="TP_Deliver" />
-          <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_BillRef" ToRole="TP_User" />
-          <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_BillRef" ToRole="TP_UserAddress" />
-          <Property Name="DeliverFeeOrigin" Type="Decimal" Precision="10" Scale="2" />
-        </EntityType>
-        <EntityType Name="TPCallIn">
-          <Key>
-            <PropertyRef Name="CallInId" />
-          </Key>
-          <Property Name="CallInId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CellNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="TerminalId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_CallIn" ToRole="TP_BillRef" />
-        </EntityType>
         <EntityType Name="TPDeliver">
           <Key>
             <PropertyRef Name="DeliverId" />
@@ -793,8 +794,8 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_Deliver" ToRole="TP_BillRef" />
           <NavigationProperty Name="TPDriver" Relationship="EntitiesDABL.FK_TP_Deliver_TP_Driver" FromRole="TP_Deliver" ToRole="TP_Driver" />
+          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TPDeliver" ToRole="TP_BillRef" />
         </EntityType>
         <EntityType Name="TPDriver">
           <Key>
@@ -822,9 +823,9 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="Int32" />
-          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_User" ToRole="TP_BillRef" />
           <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_UserAddress_TP_User" FromRole="TP_User" ToRole="TP_UserAddress" />
           <NavigationProperty Name="TPUserCell" Relationship="EntitiesDABL.FK_TP_UserCell_TP_UserCell" FromRole="TP_User" ToRole="TP_UserCell" />
+          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TPUser" ToRole="TP_BillRef" />
         </EntityType>
         <EntityType Name="TPUserAddress">
           <Key>
@@ -839,9 +840,9 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_UserAddress" ToRole="TP_BillRef" />
           <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_UserAddress_TP_User" FromRole="TP_UserAddress" ToRole="TP_User" />
           <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TPUserAddress" ToRole="TP_BillRef" />
         </EntityType>
         <EntityType Name="TPUserCell">
           <Key>
@@ -849,57 +850,9 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           </Key>
           <Property Name="UserCellId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId_FK" Type="Guid" Nullable="false" />
-          <Property Name="CellNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_UserCell_TP_UserCell" FromRole="TP_UserCell" ToRole="TP_User" />
         </EntityType>
-        <Association Name="FK_TP_BillRef_TP_CallIn">
-          <End Type="EntitiesDABL.TPCallIn" Role="TP_CallIn" Multiplicity="0..1" />
-          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TP_CallIn">
-              <PropertyRef Name="CallInId" />
-            </Principal>
-            <Dependent Role="TP_BillRef">
-              <PropertyRef Name="CallInId_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TP_BillRef_TP_Deliver">
-          <End Type="EntitiesDABL.TPDeliver" Role="TP_Deliver" Multiplicity="0..1" />
-          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TP_Deliver">
-              <PropertyRef Name="DeliverId" />
-            </Principal>
-            <Dependent Role="TP_BillRef">
-              <PropertyRef Name="DeliverId_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TP_BillRef_TP_User">
-          <End Type="EntitiesDABL.TPUser" Role="TP_User" Multiplicity="0..1" />
-          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TP_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="TP_BillRef">
-              <PropertyRef Name="UserId_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TP_BillRef_TP_UserAddress">
-          <End Type="EntitiesDABL.TPUserAddress" Role="TP_UserAddress" Multiplicity="0..1" />
-          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TP_UserAddress">
-              <PropertyRef Name="UserAddressId" />
-            </Principal>
-            <Dependent Role="TP_BillRef">
-              <PropertyRef Name="AddressId_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TP_Deliver_TP_Driver">
           <End Type="EntitiesDABL.TPDriver" Role="TP_Driver" Multiplicity="1" />
           <End Type="EntitiesDABL.TPDeliver" Role="TP_Deliver" Multiplicity="*" />
@@ -1182,39 +1135,105 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
           <Property Name="PaySum" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="TPAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressField3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="TPCallIn">
+          <Key>
+            <PropertyRef Name="CallInId" />
+          </Key>
+          <Property Name="CallInId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="TerminalId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TPCallIn" ToRole="TP_BillRef" />
+        </EntityType>
+        <EntityType Name="TPBillRef">
+          <Key>
+            <PropertyRef Name="BillRefId" />
+          </Key>
+          <Property Name="BillRefId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallInId_FK" Type="Int64" />
+          <Property Name="UserId_FK" Type="Guid" />
+          <Property Name="AddressId_FK" Type="Int64" />
+          <Property Name="BillId_FK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliverFeeOrigin" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DeliverMiles" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DeliverFee" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="DeliverId_FK" Type="Int64" />
+          <Property Name="ShowOnMain" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TPCallIn" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_BillRef" ToRole="TPCallIn" />
+          <NavigationProperty Name="TPDeliver" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_BillRef" ToRole="TPDeliver" />
+          <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_BillRef" ToRole="TPUser" />
+          <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_BillRef" ToRole="TPUserAddress" />
+        </EntityType>
+        <Association Name="FK_TP_BillRef_TP_CallIn">
+          <End Type="EntitiesDABL.TPCallIn" Role="TPCallIn" Multiplicity="0..1" />
+          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPCallIn">
+              <PropertyRef Name="CallInId" />
+            </Principal>
+            <Dependent Role="TP_BillRef">
+              <PropertyRef Name="CallInId_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TP_BillRef_TP_Deliver">
+          <End Type="EntitiesDABL.TPDeliver" Role="TPDeliver" Multiplicity="0..1" />
+          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPDeliver">
+              <PropertyRef Name="DeliverId" />
+            </Principal>
+            <Dependent Role="TP_BillRef">
+              <PropertyRef Name="DeliverId_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TP_BillRef_TP_User">
+          <End Type="EntitiesDABL.TPUser" Role="TPUser" Multiplicity="0..1" />
+          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TP_BillRef">
+              <PropertyRef Name="UserId_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TP_BillRef_TP_UserAddress">
+          <End Type="EntitiesDABL.TPUserAddress" Role="TPUserAddress" Multiplicity="0..1" />
+          <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TPUserAddress">
+              <PropertyRef Name="UserAddressId" />
+            </Principal>
+            <Dependent Role="TP_BillRef">
+              <PropertyRef Name="AddressId_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelEntitiesStoreContainer" CdmEntityContainer="JZZPEntities">
-          <EntitySetMapping Name="TPBillRefs">
-            <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
-              <MappingFragment StoreEntitySet="TP_BillRef">
-                <ScalarProperty Name="DeliverFeeOrigin" ColumnName="DeliverFeeOrigin" />
-                <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
-                <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
-                <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
-                <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
-                <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
-                <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
-                <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TPCallIns">
-            <EntityTypeMapping TypeName="EntitiesDABL.TPCallIn">
-              <MappingFragment StoreEntitySet="TP_CallIn">
-                <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
-                <ScalarProperty Name="CallInId" ColumnName="CallInId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TPDelivers">
             <EntityTypeMapping TypeName="EntitiesDABL.TPDeliver">
               <MappingFragment StoreEntitySet="TP_Deliver">
@@ -1527,6 +1546,49 @@ warning 6002: The table/view 'RMS_DB_1.dbo.bi_TempBillItem' does not have a prim
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPAddresses">
+            <EntityTypeMapping TypeName="EntitiesDABL.TPAddress">
+              <MappingFragment StoreEntitySet="TP_Address">
+                <ScalarProperty Name="DeliveryMiles" ColumnName="DeliveryMiles" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="TownCity" ColumnName="TownCity" />
+                <ScalarProperty Name="AddressField3" ColumnName="AddressField3" />
+                <ScalarProperty Name="AddressField2" ColumnName="AddressField2" />
+                <ScalarProperty Name="AddressField1" ColumnName="AddressField1" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPCallIns">
+            <EntityTypeMapping TypeName="EntitiesDABL.TPCallIn">
+              <MappingFragment StoreEntitySet="TP_CallIn">
+                <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="CallInId" ColumnName="CallInId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPBillRefs">
+            <EntityTypeMapping TypeName="EntitiesDABL.TPBillRef">
+              <MappingFragment StoreEntitySet="TP_BillRef">
+                <ScalarProperty Name="ShowOnMain" ColumnName="ShowOnMain" />
+                <ScalarProperty Name="DeliverId_FK" ColumnName="DeliverId_FK" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeliverFee" ColumnName="DeliverFee" />
+                <ScalarProperty Name="DeliverMiles" ColumnName="DeliverMiles" />
+                <ScalarProperty Name="DeliverFeeOrigin" ColumnName="DeliverFeeOrigin" />
+                <ScalarProperty Name="BillId_FK" ColumnName="BillId_FK" />
+                <ScalarProperty Name="AddressId_FK" ColumnName="AddressId_FK" />
+                <ScalarProperty Name="UserId_FK" ColumnName="UserId_FK" />
+                <ScalarProperty Name="CallInId_FK" ColumnName="CallInId_FK" />
+                <ScalarProperty Name="BillRefId" ColumnName="BillRefId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

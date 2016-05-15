@@ -1,30 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EntitiesDABL" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="JZZPEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="TPBillRefs" EntityType="EntitiesDABL.TPBillRef" />
-    <EntitySet Name="TPCallIns" EntityType="EntitiesDABL.TPCallIn" />
     <EntitySet Name="TPDelivers" EntityType="EntitiesDABL.TPDeliver" />
     <EntitySet Name="TPDrivers" EntityType="EntitiesDABL.TPDriver" />
     <EntitySet Name="TPPrintSettings" EntityType="EntitiesDABL.TPPrintSetting" />
     <EntitySet Name="TPUsers" EntityType="EntitiesDABL.TPUser" />
     <EntitySet Name="TPUserAddresses" EntityType="EntitiesDABL.TPUserAddress" />
     <EntitySet Name="TPUserCells" EntityType="EntitiesDABL.TPUserCell" />
-    <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn">
-      <End Role="TP_CallIn" EntitySet="TPCallIns" />
-      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TP_BillRef_TP_Deliver" Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver">
-      <End Role="TP_Deliver" EntitySet="TPDelivers" />
-      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TP_BillRef_TP_User" Association="EntitiesDABL.FK_TP_BillRef_TP_User">
-      <End Role="TP_User" EntitySet="TPUsers" />
-      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TP_BillRef_TP_UserAddress" Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress">
-      <End Role="TP_UserAddress" EntitySet="TPUserAddresses" />
-      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
-    </AssociationSet>
     <AssociationSet Name="FK_TP_Deliver_TP_Driver" Association="EntitiesDABL.FK_TP_Deliver_TP_Driver">
       <End Role="TP_Driver" EntitySet="TPDrivers" />
       <End Role="TP_Deliver" EntitySet="TPDelivers" />
@@ -42,37 +24,26 @@
     <EntitySet Name="TempBills" EntityType="EntitiesDABL.TempBill" />
     <EntitySet Name="TempBillItems" EntityType="EntitiesDABL.TempBillItem" />
     <EntitySet Name="BillPayments" EntityType="EntitiesDABL.BillPayment" />
+    <EntitySet Name="TPAddresses" EntityType="EntitiesDABL.TPAddress" />
+    <EntitySet Name="TPCallIns" EntityType="EntitiesDABL.TPCallIn" />
+    <EntitySet Name="TPBillRefs" EntityType="EntitiesDABL.TPBillRef" />
+    <AssociationSet Name="FK_TP_BillRef_TP_CallIn" Association="EntitiesDABL.FK_TP_BillRef_TP_CallIn">
+      <End Role="TPCallIn" EntitySet="TPCallIns" />
+      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TP_BillRef_TP_Deliver" Association="EntitiesDABL.FK_TP_BillRef_TP_Deliver">
+      <End Role="TPDeliver" EntitySet="TPDelivers" />
+      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TP_BillRef_TP_User" Association="EntitiesDABL.FK_TP_BillRef_TP_User">
+      <End Role="TPUser" EntitySet="TPUsers" />
+      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TP_BillRef_TP_UserAddress" Association="EntitiesDABL.FK_TP_BillRef_TP_UserAddress">
+      <End Role="TPUserAddress" EntitySet="TPUserAddresses" />
+      <End Role="TP_BillRef" EntitySet="TPBillRefs" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="TPBillRef">
-    <Key>
-      <PropertyRef Name="BillRefId" />
-    </Key>
-    <Property Name="BillRefId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CallInId_FK" Type="Int64" />
-    <Property Name="UserId_FK" Type="Guid" />
-    <Property Name="AddressId_FK" Type="Int64" />
-    <Property Name="BillId_FK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DeliverMiles" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="DeliverFee" Type="Decimal" Precision="10" Scale="2" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
-    <Property Name="DeliverId_FK" Type="Int64" />
-    <NavigationProperty Name="TPCallIn" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_BillRef" ToRole="TP_CallIn" />
-    <NavigationProperty Name="TPDeliver" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_BillRef" ToRole="TP_Deliver" />
-    <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_BillRef" ToRole="TP_User" />
-    <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_BillRef" ToRole="TP_UserAddress" />
-    <Property Name="DeliverFeeOrigin" Type="Decimal" Precision="10" Scale="2" />
-  </EntityType>
-  <EntityType Name="TPCallIn">
-    <Key>
-      <PropertyRef Name="CallInId" />
-    </Key>
-    <Property Name="CallInId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CellNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="StartDate" Type="DateTime" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Precision="3" />
-    <Property Name="TerminalId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_CallIn" ToRole="TP_BillRef" />
-  </EntityType>
   <EntityType Name="TPDeliver">
     <Key>
       <PropertyRef Name="DeliverId" />
@@ -82,8 +53,8 @@
     <Property Name="StartDate" Type="DateTime" Precision="3" />
     <Property Name="EndDate" Type="DateTime" Precision="3" />
     <Property Name="Status" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_Deliver" ToRole="TP_BillRef" />
     <NavigationProperty Name="TPDriver" Relationship="EntitiesDABL.FK_TP_Deliver_TP_Driver" FromRole="TP_Deliver" ToRole="TP_Driver" />
+    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TPDeliver" ToRole="TP_BillRef" />
   </EntityType>
   <EntityType Name="TPDriver">
     <Key>
@@ -111,9 +82,9 @@
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Gender" Type="Int32" />
-    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_User" ToRole="TP_BillRef" />
     <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_UserAddress_TP_User" FromRole="TP_User" ToRole="TP_UserAddress" />
     <NavigationProperty Name="TPUserCell" Relationship="EntitiesDABL.FK_TP_UserCell_TP_UserCell" FromRole="TP_User" ToRole="TP_UserCell" />
+    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TPUser" ToRole="TP_BillRef" />
   </EntityType>
   <EntityType Name="TPUserAddress">
     <Key>
@@ -128,9 +99,9 @@
     <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_UserAddress" ToRole="TP_BillRef" />
     <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_UserAddress_TP_User" FromRole="TP_UserAddress" ToRole="TP_User" />
     <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TPUserAddress" ToRole="TP_BillRef" />
   </EntityType>
   <EntityType Name="TPUserCell">
     <Key>
@@ -138,57 +109,9 @@
     </Key>
     <Property Name="UserCellId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId_FK" Type="Guid" Nullable="false" />
-    <Property Name="CellNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_UserCell_TP_UserCell" FromRole="TP_UserCell" ToRole="TP_User" />
   </EntityType>
-  <Association Name="FK_TP_BillRef_TP_CallIn">
-    <End Type="EntitiesDABL.TPCallIn" Role="TP_CallIn" Multiplicity="0..1" />
-    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_CallIn">
-        <PropertyRef Name="CallInId" />
-      </Principal>
-      <Dependent Role="TP_BillRef">
-        <PropertyRef Name="CallInId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TP_BillRef_TP_Deliver">
-    <End Type="EntitiesDABL.TPDeliver" Role="TP_Deliver" Multiplicity="0..1" />
-    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_Deliver">
-        <PropertyRef Name="DeliverId" />
-      </Principal>
-      <Dependent Role="TP_BillRef">
-        <PropertyRef Name="DeliverId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TP_BillRef_TP_User">
-    <End Type="EntitiesDABL.TPUser" Role="TP_User" Multiplicity="0..1" />
-    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="TP_BillRef">
-        <PropertyRef Name="UserId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TP_BillRef_TP_UserAddress">
-    <End Type="EntitiesDABL.TPUserAddress" Role="TP_UserAddress" Multiplicity="0..1" />
-    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TP_UserAddress">
-        <PropertyRef Name="UserAddressId" />
-      </Principal>
-      <Dependent Role="TP_BillRef">
-        <PropertyRef Name="AddressId_FK" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_TP_Deliver_TP_Driver">
     <End Type="EntitiesDABL.TPDriver" Role="TP_Driver" Multiplicity="1" />
     <End Type="EntitiesDABL.TPDeliver" Role="TP_Deliver" Multiplicity="*" />
@@ -471,4 +394,97 @@
     <Property Name="PaySum" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SumPaid" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
+  <EntityType Name="TPAddress">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HouseNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressField3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TownCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryMiles" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="TPCallIn">
+    <Key>
+      <PropertyRef Name="CallInId" />
+    </Key>
+    <Property Name="CallInId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CellNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="TerminalId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TPBillRef" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TPCallIn" ToRole="TP_BillRef" />
+  </EntityType>
+  <EntityType Name="TPBillRef">
+    <Key>
+      <PropertyRef Name="BillRefId" />
+    </Key>
+    <Property Name="BillRefId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CallInId_FK" Type="Int64" />
+    <Property Name="UserId_FK" Type="Guid" />
+    <Property Name="AddressId_FK" Type="Int64" />
+    <Property Name="BillId_FK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliverFeeOrigin" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DeliverMiles" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DeliverFee" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="DeliverId_FK" Type="Int64" />
+    <Property Name="ShowOnMain" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TPCallIn" Relationship="EntitiesDABL.FK_TP_BillRef_TP_CallIn" FromRole="TP_BillRef" ToRole="TPCallIn" />
+    <NavigationProperty Name="TPDeliver" Relationship="EntitiesDABL.FK_TP_BillRef_TP_Deliver" FromRole="TP_BillRef" ToRole="TPDeliver" />
+    <NavigationProperty Name="TPUser" Relationship="EntitiesDABL.FK_TP_BillRef_TP_User" FromRole="TP_BillRef" ToRole="TPUser" />
+    <NavigationProperty Name="TPUserAddress" Relationship="EntitiesDABL.FK_TP_BillRef_TP_UserAddress" FromRole="TP_BillRef" ToRole="TPUserAddress" />
+  </EntityType>
+  <Association Name="FK_TP_BillRef_TP_CallIn">
+    <End Type="EntitiesDABL.TPCallIn" Role="TPCallIn" Multiplicity="0..1" />
+    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TPCallIn">
+        <PropertyRef Name="CallInId" />
+      </Principal>
+      <Dependent Role="TP_BillRef">
+        <PropertyRef Name="CallInId_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TP_BillRef_TP_Deliver">
+    <End Type="EntitiesDABL.TPDeliver" Role="TPDeliver" Multiplicity="0..1" />
+    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TPDeliver">
+        <PropertyRef Name="DeliverId" />
+      </Principal>
+      <Dependent Role="TP_BillRef">
+        <PropertyRef Name="DeliverId_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TP_BillRef_TP_User">
+    <End Type="EntitiesDABL.TPUser" Role="TPUser" Multiplicity="0..1" />
+    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TPUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="TP_BillRef">
+        <PropertyRef Name="UserId_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TP_BillRef_TP_UserAddress">
+    <End Type="EntitiesDABL.TPUserAddress" Role="TPUserAddress" Multiplicity="0..1" />
+    <End Type="EntitiesDABL.TPBillRef" Role="TP_BillRef" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TPUserAddress">
+        <PropertyRef Name="UserAddressId" />
+      </Principal>
+      <Dependent Role="TP_BillRef">
+        <PropertyRef Name="AddressId_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

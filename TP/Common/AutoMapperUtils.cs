@@ -12,6 +12,93 @@ namespace TP.Common
 {
     public class AutoMapperUtils
     {
+
+        public static void InitAutoMapper()
+        {
+            Mapper.CreateMap<TPCallInMV, TPCallIn>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore());
+            Mapper.CreateMap<TPCallIn, TPCallInMV>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore());
+
+
+            //TPBillRef
+            Mapper.CreateMap<TPBillRefMV, TPBillRef>()
+                .ForMember(s => s.TPCallIn, m => m.Ignore())
+                .ForMember(s => s.TPUser, m => m.Ignore())
+                .ForMember(s => s.TPUserAddress, m => m.Ignore())
+                .ForMember(s => s.TPDeliver, m => m.Ignore());
+            Mapper.CreateMap<TPBillRef, TPBillRefMV>()
+                .ForMember(s => s.TPCallIn, m => m.Ignore())
+                .ForMember(s => s.TPUser, m => m.Ignore())
+                .ForMember(s => s.TPUserAddress, m => m.Ignore())
+                .ForMember(s => s.TPDeliver, m => m.Ignore());
+
+
+            //TPDeliver
+            Mapper.CreateMap<TPDeliverMV, TPDeliver>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPDriver, m => m.Ignore());
+            Mapper.CreateMap<TPDeliver, TPDeliverMV>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPDriver, m => m.Ignore());
+
+            //TPDriver
+            Mapper.CreateMap<TPDriverMV, TPDriver>()
+                .ForMember(s => s.TPDeliver, m => m.Ignore());
+            Mapper.CreateMap<TPDriver, TPDriverMV>()
+                .ForMember(s => s.TPDeliver, m => m.Ignore());
+
+            //TPUserAddress
+            Mapper.CreateMap<TPUserAddress, TPUserAddressMV>()
+                .ForMember(s => s.TPUser, m => m.Ignore())
+                .ForMember(s => s.TPBillRef, m => m.Ignore());
+            Mapper.CreateMap<TPUserAddressMV, TPUserAddress>()
+                .ForMember(s => s.TPUser, m => m.Ignore())
+                .ForMember(s => s.TPBillRef, m => m.Ignore());
+
+            //TPUserCell
+            Mapper.CreateMap<TPUserCell, TPUserCellMV>()
+                .ForMember(s => s.TPUser, m => m.Ignore());
+            Mapper.CreateMap<TPUserCellMV, TPUserCell>()
+                .ForMember(s => s.TPUser, m => m.Ignore());
+
+            //TPUser
+            Mapper.CreateMap<TPUser, TPUserMV>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPUserAddress, m => m.Ignore())
+                .ForMember(s => s.TPUserCell, m => m.Ignore());
+            Mapper.CreateMap<TPUserMV, TPUser>()
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPUserAddress, m => m.Ignore())
+                .ForMember(s => s.TPUserCell, m => m.Ignore());
+
+            //TempBill
+            Mapper.CreateMap<TempBill, TempBillMV>();
+
+            //TempBillItem
+            Mapper.CreateMap<TempBillItem, TempBillItemMV>();
+
+            //Bill
+            Mapper.CreateMap<Bill, BillMV>();
+
+            //TempBillItem
+            Mapper.CreateMap<BillItem, BillItemMV>();
+
+            //OrderHistory
+            Mapper.CreateMap<OrderHistoryDTO, OrderHistoryMV>();
+
+            //TPUserAddress to TPAdress
+            Mapper.CreateMap<TPUserAddress, TPAddress>()
+                .ForMember(s => s.HouseNumber, m => m.Ignore());
+
+            Mapper.CreateMap<TPAddress, TPUserAddressMV>()
+                .ForMember(s => s.HouseNumber, m => m.Ignore())
+                .ForMember(s => s.TPBillRef, m => m.Ignore())
+                .ForMember(s => s.TPUser, m => m.Ignore());
+        }
+
+
+        /** only for 4.0+
         protected static MapperConfiguration config = new MapperConfiguration(i =>
         {
 
@@ -95,5 +182,6 @@ namespace TP.Common
         {
             return config.CreateMapper();
         }
+    **/
     }
 }

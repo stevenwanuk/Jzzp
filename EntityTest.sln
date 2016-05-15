@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DABL", "DABL\DABL.csproj", "{C9A1D415-BEAF-49F6-A898-ABB00E7AA298}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.Themes.Fischer.WPF", "Themes\HR.Themes.Fischer.WPF\HR.Themes.Fischer.WPF.csproj", "{D8166AD7-25DD-4953-84DD-347CB0321582}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMaintenance", "DataMaintenance\DataMaintenance.csproj", "{E7987A79-03A9-4211-B0EF-FF75E2181DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "..\..\TestWpf\TestWpf.csproj", "{1B9590B8-5496-4981-8DCE-93BAEBCC2886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pstndemo", "..\..\..\单路语音盒开发包\csharp\pstndemo\pstndemo\pstndemo.csproj", "{4CBF3E55-2284-42FA-A0D6-32106029190C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWinProcWithWPF", "TestWinProcWithWPF\TestWinProcWithWPF.csproj", "{DE5D3715-7293-4C9B-8623-C973F361F286}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +41,12 @@ Global
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{905D6913-1755-4C2C-8887-D181E4A74392}.Debug|x86.Build.0 = Debug|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Release|Any CPU.Build.0 = Release|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{905D6913-1755-4C2C-8887-D181E4A74392}.Release|x86.ActiveCfg = Release|Any CPU
+		{905D6913-1755-4C2C-8887-D181E4A74392}.Release|x86.Build.0 = Release|Any CPU
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B276F4-B92F-4B1A-9E60-46C1A4119343}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -75,12 +83,48 @@ Global
 		{E7987A79-03A9-4211-B0EF-FF75E2181DFE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E7987A79-03A9-4211-B0EF-FF75E2181DFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7987A79-03A9-4211-B0EF-FF75E2181DFE}.Release|x86.Build.0 = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Debug|x86.Build.0 = Debug|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|x86.ActiveCfg = Release|Any CPU
+		{1B9590B8-5496-4981-8DCE-93BAEBCC2886}.Release|x86.Build.0 = Release|Any CPU
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|x86.ActiveCfg = Debug|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Debug|x86.Build.0 = Debug|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|x86.ActiveCfg = Release|x86
+		{4CBF3E55-2284-42FA-A0D6-32106029190C}.Release|x86.Build.0 = Release|x86
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Debug|x86.Build.0 = Debug|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

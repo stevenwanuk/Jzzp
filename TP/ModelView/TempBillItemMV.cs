@@ -12,14 +12,14 @@ namespace TP.ModelView
     {
         public static TempBillItemMV Mapper(TempBillItem entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TempBillItem, TempBillItemMV>(entity);
+            return AutoMapper.Mapper.Map<TempBillItem, TempBillItemMV>(entity);
         }
 
         private string _billItemId;
         public string BillItemID
         {
             get { return _billItemId; }
-            set { SetProperty(ref _billItemId, value); }
+            set { SetProperty(ref _billItemId, value, "BillItemID"); }
         }
         public string BillID { get; set; }
         public string MenuID { get; set; }
@@ -28,7 +28,7 @@ namespace TP.ModelView
         public string MenuName
         {
             get { return _menuName; }
-            set { SetProperty(ref _menuName, value); }
+            set { SetProperty(ref _menuName, value, "MenuName"); }
         }
         public string MenuUnitID { get; set; }
         public string MenuUnitName { get; set; }
@@ -38,7 +38,7 @@ namespace TP.ModelView
         public string MenuTypeName
         {
             get { return _menuTypeName; }
-            set { SetProperty(ref _menuTypeName, value); }
+            set { SetProperty(ref _menuTypeName, value, "MenuTypeName"); }
         }
         public string DepartID { get; set; }
         public string DepartName { get; set; }
@@ -50,7 +50,7 @@ namespace TP.ModelView
         public Nullable<decimal> AmountOrder
         {
             get { return _amountOrder; }
-            set { SetProperty(ref _amountOrder, value); }
+            set { SetProperty(ref _amountOrder, value, "AmountOrder"); }
         }
 
         private decimal? _amountOnTable;
@@ -58,14 +58,14 @@ namespace TP.ModelView
         public Nullable<decimal> AmountOnTable
         {
             get { return _amountOnTable; }
-            set { SetProperty(ref _amountOnTable, value); }
+            set { SetProperty(ref _amountOnTable, value, "AmountOnTable"); }
         }
 
         private decimal? _amountCancel;
         public Nullable<decimal> AmountCancel
         {
             get { return _amountCancel; }
-            set { SetProperty(ref _amountCancel, value); }
+            set { SetProperty(ref _amountCancel, value, "AmountCancel"); }
         }
 
         private decimal? _menuPrice;
@@ -73,14 +73,14 @@ namespace TP.ModelView
         public Nullable<decimal> MenuPrice
         {
             get { return _menuPrice; }
-            set { SetProperty(ref _menuPrice, value); }
+            set { SetProperty(ref _menuPrice, value, "MenuPrice"); }
         }
 
         private decimal? _menuPrice2;
         public Nullable<decimal> MenuPrice2
         {
             get { return _menuPrice2; }
-            set { SetProperty(ref _menuPrice2, value); }
+            set { SetProperty(ref _menuPrice2, value, "MenuPrice2"); }
         }
 
         private decimal? _sumOfConsume;
@@ -88,7 +88,7 @@ namespace TP.ModelView
         public Nullable<decimal> SumOfConsume
         {
             get { return _sumOfConsume; }
-            set { SetProperty(ref _sumOfConsume, value); }
+            set { SetProperty(ref _sumOfConsume, value, "SumOfConsume"); }
         }
 
 
@@ -97,14 +97,14 @@ namespace TP.ModelView
         public Nullable<decimal> SumForDiscount
         {
             get { return _sumForDiscount; }
-            set { SetProperty(ref _sumForDiscount, value); }
+            set { SetProperty(ref _sumForDiscount, value, "SumForDiscount"); }
         }
 
         private decimal? _sumOfService;
         public Nullable<decimal> SumOfService
         {
             get { return _sumOfService; }
-            set { SetProperty(ref _sumOfService, value); }
+            set { SetProperty(ref _sumOfService, value, "SumOfService"); }
         }
         public Nullable<decimal> SumOfCookWay { get; set; }
         public string CookWayID { get; set; }

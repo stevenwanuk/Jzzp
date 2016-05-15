@@ -7,6 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Newtonsoft.Json;
+using TP.BLL;
+using TP.Common;
+using TP.Gmap;
+using TP.ModelView;
+using TP.AppStatic;
 
 namespace TP
 {
@@ -19,23 +25,90 @@ namespace TP
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
 
+            //Binding error handler
             Application.Current.DispatcherUnhandledException +=
                 new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
+
+            //config log4net
+            log4net.Config.XmlConfigurator.Configure();
+
+            //Setup chulture to GB
+            ProjectSetUpUtils.SetDefaultCulture(new CultureInfo("en-GB"));
+
+            //Load Appsetting
+            Log4netUtil.For(this).Info("Init App setting start");
+            var tpLoad = TPConfig.Load();
+            Log4netUtil.For(this).Info("Init App setting end:" + tpLoad);
+
+            //Init Automapper
+            Log4netUtil.For(this).Info("Init Automapper start");
+            AutoMapperUtils.InitAutoMapper();
+            Log4netUtil.For(this).Info("Init Automapper end");
+            //DB Test
+            Log4netUtil.For(this).Info("Test db start");
+            new DBBLL().DBTestBillRef();
+            Log4netUtil.For(this).Info("Test db end");
+
+            //DeliveryCaculator test
+            Log4netUtil.For(this).Info("DeliveryCaculator test start");
+            var i = DeliveryFeeCaculator.GetDeliveryFee(5);
+            var j = DeliveryFeeCaculator.GetDeliveryFee(2, 5);
+            Log4netUtil.For(this).Info("DeliveryCaculator test end");
         }
+
+
+        public void test()
+        {
+            var a = new TPUserAddressMV();
+            var postCode = "WC1H9JP";
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                
+                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        a.RenderFromGoogleGeoCodeResponse(geoResponse);
+                    }
+                });
+
+                GmapUtils.GetDriection(postCode, (o, args) =>
+                {
+
+                    MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        a.RenderFromGoogleDirectionsResponse(geoResponse);
+                    }
+                });
+            }
+        }
+
+
 
         void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            #if DEBUG // In debug mode do not custom-handle the exception, let Visual Studio handle it
 
-                        //e.Handled = false;
+            Log4netUtil.For(this).Error(e.ToString(), e.Exception);
 
-            #else
+#if DEBUG // In debug mode do not custom-handle the exception, let Visual Studio handle it
 
-            ShowUnhandeledException(e);    
+            //e.Handled = false;
 
-            #endif
+#else
+
+            ShowUnhandeledException(e);
+
+#endif
+
         }
 
         void ShowUnhandeledException(DispatcherUnhandledExceptionEventArgs e)

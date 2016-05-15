@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -14,7 +13,22 @@ using TP.View;
 using TP.WindowForm;
 using EntitiesDABL.DAL;
 using EntitiesDABL;
+using Newtonsoft.Json;
 using TP.BLL;
+using TP.Gmap;
+using System.IO;
+using System.Xml;
+using System.Windows.Markup;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
+using TP.Common.StringLib;
+using Xceed.Wpf.AvalonDock.Controls;
+using TP.Pstn;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using TP.printing;
+using System.Text;
+using TP.AppStatic;
 
 namespace TP
 {
@@ -23,6 +37,7 @@ namespace TP
     /// </summary>
     public partial class MainWindow : Window
     {
+        HwndSource source;
 
         #region Init
         public MainWindow()
@@ -35,7 +50,7 @@ namespace TP
 
         protected void InitConfig()
         {
-            terminalId = Convert.ToInt32(ConfigurationManager.AppSettings["TerminalId"]);
+            terminalId = TPConfig.TerminalId;
         }
 
 
@@ -66,22 +81,22 @@ namespace TP
 
             dispatcherTimer_Tick(this, null);
 
-            dispatcherTimer.Start();
+            //dispatcherTimer.Start();
         }
 
 
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            
-            var tPBillRefs = new TPBillRefBLL().GetUnCompletedCallIns(terminalId);
+
+            var tPBillRefs = new TPBillRefBLL().GetDisplayedTPBillRef(terminalId);
 
             foreach (var existedMV in mainView.TPBillRefs)
             {
 
                 if (!tPBillRefs.Any(i => i.BillRefId.Equals(existedMV.BillRefId)))
                 {
-                    mainView.TPBillRefs.Remove(existedMV);
+                    //mainView.TPBillRefs.Remove(existedMV);
                 }
             }
 
@@ -107,7 +122,10 @@ namespace TP
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            var billRefId = (long)((ToggleButton) sender).Tag;
+            var billRefId = (long)((ToggleButton)sender).Tag;
+
+            mainView.SelectedTpBillRefMv = mainView.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+
             LoadTabControlView(billRefId);
 
         }
@@ -143,11 +161,11 @@ namespace TP
 
         protected void QUeryUserCallBack(object sender, CustomEventArgs e)
         {
-            
+
             Guid userId;
             if (!string.IsNullOrEmpty(e.Message) && Guid.TryParse(e.Message, out userId))
             {
-                
+
                 if (mainView.SelectedTpBillRefMv != null)
                 {
                     //Update userId
@@ -174,15 +192,15 @@ namespace TP
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((TPUserAddressMV) ((ListBox) sender).SelectedItem != null)
+            if ((TPUserAddressMV)((ListBox)sender).SelectedItem != null)
             {
-                mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV) ((ListBox) sender).SelectedItem;
+                mainView.UsersTabView.TPUserAddressMV = (TPUserAddressMV)((ListBox)sender).SelectedItem;
             }
             else
             {
                 mainView.UsersTabView.TPUserAddressMV = new TPUserAddressMV();
             }
-            
+
         }
 
         #region User
@@ -202,8 +220,8 @@ namespace TP
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
             var userMV = mainView.UsersTabView.TPUserMV;
-            mainView.ErrorMsg = "test";
-            
+            mainView.ErrorMsg = "Saved";
+
             var user = userMV.MapperTo();
             if (user.UserId == Guid.Empty)
             {
@@ -229,11 +247,11 @@ namespace TP
             var selectedItem = mainView.UsersTabView.TPUserAddressMV;
             if (selectedItem != null && mainView.UsersTabView.TPUserAddressMVs.Any(i => i.UserAddressId == selectedItem.UserAddressId))
             {
-                
+
                 new TPBillRefBLL().RemoveUserAddress(mainView.UsersTabView.TPBillRefMV.BillRefId, selectedItem.UserAddressId);
                 mainView.UsersTabView = new UsersTabView(mainView.UsersTabView.TPBillRefMV.BillRefId);
             }
-            
+
         }
 
         private void UserAddressSave_OnClick(object sender, RoutedEventArgs e)
@@ -246,14 +264,14 @@ namespace TP
             {
                 userAddress.UserId_FK = mainView.UsersTabView.TPBillRefMV.UserId_FK.Value;
 
-                
+
                 new TPBillRefBLL().SaveAddress(billRefId, userAddress);
-                new TPBillRefBLL().SaveDliveryInfos(billRefId, 
+                new TPBillRefBLL().SaveDliveryInfos(billRefId,
                     mainView.UsersTabView.TPUserAddressMV.DeliveryMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
 
                 LoadTabControlView(billRefId);
             }
-            
+
         }
 
         #endregion UserAddress
@@ -285,6 +303,17 @@ namespace TP
             }
         }
 
+        private void DeliveryCaculator_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            var deliverMiles = mainView.DeliveryTabView.TPBillRefMV.DeliverMiles;
+            if (deliverMiles != null)
+            {
+
+                var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles.Value);
+                mainView.DeliveryTabView.TPBillRefMV.DeliverFee = deliveryFee;
+            }
+        }
         private void DeliverySave_OnClick(object sender, RoutedEventArgs e)
         {
             if (mainView.DeliveryTabView.TPBillRefMV != null)
@@ -300,6 +329,302 @@ namespace TP
                 BUControl.LoadBill();
             }
             
+        }
+
+        private void BillCbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
+            if (item != null)
+            {
+                if (mainView.SelectedTpBillRefMv != null)
+                {
+                    var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
+                    if (!string.IsNullOrEmpty(billId_FK) && !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
+
+                        //Bind billid
+                        new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
+
+                    }
+                }
+            }
+            BUControl.LoadBill();
+        }
+
+        private void GmapBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if(!string.IsNullOrEmpty(postCode))
+            {
+                var gmap = new GMapWindow();
+                gmap.Owner = this;
+                gmap.GMapUC.DPostCode = postCode;
+                gmap.Show();
+            }
+        }
+
+        private void LCodeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                var address = new TPAddressBLL().GetAddressByPostCode(postCode);
+                if (address != null)
+                {
+                    mainView.UsersTabView.TPUserAddressMV.RenderFromTpAddress(address);
+                }
+            }
+        }
+
+        private void GCodeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
+            if (!string.IsNullOrEmpty(postCode))
+            {
+                //looking for address
+                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                {
+
+                    //MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                    }
+                });
+
+                GmapUtils.GetDriection(postCode, (o, args) =>
+                {
+
+                    //MessageBox.Show(args.Result);
+                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
+
+                    if (geoResponse != null)
+                    {
+
+                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
+                    }
+                });
+            }
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            var currTextBox = sender as TextBox;
+            decimal deliverMiles = 0;
+            if (Decimal.TryParse(currTextBox.Text, out deliverMiles))
+            {
+                var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles);
+                mainView.UsersTabView.TPBillRefMV.DeliverFee = deliveryFee;
+            }
+        }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Printer.Priview(mainView);
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        
+
+        #region winmsg
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            switch (msg)
+            {
+                case BriSDKLib.BRI_EVENT_MESSAGE:
+                    {
+                        BriSDKLib.TBriEvent_Data EventData = (BriSDKLib.TBriEvent_Data)Marshal.PtrToStructure(lParam, typeof(BriSDKLib.TBriEvent_Data));
+                        string strValue = "";
+                        switch (EventData.lEventType)
+                        {
+                            case BriSDKLib.BriEvent_PhoneHook:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机摘机";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_PhoneHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机挂机";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_CallIn:
+                                {////两声响铃结束后开始呼叫转移到CC
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：来电响铃";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_GetCallID:
+                                {
+
+                                    var telno = StringUtils.FromASCIIByteArray(EventData.szData);
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + telno;
+
+                                    AddNewBillRef(telno);
+
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_StopCallIn:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：停止呼入，产生一个未接电话 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_GetDTMFChar: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到按键 " + StringUtils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RemoteHang:
+                                {
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：远程挂机 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_Busy:
+                                {
+
+                                    strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到忙音,线路已经断开 ";
+                                }
+                                break;
+                            case BriSDKLib.BriEvent_DialTone: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：检测到拨号音 "; break;
+                            case BriSDKLib.BriEvent_PhoneDial: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：电话机拨号 " + StringUtils.FromASCIIByteArray(EventData.szData); break;
+                            case BriSDKLib.BriEvent_RingBack: strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：拨号后接收到回铃音 "; break;
+                            case BriSDKLib.BriEvent_DevErr:
+                                {
+                                    if (EventData.lResult == 3)
+                                    {
+                                        strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：设备可能被移除 ";
+                                    }
+                                }
+                                break;
+                            default: break;
+                        }
+                        if (strValue.Length > 0)
+                        {
+                            AppendStatus(strValue);
+                        }
+
+                        handled = true;
+                    }
+                    break;
+            }
+            return IntPtr.Zero;
+        }
+
+        private void AddNewBillRef(string telno)
+        {
+
+            var billRef = new TPBillRefBLL().CreatNewBillRef(telno, terminalId);
+            if (mainView.TPBillRefs != null)
+            {
+
+                var billRefMv = TPBillRefMV.Mapper(billRef);
+                if (billRef.TPCallIn != null)
+                {
+                    billRefMv.TPCallIn = TPCallInMV.Mapper(billRef.TPCallIn);
+                }
+                
+                mainView.TPBillRefs.Add(billRefMv);
+            }
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            source = PresentationSource.FromVisual(this) as HwndSource;
+            AppendStatus("register handle with source:" + source.Handle);
+            source.AddHook(WndProc);
+
+            //open device
+
+            if (BriSDKLib.QNV_OpenDevice(BriSDKLib.ODT_LBRIDGE, 0, "") <= 0 || BriSDKLib.QNV_DevInfo(0, BriSDKLib.QNV_DEVINFO_GETCHANNELS) <= 0)
+            {
+
+                MessageBox.Show("can't open fax modem");
+                //throw new IOException("can't open fax modem");
+            }
+
+            for (Int16 i = 0; i < BriSDKLib.QNV_DevInfo(-1, BriSDKLib.QNV_DEVINFO_GETCHANNELS); i++)
+            {//在windowproc处理接收到的消息
+                BriSDKLib.QNV_Event(i, BriSDKLib.QNV_EVENT_REGWND, (Int32)source.Handle, "", new StringBuilder(0), 0);
+            }
+
+            AppendStatus("打开设备成功");
+        }
+
+        private void AppendStatus(string str)
+        {
+            Log4netUtil.For(this).Info(str);
+        }
+
+        private void MWindow_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                BriSDKLib.QNV_CloseDevice(BriSDKLib.ODT_ALL, 0);
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        #endregion winmsg
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewBillRef("123456");
+            mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
+            }
+        }
+
+
+        private void CallInSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv.TPCallIn != null)
+            {
+                var telno = mainView.SelectedTpBillRefMv.TPCallIn.CellNumber;
+                if (!String.IsNullOrEmpty(telno))
+                {
+                    new TPCallInBLL().UpdateCellNumber(telno, mainView.SelectedTpBillRefMv.TPCallIn.CallInId, mainView.SelectedTpBillRefMv.BillRefId);
+                    LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
+                }
+            }
+
+            
+        }
+
+        private void CloseCurrTab_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                new TPBillRefBLL().UpdateShowStatus(mainView.SelectedTpBillRefMv.BillRefId, false);
+                mainView.TPBillRefs.Remove(mainView.SelectedTpBillRefMv);
+                mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
+                if (mainView.SelectedTpBillRefMv != null)
+                {
+                    LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
+                }
+                
+            }
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as ToggleButton).IsChecked = true;
         }
     }
 }

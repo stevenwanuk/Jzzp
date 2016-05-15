@@ -17,6 +17,22 @@ namespace TP.BLL
             return new JzzpBillDAL(new JZZPEntities()).GetFavouriteByUserId(userId).ToList().Take(count).ToList();
         }
 
+
+        public List<Bill> GetUnBindListWithCurrentBillId(string billId)
+        {
+            var result = new List<Bill>();
+            using (var entities = new JZZPEntities())
+            {
+                var query = from b in entities.Bills
+                            where !entities.TPBillRefs.Any(i => i.BillId_FK == b.BillID) 
+                            || b.BillID == billId
+                            orderby b.BillDate descending 
+                            select b;
+                result = query.ToList();
+            }
+            return result;
+        }
+
         public BillDTO GetLastPaidBillByUserId(Guid userId)
         {
 

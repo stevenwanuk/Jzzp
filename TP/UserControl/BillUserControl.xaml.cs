@@ -56,7 +56,7 @@ namespace TP.UserControl
                 if (_billRefMV != value)
                 {
                     _billRefMV = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BIllRefMV");
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace TP.UserControl
                 if (_billMV != value)
                 {
                     _billMV = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BillMV");
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace TP.UserControl
                 if (_billItemMVs != value)
                 {
                     _billItemMVs = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BillItemMVs");
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace TP.UserControl
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -4,12 +4,89 @@ using System.Data.Entity;
 using System.Linq;
 using EntitiesDABL;
 using EntitiesDABL.DAL;
+using Jzzp.Enum;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 
 namespace TP.BLL
 {
     public class TPBillRefBLL
     {
+
+        public void BindingBillId(long billRefId, string billId)
+        {
+            if (!string.IsNullOrEmpty(billId))
+            {
+                using (var entities = new JZZPEntities())
+                {
+                    var billRef = entities.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+                    if (billRef != null)
+                    {
+                        billRef.BillId_FK = billId;
+                        entities.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public List<TPBillRef> GetBillRefssWithParameters(TPBillRef qBillRef, int? queryStatus, long? driverId, DateTime? qStartDate, DateTime? qEndDate)
+        {
+
+            var result = new List<TPBillRef>();
+            using (var entities = new JZZPEntities())
+            {
+                var query = entities.TPBillRefs.AsQueryable();
+
+                if (qBillRef != null)
+                {
+
+                    if (qBillRef.UserId_FK != null)
+                    {
+                        query = query.Where(i => i.TPUser != null && qBillRef.UserId_FK == i.UserId_FK);
+                    }
+                    
+                }
+
+                if (driverId != null)
+                {
+                    query = query.Where(i => i.TPDeliver != null && driverId == i.TPDeliver.DriverId_FK);
+                }
+
+                if (queryStatus != null)
+                {
+                    query = query.Where(i => queryStatus == i.Status);
+                }
+
+                if (qStartDate != null)
+                {
+                    query = query.Where(i => i.TPCallIn.StartDate >= qStartDate);
+                }
+                if (qEndDate != null)
+                {
+                    query = query.Where(i => i.TPCallIn.EndDate <= qEndDate);
+                }
+                result = query.Include(i => i.TPUser).Include(i => i.TPDeliver.TPDriver).ToList();
+            }
+
+            return result;
+        }
+
+        public ICollection<TPBillRef> GetDisplayedTPBillRef(int terminalId)
+        {
+            var result = new List<TPBillRef>();
+
+            using (var entities = new JZZPEntities())
+            {
+
+                var query = from br in entities.TPBillRefs
+                            where br.ShowOnMain 
+                            && br.TPCallIn != null 
+                            && br.TPCallIn.TerminalId == terminalId
+                            select br;
+                result = query.Include(i => i.TPCallIn).ToList();
+            }
+
+            return result;
+        }
 
         public ICollection<TPBillRef> GetUnCompletedCallIns(int terminalId)
         {
@@ -28,11 +105,25 @@ namespace TP.BLL
             
             using (var entities = new JZZPEntities())
             {
-                
-                new TPBillRefDAL(entities).UpdateBillRefUser(billRefId, userId);
+
+                var billRef = entities.TPBillRefs.FirstOrDefault(i => i.BillRefId == billRefId);
+                if (billRef != null)
+                {
+                    billRef.UserId_FK = userId;
+                    BillRefStatusProcess(billRef, (int)BillRefStatus.Started);
+                }
+
                 entities.SaveChanges();
             }
         }
+        public static void BillRefStatusProcess(TPBillRef billRef, int status)
+        {
+            if (billRef.Status<status)
+            {
+                billRef.Status = status;
+            }
+        }
+
 
         public TPBillRef GeBillRefWithUserAndUserAddressByTpBillRefId(long billRefId)
         {
@@ -69,7 +160,7 @@ namespace TP.BLL
             {
 
                 var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
-                result = query.Include(i => i.TPUser).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
+                result = query.Include(i => i.TPUser).Include(i =>i.TPUserAddress).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
             }
             return result;
         }
@@ -89,7 +180,13 @@ namespace TP.BLL
                 {
 
                     new TPUserDAL(entities).Save(user);
-                    new TPBillRefDAL(entities).SaveUser(billRefId, user.UserId);
+
+                    var billRef = entities.TPBillRefs.FirstOrDefault(i => i.BillRefId == billRefId);
+                    if (billRef != null)
+                    {
+                        billRef.UserId_FK = user.UserId;
+                        BillRefStatusProcess(billRef, (int)BillRefStatus.Started);
+                    }
                     entities.SaveChanges();
                 }
             }
@@ -114,11 +211,12 @@ namespace TP.BLL
 
             using (var entitites = new JZZPEntities())
             {
-                var billRef = new TPBillRefDAL(entitites).GetTPBillRefById(billRefId).ToList().FirstOrDefault();
+                var billRef = new TPBillRefDAL(entitites).GetTPBillRefById(billRefId).FirstOrDefault();
                 if (billRef != null)
                 {
                     billRef.DeliverMiles = deliveryMiles;
                     billRef.DeliverFeeOrigin = deliveryFeeOrigin;
+                    BillRefStatusProcess(billRef, (int)BillRefStatus.Started);
                     entitites.SaveChanges();
                 }
 
@@ -151,6 +249,7 @@ namespace TP.BLL
 
                     billRef.DeliverMiles = deliveryMiles;
                     billRef.DeliverFee = deliveryFee;
+                    TPBillRefBLL.BillRefStatusProcess(billRef, (int)BillRefStatus.Distributed);
 
                     entities.SaveChanges();
                 }
@@ -175,6 +274,60 @@ namespace TP.BLL
             return result;
         }
 
+        public TPBillRef CreatNewBillRef(string telno, int terminalId)
+        {
 
+            TPBillRef billRef = null;
+            using (var entities = new JZZPEntities())
+            {
+                billRef = new TPBillRef()
+                {
+                    Status = (int)BillRefStatus.Initial,
+                    ShowOnMain = true
+                };
+                entities.TPBillRefs.Add(billRef);
+                var callIn = new TPCallIn()
+                {
+                    TerminalId = terminalId,
+                    StartDate = DateTime.Now
+                };
+                entities.TPCallIns.Add(callIn);
+                billRef.TPCallIn = callIn;
+                if (!string.IsNullOrEmpty(telno))
+                {   
+                    callIn.CellNumber = telno;
+
+                    //looking for useraddress
+                    var query = entities.TPBillRefs.Where(i => i.TPCallIn != null
+                        && i.TPCallIn.CellNumber == telno && i.BillRefId != billRef.BillRefId)
+                        .OrderByDescending(i => i.BillRefId).FirstOrDefault();
+
+                    if (query != null)
+                    {
+                        billRef.UserId_FK = query.UserId_FK;
+                        billRef.AddressId_FK = query.AddressId_FK;
+                    }
+
+                }
+                entities.SaveChanges();
+            }
+            return billRef;
+        }
+
+        public void UpdateShowStatus(long tpBillRefId, bool isShow)
+        {
+
+            using (var entities = new JZZPEntities())
+            {
+
+                var billRef = entities.TPBillRefs.Where(i => i.BillRefId == tpBillRefId).FirstOrDefault();
+                if (billRef != null)
+                {
+                    billRef.ShowOnMain = isShow;
+                    entities.SaveChanges();
+                }
+
+            }
+        }
     }
 }

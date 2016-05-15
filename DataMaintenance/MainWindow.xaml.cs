@@ -19,8 +19,9 @@ using System.Windows.Shapes;
 using System.Linq.Expressions;
 using System.Security.Policy;
 using DataMaintenance.View;
-using Prism.Commands;
+using Microsoft.Practices.Prism.Commands;
 using TP.Common;
+using TP.Common.CustomConfig;
 
 namespace DataMaintenance
 {
