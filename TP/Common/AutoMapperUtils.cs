@@ -74,9 +74,11 @@ namespace TP.Common
 
             //TempBill
             Mapper.CreateMap<TempBill, TempBillMV>();
+            Mapper.CreateMap<TempBill, BillMV>();
 
             //TempBillItem
             Mapper.CreateMap<TempBillItem, TempBillItemMV>();
+            Mapper.CreateMap<TempBillItem, BillItemMV>();
 
             //Bill
             Mapper.CreateMap<Bill, BillMV>();

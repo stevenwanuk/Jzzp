@@ -16,6 +16,12 @@ namespace TP.ModelView
             return AutoMapper.Mapper.Map<BillItem, BillItemMV>(entity);
         }
 
+        public static BillItemMV Mapper(TempBillItem entity)
+        {
+            return AutoMapper.Mapper.Map<TempBillItem, BillItemMV>(entity);
+        }
+
+
         private string _billItemId;
         public string BillItemID
         {

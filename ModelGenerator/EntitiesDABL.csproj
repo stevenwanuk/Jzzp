@@ -73,6 +73,7 @@
     <Compile Include="DAL\TPUserDAL.cs" />
     <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="DTO\OrderHistoryDTO.cs" />
+    <Compile Include="DTO\TempBillDTO.cs" />
     <Compile Include="Enum\BillRefStatus.cs" />
     <Compile Include="JPPZModel.Context.cs">
       <AutoGen>True</AutoGen>

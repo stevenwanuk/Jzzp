@@ -339,7 +339,7 @@ namespace TP
                 if (mainView.SelectedTpBillRefMv != null)
                 {
                     var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
-                    if (!string.IsNullOrEmpty(billId_FK) && !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
+                    if (string.IsNullOrEmpty(billId_FK)|| !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
 
                         //Bind billid
                         new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
@@ -473,7 +473,7 @@ namespace TP
 
                                     var telno = StringUtils.FromASCIIByteArray(EventData.szData);
                                     strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + telno;
-
+                                    AppendStatus(strValue);
                                     AddNewBillRef(telno);
 
                                 }

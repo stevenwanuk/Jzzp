@@ -45,7 +45,7 @@ namespace TP.printing
 
 
             //Query Bill Infos
-            var billInfo = new JzzpBillBLL().GetBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
+            var billInfo = new JzzpBillBLL().GetTempBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
             //Parse the value
 
             xmalString = xmalString.HaackFormat(
@@ -55,7 +55,7 @@ namespace TP.printing
                     TPBillRef = mainView.DeliveryTabView.TPBillRefMV,
                     TPUser = mainView.DeliveryTabView.TPBillRefMV.TPUser,
                     TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
-                    Bill = billInfo.Bill
+                    Bill = billInfo.TempBill
                 });
 
             StringReader stringReader = new StringReader(xmalString);
@@ -66,7 +66,7 @@ namespace TP.printing
             var table = sec.Blocks.Where(i => i is Table).OfType<Table>().FirstOrDefault();
             if (table != null)
             {
-                buildBillItemTable(table, billInfo.BillItems);
+                buildBillItemTable(table, billInfo.TempBillItems);
             }
             doc1.Blocks.Add(sec);
 
@@ -87,7 +87,7 @@ namespace TP.printing
             PrintUtils.DoPreview("test", doc1);
         }
         
-        private static void buildBillItemTable(Table table, ICollection<BillItem> billItems)
+        private static void buildBillItemTable(Table table, ICollection<TempBillItem> billItems)
         {
 
             var reader = new StreamReader(ConfigurationManager.AppSettings["PrintItemSampleFile"]);

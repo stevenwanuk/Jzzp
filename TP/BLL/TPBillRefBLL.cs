@@ -6,6 +6,7 @@ using EntitiesDABL;
 using EntitiesDABL.DAL;
 using Jzzp.Enum;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using TP.Common;
 
 namespace TP.BLL
 {
@@ -276,7 +277,7 @@ namespace TP.BLL
 
         public TPBillRef CreatNewBillRef(string telno, int terminalId)
         {
-
+            
             TPBillRef billRef = null;
             using (var entities = new JZZPEntities())
             {
@@ -294,7 +295,10 @@ namespace TP.BLL
                 entities.TPCallIns.Add(callIn);
                 billRef.TPCallIn = callIn;
                 if (!string.IsNullOrEmpty(telno))
-                {   
+                {
+                    Log4netUtil.For(this).Debug(telno);
+                    telno = new string(telno.Where(char.IsDigit).ToArray());
+                    Log4netUtil.For(this).Debug(telno);
                     callIn.CellNumber = telno;
 
                     //looking for useraddress
@@ -309,6 +313,8 @@ namespace TP.BLL
                     }
 
                 }
+
+                Log4netUtil.For(this).Debug(string.Format("save billref: telno=>{0},terminalId=>{1},UserId_FK=>{2},AddressId_FK=>{3}", telno, terminalId, billRef.UserId_FK, billRef.AddressId_FK));
                 entities.SaveChanges();
             }
             return billRef;

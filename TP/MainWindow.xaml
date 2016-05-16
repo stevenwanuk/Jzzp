@@ -29,9 +29,9 @@
         </Style>
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
         <common:EmptyStringConverter x:Key="EmptyStringConverter"></common:EmptyStringConverter>
-        
-        <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Hidden" FalseValue="Visible"></common:BoolToVisibilityConverter>
-        <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden"></common:BoolToVisibilityConverter>
+
+        <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible"></common:BoolToVisibilityConverter>
+        <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"></common:BoolToVisibilityConverter>
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
