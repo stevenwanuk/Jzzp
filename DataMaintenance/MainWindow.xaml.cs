@@ -79,7 +79,7 @@ namespace DataMaintenance
         {
 
             ObservableCollection<StartupConfigurationElement> result = new ObservableCollection<StartupConfigurationElement>();
-            var startConfigs = ConfigurationManager.GetSection("startupSection") as StartupConfigurationSection;
+            var startConfigs = ConfigurationManager.GetSection("dispatcherConfigurationSection") as DispatcherConfigurationSection;
             if (startConfigs != null)
             {
 

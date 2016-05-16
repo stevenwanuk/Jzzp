@@ -79,7 +79,7 @@ namespace DataMaintenance
         protected StartupConfigurationElement GetStartupOrDefaultByCommand(string command)
         {
             StartupConfigurationElement result = null;
-            var startConfigs = ConfigurationManager.GetSection("startupSection") as StartupConfigurationSection;
+            var startConfigs = ConfigurationManager.GetSection("dispatcherConfigurationSection") as DispatcherConfigurationSection;
             if (startConfigs != null)
             {
 

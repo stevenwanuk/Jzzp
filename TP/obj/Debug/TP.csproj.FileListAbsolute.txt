@@ -632,3 +632,4 @@ D:\work\jzzp\Jzzp\TP\obj\Debug\WindowForm\UsersWindow.baml
 D:\work\jzzp\Jzzp\TP\obj\Debug\TP.g.resources
 D:\work\jzzp\Jzzp\TP\obj\Debug\TP.Properties.Resources.resources
 D:\work\jzzp\Jzzp\TP\obj\Debug\TP.csproj.GenerateResource.Cache
+C:\kwan\work\c#\printing\Jzzp\TP\bin\Debug\print_BillItem.txt
