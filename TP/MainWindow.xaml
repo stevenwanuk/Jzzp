@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
-        WindowState="Maximized" WindowStyle="None" Topmost="True"
+        WindowState="Maximized" WindowStyle="None" Topmost="False"
         >
 
 
@@ -75,7 +75,8 @@
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Width="84" Grid.Column="0">
-                <Label Width="84">Waitting List</Label>
+                    <Button Content="exit" Click="ExitBtn_Click" Grid.Column="4" Height="50" ></Button>
+                    <Label Width="84">--</Label>
                 </TextBlock>
                 <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}">
                     <ItemsControl.ItemsPanel>
@@ -100,12 +101,18 @@
 
                 <Button Content="Add" Click="Add_Click" Grid.Column="2" Height="50"></Button>
                 <Button Content="Close" Click="CloseCurrTab_Click" Grid.Column="3" Height="50"></Button>
-                <Button Content="exit" Click="ExitBtn_Click" Grid.Column="4" Height="50"></Button>
+                <Button Content="Hide" Click="HideBtn_Click" Grid.Column="4" Height="50"></Button>
+                
                 
             </Grid>
 
 
-
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Line></Line>
+            </Grid>
             <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -126,7 +133,7 @@
                 <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="callIdTB" Grid.Column="0" Text="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"  IsReadOnly="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber, Converter={StaticResource EmptyStringConverter}}"/>
                     <Button Grid.Column="1" Visibility="{Binding ElementName=callIdTB, Path=IsReadOnly, Converter={StaticResource ReversedBoolToVisibilityConverter}}" Click="CallInSave_Click">Save</Button>
@@ -225,8 +232,8 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel Tag="{Binding UserAddressId}">
-                                            <TextBlock Text="{Binding UserAddressId}" />
-                                            <TextBlock Text=", " />
+                                            <TextBlock Text="  " />
+                                            <TextBlock Text="  " />
                                             <TextBlock Text="{Binding HouseNumber}" FontWeight="Bold" />
                                             <TextBlock Text=" " />
                                             <TextBlock Text="{Binding AddressField1}" FontWeight="Bold" />
@@ -305,8 +312,8 @@
                                 <Label Grid.Column="0" Grid.Row="8" Content="Delivery Miles" HorizontalAlignment="Right"/>
                                 <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPUserAddressMV.DeliveryMiles}" TextChanged="TextBox_LostFocus"/>
 
-                                <Label Grid.Column="0" Grid.Row="9" Content="Delivery Fee" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFee}"/>
+                                <Label Grid.Column="0" Grid.Row="9" Content="Initial Delivery Fee" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFeeOrigin}" />
 
                                 <StackPanel Grid.ColumnSpan="2" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button HorizontalAlignment="Right" Click="UserAddressRemove_OnClick">Remove</Button>

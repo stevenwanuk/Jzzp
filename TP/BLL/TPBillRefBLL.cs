@@ -310,6 +310,7 @@ namespace TP.BLL
                     {
                         billRef.UserId_FK = query.UserId_FK;
                         billRef.AddressId_FK = query.AddressId_FK;
+                        billRef.DeliverFeeOrigin = query.DeliverFeeOrigin;
                     }
 
                 }
