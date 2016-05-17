@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
-        WindowState="Maximized" WindowStyle="None"
+        WindowState="Maximized" WindowStyle="None" Topmost="True"
         >
 
 

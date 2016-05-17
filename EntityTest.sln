@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DABL", "DABL\DABL.csproj", "{C9A1D415-BEAF-49F6-A898-ABB00E7AA298}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pstndemo", "..\..\..\单路语音盒开发包\csharp\pstndemo\pstndemo\pstndemo.csproj", "{4CBF3E55-2284-42FA-A0D6-32106029190C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWinProcWithWPF", "TestWinProcWithWPF\TestWinProcWithWPF.csproj", "{DE5D3715-7293-4C9B-8623-C973F361F286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSingleton", "TestSingleton\TestSingleton.csproj", "{8B668529-945B-4CED-84E3-C0DC3ED61B55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,12 +121,24 @@ Global
 		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE5D3715-7293-4C9B-8623-C973F361F286}.Release|x86.Build.0 = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal
