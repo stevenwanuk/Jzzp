@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
-        WindowState="Maximized" WindowStyle="None" Topmost="False"
+        WindowState="Maximized" WindowStyle="None" Topmost="True"
         >
 
 
@@ -29,7 +29,8 @@
         </Style>
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
         <common:EmptyStringConverter x:Key="EmptyStringConverter"></common:EmptyStringConverter>
-
+        <common:RadioBoolToIntConverter x:Key="RadioBoolToIntConverter"></common:RadioBoolToIntConverter>
+        
         <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible"></common:BoolToVisibilityConverter>
         <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"></common:BoolToVisibilityConverter>
         <Style TargetType="{x:Type TextBox}">
@@ -191,8 +192,44 @@
                             <Label Visibility="Hidden" Grid.Column="0" Grid.Row="1" Content="UserId:" HorizontalAlignment="Right"/>
                             <Label Visibility="Hidden" Grid.Column="1" Grid.Row="1" Content="{Binding Path=UsersTabView.TPUserMV.UserId}"/>
 
-                            <Label Grid.Column="0" Grid.Row="1" Content="Gender:" HorizontalAlignment="Right"/>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Title:" HorizontalAlignment="Right"/>
+<!--                            
                             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=UsersTabView.TPUserMV.Gender}"/>
+-->
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <RadioButton Content="Ms" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=0}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Mr" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=1}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Mrs" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=2}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Miss" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                            </StackPanel>
 
                             <Label Grid.Column="0" Grid.Row="2" Content="FirstName:" HorizontalAlignment="Right"/>
                             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=UsersTabView.TPUserMV.FirstName}"/>
