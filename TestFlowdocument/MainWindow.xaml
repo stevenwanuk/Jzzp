@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <DockPanel>
-        <FlowDocumentScrollViewer x:Name="DocumentScrollViewer">
+        <FlowDocumentScrollViewer x:Name="DocumentScrollViewer" DockPanel.Dock="Top">
             <FlowDocument>
                 
             </FlowDocument>
         </FlowDocumentScrollViewer>
-        
         <Button DockPanel.Dock="Bottom" Click="ButtonBase_OnClick">test</Button>
+        <Button DockPanel.Dock="Bottom" Click="ButtonBase_OnClick1">test2</Button>
     </DockPanel>
     
 </Window>
