@@ -1,7 +1,8 @@
 ﻿using EntitiesDABL;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+
+
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,17 +16,18 @@ using TP.Common;
 using TP.Common.StringLib;
 using TP.View;
 using System.Windows.Controls;
+using TP.AppStatic;
+
 namespace TP.printing
 {
     public class Printer
     {
-
-        public static void Priview(MainView mainView)
+        protected static FlowDocument GetPrintDocument(MainView mainView)
         {
             var doc1 = new System.Windows.Documents.FlowDocument();
-            doc1.PageWidth = 600;
+            doc1.PageWidth = TPConfig.PrintPageWidth;
             //Add res image
-            var resPath = ConfigurationManager.AppSettings["PrintResImagePath"];
+            var resPath = TPConfig.PrintResImagePath;
             if (!string.IsNullOrEmpty(resPath))
             {
                 var resImg = new Image();
@@ -40,14 +42,14 @@ namespace TP.printing
             }
 
             //Add print body
-            var reader = new StreamReader(ConfigurationManager.AppSettings["PrintFile"]);
+            var reader = new StreamReader(TPConfig.PrintFile);
             var xmalString = reader.ReadToEnd();
 
 
             //Query Bill Infos
             var billInfo = new JzzpBillBLL().GetTempBillByBillId(mainView.DeliveryTabView.TPBillRefMV.BillId_FK);
-            //Parse the value
 
+            //Parse the value
             xmalString = xmalString.HaackFormat(
                 new
                 {
@@ -72,9 +74,9 @@ namespace TP.printing
 
             //Add qr image
             var qrImg = new Image();
-            var bitmap = QRCodeUtils.GetQrCode(string.Format(ConfigurationManager.AppSettings["DirectionUrl"], mainView.DeliveryTabView.TPBillRefMV.TPUserAddress.Postcode),
-                int.Parse(ConfigurationManager.AppSettings["QRHeight"]),
-                int.Parse(ConfigurationManager.AppSettings["QRWidth"]),
+            var bitmap = QRCodeUtils.GetQrCode(string.Format(TPConfig.DirectionUrl, mainView.DeliveryTabView.TPBillRefMV.TPUserAddress.Postcode),
+                TPConfig.QRHeight,
+                TPConfig.QRWidth,
                 0);
             qrImg.Source = bitmap;
             InlineUIContainer qrContainer = new InlineUIContainer(qrImg);
@@ -83,14 +85,53 @@ namespace TP.printing
             Section sqr = new Section();
             sqr.Blocks.Add(qrPar);
             doc1.Blocks.Add(sqr);
-
-            PrintUtils.DoPreview("test", doc1);
+            return doc1;
         }
-        
-        private static void buildBillItemTable(Table table, ICollection<TempBillItem> billItems)
+
+        public static void Priview(MainView mainView)
         {
 
-            var reader = new StreamReader(ConfigurationManager.AppSettings["PrintItemSampleFile"]);
+            var document = GetPrintDocument(mainView);
+            PrintUtils.DoPreview("test", document);
+        }
+
+        public static void Print(MainView mainView)
+        {
+            FlowDocument copy = GetPrintDocument(mainView);
+
+            // Create a XpsDocumentWriter object, implicitly opening a Windows common print dialog,
+            // and allowing the user to select a printer.
+
+            // get information about the dimensions of the seleted printer+media.
+            System.Printing.PrintDocumentImageableArea ia = null;
+            System.Windows.Xps.XpsDocumentWriter docWriter = System.Printing.PrintQueue.CreateXpsDocumentWriter(ref ia);
+
+            if (docWriter != null && ia != null)
+            {
+                DocumentPaginator paginator = ((IDocumentPaginatorSource)copy).DocumentPaginator;
+
+                // Change the PageSize and PagePadding for the document to match the CanvasSize for the printer device.
+                paginator.PageSize = new Size(ia.MediaSizeWidth, ia.MediaSizeHeight);
+                Thickness t = new Thickness(72);  // copy.PagePadding;
+                copy.PagePadding = new Thickness(
+                                 Math.Max(ia.OriginWidth, t.Left),
+                                   Math.Max(ia.OriginHeight, t.Top),
+                                   Math.Max(ia.MediaSizeWidth - (ia.OriginWidth + ia.ExtentWidth), t.Right),
+                                   Math.Max(ia.MediaSizeHeight - (ia.OriginHeight + ia.ExtentHeight), t.Bottom));
+
+                copy.ColumnWidth = double.PositiveInfinity;
+                //copy.PageWidth = 528; // allow the page to be the natural with of the output device
+
+                // Send content to the printer.
+                docWriter.Write(paginator);
+            }
+
+        }
+
+        protected static void buildBillItemTable(Table table, ICollection<TempBillItem> billItems)
+        {
+
+            var reader = new StreamReader(TPConfig.PrintItemSampleFile);
             var xmalString = reader.ReadToEnd();
 
             foreach (var billItem in billItems)

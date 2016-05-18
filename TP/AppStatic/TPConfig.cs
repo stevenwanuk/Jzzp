@@ -22,6 +22,8 @@ namespace TP.AppStatic
         public static int QRWidth { get; set; }
         public static bool EnaEnabledGMap { get; set; }
 
+        public static int PrintPageWidth { get; set; }
+
 
         public static bool Load()
         {
@@ -41,6 +43,9 @@ namespace TP.AppStatic
                 QRHeight = Convert.ToInt32(ConfigurationManager.AppSettings["QRHeight"]);
                 QRWidth = Convert.ToInt32(ConfigurationManager.AppSettings["QRWidth"]);
                 EnaEnabledGMap = Convert.ToBoolean(ConfigurationManager.AppSettings["EnaEnabledGMap"]);
+
+                //Print
+                PrintPageWidth = Convert.ToInt32(ConfigurationManager.AppSettings["PrintPageWidth"]);
 
 
                 result = true;

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWinProcWithWPF", "TestW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSingleton", "TestSingleton\TestSingleton.csproj", "{8B668529-945B-4CED-84E3-C0DC3ED61B55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFlowdocument", "TestFlowdocument\TestFlowdocument.csproj", "{247F317E-4620-41BF-8848-A1927CAB04F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,12 +135,24 @@ Global
 		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B668529-945B-4CED-84E3-C0DC3ED61B55}.Release|x86.Build.0 = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
