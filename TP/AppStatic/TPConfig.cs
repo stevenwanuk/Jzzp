@@ -23,7 +23,10 @@ namespace TP.AppStatic
         public static bool EnaEnabledGMap { get; set; }
 
         public static int PrintPageWidth { get; set; }
+        public static int UnBindingBillIdDisplayCount { get; set; }
 
+        public static int FontSize { get; set; }
+        public static string FontFamily { get; set; }
 
         public static bool Load()
         {
@@ -46,6 +49,12 @@ namespace TP.AppStatic
 
                 //Print
                 PrintPageWidth = Convert.ToInt32(ConfigurationManager.AppSettings["PrintPageWidth"]);
+
+
+                UnBindingBillIdDisplayCount = Convert.ToInt32(ConfigurationManager.AppSettings["UnBindingBillIdDisplayCount"]);
+
+                FontFamily = ConfigurationManager.AppSettings["FontFamily"];
+                FontSize = Convert.ToInt32(ConfigurationManager.AppSettings["FontSize"]);
 
 
                 result = true;

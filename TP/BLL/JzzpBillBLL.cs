@@ -7,6 +7,7 @@ using EntitiesDABL;
 using EntitiesDABL.DAL;
 using EntitiesDABL.DTO;
 using System.Data.Entity;
+using TP.AppStatic;
 
 namespace TP.BLL
 {
@@ -28,13 +29,13 @@ namespace TP.BLL
                 var nowDay = DateTime.Now.Date;
 
                 var query = from b in entities.TempBills
-                            where !entities.TPBillRefs.Any(i => i.BillId_FK == b.BillID)
-                            || b.BillID == billId
+                            where (!entities.TPBillRefs.Any(i => i.BillId_FK == b.BillID)
+                            || b.BillID == billId)
                             && b.BillDate != null
-                            && b.CheckOutTime >= nowDay
+                            //&& b.CheckOutTime >= nowDay
                             orderby b.BillDate descending 
                             select b;
-                result = query.ToList();
+                result = query.Take(TPConfig.UnBindingBillIdDisplayCount).ToList();
             }
             return result;
         }

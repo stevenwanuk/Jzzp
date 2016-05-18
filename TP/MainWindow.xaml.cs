@@ -29,6 +29,7 @@ using System.Windows.Interop;
 using TP.printing;
 using System.Text;
 using TP.AppStatic;
+using System.Windows.Media;
 
 namespace TP
 {
@@ -44,6 +45,8 @@ namespace TP
         {
             InitializeComponent();
             InitConfig();
+            this.FontSize = TPConfig.FontSize;
+            this.FontFamily = new FontFamily(TPConfig.FontFamily);
         }
 
         public int terminalId = 0;
@@ -219,6 +222,13 @@ namespace TP
 
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+            
             var userMV = mainView.UsersTabView.TPUserMV;
             mainView.ErrorMsg = "Saved";
 
@@ -244,6 +254,13 @@ namespace TP
 
         private void UserAddressRemove_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             var selectedItem = mainView.UsersTabView.TPUserAddressMV;
             if (selectedItem != null && mainView.UsersTabView.TPUserAddressMVs.Any(i => i.UserAddressId == selectedItem.UserAddressId))
             {
@@ -256,6 +273,13 @@ namespace TP
 
         private void UserAddressSave_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             var userAddressMV = mainView.UsersTabView.TPUserAddressMV;
             var userAddress = userAddressMV.MapperTo();
             var billRefId = mainView.UsersTabView.TPBillRefMV.BillRefId;
@@ -305,8 +329,21 @@ namespace TP
 
         private void DeliveryCaculator_OnClick(object sender, RoutedEventArgs e)
         {
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
 
             var deliverMiles = mainView.DeliveryTabView.TPBillRefMV.DeliverMiles;
+            if (deliverMiles == null)
+            {
+                mainView.ErrorMsg = "No deliverMiles";
+                return;
+            }
+
+
+            
             var billId = mainView.DeliveryTabView.TPBillRefMV.BillId_FK;
             var deliveryFee = decimal.Zero;
             if (string.IsNullOrEmpty(billId))
@@ -336,6 +373,12 @@ namespace TP
         }
         private void DeliverySave_OnClick(object sender, RoutedEventArgs e)
         {
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             if (mainView.DeliveryTabView.TPBillRefMV != null)
             {
 
@@ -354,20 +397,14 @@ namespace TP
         private void BillCbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
-            if (item != null)
+
+            if (mainView.SelectedTpBillRefMv != null)
             {
-                if (mainView.SelectedTpBillRefMv != null)
-                {
-                    var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
-                    if (string.IsNullOrEmpty(billId_FK) || !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase))
-                    {
-
-                        //Bind billid
-                        new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
-
-                    }
-                }
+               //Bind billid
+                new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item?.BillID);
+                mainView.SelectedTpBillRefMv.BillId_FK = item?.BillID;
             }
+
             BUControl.LoadBill();
         }
 
@@ -700,6 +737,19 @@ namespace TP
         private void HideBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem = null;
+            }
+        }
+
+        private void Reload_Click(object sender, RoutedEventArgs e)
+        {
+            BUControl.LoadBill();
         }
     }
 }

@@ -70,6 +70,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock  Grid.Column="0" Grid.Row="0" Text="Sum:" HorizontalAlignment="Right"></TextBlock>
@@ -80,13 +81,15 @@
                 <TextBlock  Grid.Column="1" Grid.Row="2" Text="{Binding SumForDiscount, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
                 <TextBlock  Grid.Column="0" Grid.Row="3" Text="Amount:"  HorizontalAlignment="Right"></TextBlock>
                 <TextBlock  Grid.Column="1" Grid.Row="3" Text="{Binding SumToPay, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
-                
-                
-                <TextBlock  Grid.Column="0" Grid.Row="4" Text="Delivery Fee:"  HorizontalAlignment="Right"></TextBlock>
-                <TextBlock  Grid.Column="1" Grid.Row="4" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=BIllRefMV.DeliverFee, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
 
-                <TextBlock  Grid.Column="0" Grid.Row="5" Text="Total:"  HorizontalAlignment="Right"></TextBlock>
-                <TextBlock  Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Right" Margin="0,0,10,0">
+                <TextBlock  Grid.Column="0" Grid.Row="4" Text="Initial Delivery Fee:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="4" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=BIllRefMV.DeliverFeeOrigin, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+
+                <TextBlock  Grid.Column="0" Grid.Row="5" Text="Delivery Fee:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="5" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=BIllRefMV.DeliverFee, StringFormat=C, ConverterCulture='en-GB' }" HorizontalAlignment="Right" Margin="0,0,10,0"></TextBlock>
+
+                <TextBlock  Grid.Column="0" Grid.Row="6" Text="Total:"  HorizontalAlignment="Right"></TextBlock>
+                <TextBlock  Grid.Column="1" Grid.Row="6"  HorizontalAlignment="Right" Margin="0,0,10,0">
                     <TextBlock.Text>
                         <MultiBinding Converter="{StaticResource SumConverter}">
                             <Binding Path="SumToPay" Mode="OneWay"></Binding>
@@ -96,11 +99,14 @@
                 </TextBlock>
             </Grid>
 
+
+
         </Grid>
-        
-        
-        
-        
-        
+
+
+
+
+
+
     </DockPanel>
 </UserControl>

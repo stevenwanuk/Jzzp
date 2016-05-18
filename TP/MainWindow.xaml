@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
-        WindowState="Maximized" WindowStyle="None" Topmost="True"
+        WindowState="Maximized" WindowStyle="None" Topmost="False" 
         >
 
 
@@ -19,6 +19,9 @@
         <vm:MainView></vm:MainView>
     </Window.DataContext>
     <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontSize" Value="24" />
+        </Style>
         <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
             <Setter Property="Background" Value="Blue"></Setter>
             <Style.Triggers>
@@ -454,6 +457,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" HorizontalAlignment="Center" Content="Bill Infos" FontSize="14" FontWeight="Bold">
                                 </Label>
@@ -475,6 +479,11 @@
                                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
                                     <uc:BillUserControl x:Name="BUControl" BillRefId="{Binding Path=DeliveryTabView.TPBillRefMV.BillRefId}"/>
                                 </Border>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                    <Button Content="Clear" Click="Clear_Click"/>
+                                    <Button Content="Reload" Click="Reload_Click"/>
+                                </StackPanel>
                             </Grid>
 
                             <!--drivers -->
@@ -534,15 +543,17 @@
                                     
                                     <Label Grid.Column="1" Grid.Row="0" Content="DeliveryMiles" HorizontalAlignment="Right"></Label>
                                     <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverMiles}" ></TextBox>
-                                    
 
-                                    <Label Grid.Column="1" Grid.Row="1" Content="DeliveryFee" HorizontalAlignment="Right"></Label>
-                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFee}"></TextBox>
+                                    <Label Grid.Column="1" Grid.Row="1" Content="Inital DeliveryFee" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFeeOrigin}"></TextBox>
 
-                                    <Button Grid.Column="1" Grid.Row="2" Name="DeliveryCaculator" Content="Caculator" Click="DeliveryCaculator_OnClick"></Button>
-                                    <Button Grid.Column="2" Grid.Row="2" Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="DeliveryFee" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFee}"></TextBox>
 
-                                    <Button Grid.ColumnSpan="4" Grid.Row="4"  Content="print" Click="Print_Click"></Button>
+                                    <Button Grid.Column="1" Grid.Row="3" Name="DeliveryCaculator" Content="Caculator" Click="DeliveryCaculator_OnClick"></Button>
+                                    <Button Grid.Column="2" Grid.Row="3" Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
+
+                                    <Button Grid.Column="2" Grid.Row="4"  Content="print" Click="Print_Click"></Button>
 
 
                                 </Grid>
