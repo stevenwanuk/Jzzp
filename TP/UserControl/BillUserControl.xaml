@@ -44,7 +44,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="MenuPrice" Width="*" Binding="{Binding Path=MenuPrice, StringFormat=C, ConverterCulture='en-GB'}">
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Amount" Width="*" Binding="{Binding Path=Amount, StringFormat=N2}">
+                    <DataGridTextColumn Header="Qty" Width="*" Binding="{Binding Path=Amount, StringFormat=N2}">
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Price" Width="*" Binding="{Binding SUMNet, StringFormat=C, ConverterCulture='en-GB'}">
                         <DataGridTextColumn.ElementStyle>

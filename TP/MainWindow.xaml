@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         x:Name="MWindow"
         Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
-        WindowState="Maximized" WindowStyle="None" Topmost="False" 
+        WindowState="Maximized" WindowStyle="None" Topmost="True" 
         >
 
 
@@ -130,17 +130,17 @@
             </Grid>
             <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
 
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="4*" />
 
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="2*" />
 
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Column="1" Content="Cell:"/>
@@ -148,7 +148,7 @@
                 <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
-                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="callIdTB" Grid.Column="0" Text="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"  IsReadOnly="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber, Converter={StaticResource EmptyStringConverter}}"/>
                     <Button Grid.Column="1" Visibility="{Binding ElementName=callIdTB, Path=IsReadOnly, Converter={StaticResource ReversedBoolToVisibilityConverter}}" Click="CallInSave_Click">Save</Button>
@@ -260,10 +260,10 @@
                         <Grid>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="190*"></ColumnDefinition>
-                                <ColumnDefinition Width="141*"></ColumnDefinition>
-                                <ColumnDefinition Width="49*"/>
-                                <ColumnDefinition Width="47*"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <ListBox ItemsSource="{Binding Path=UsersTabView.TPUserAddressMVs}" SelectionChanged="ListBox_SelectionChanged" 
@@ -304,7 +304,7 @@
                             <Grid Grid.Column="1" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20"></RowDefinition>
@@ -348,9 +348,9 @@
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Button HorizontalAlignment="Right"  Content="LCode" Click="LCodeBtn_Click" 
                                                 Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource ReversedBoolToVisibilityConverter}}"/>
-                                        <Button HorizontalAlignment="Right"  Content="GCode" Click="GCodeBtn_Click"
+                                        <Button HorizontalAlignment="Right"  Content="Find" Click="GCodeBtn_Click"
                                                 Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                        <Button HorizontalAlignment="Right"  Content="Gmap" Click="GmapBtn_Click"
+                                        <Button HorizontalAlignment="Right"  Content="Map" Click="GmapBtn_Click"
                                                 Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                     </StackPanel>
                                     
