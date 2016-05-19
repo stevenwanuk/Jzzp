@@ -496,16 +496,17 @@ namespace TP
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
-            Printer.Print(mainView);
+            
             try
             {
-                
-
+                Printer.Print(mainView);
+                mainView.ErrorMsg = "Print Successful";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+            
         }
 
 

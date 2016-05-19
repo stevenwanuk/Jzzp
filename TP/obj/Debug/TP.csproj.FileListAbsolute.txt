@@ -549,8 +549,6 @@ D:\work\jzzp\Jzzp\TP\obj\Debug\TP.pdb
 D:\work\jzzp\Jzzp\TP\bin\Debug\AutoMapper.Net4.dll
 D:\work\jzzp\Jzzp\TP\bin\Debug\map\map.html
 D:\work\jzzp\Jzzp\TP\bin\Debug\map\map_route.html
-D:\work\jzzp\Jzzp\TP\bin\Debug\print_BillItem.txt
-D:\work\jzzp\Jzzp\TP\bin\Debug\print.txt
 D:\work\jzzp\Jzzp\TP\bin\Debug\TP.exe
 D:\work\jzzp\Jzzp\TP\bin\Debug\TP.pdb
 D:\work\jzzp\Jzzp\TP\bin\Debug\AutoMapper.dll
@@ -634,4 +632,4 @@ D:\work\jzzp\Jzzp\TP\obj\Debug\TP.Properties.Resources.resources
 D:\work\jzzp\Jzzp\TP\obj\Debug\TP.csproj.GenerateResource.Cache
 C:\kwan\work\c#\printing\Jzzp\TP\bin\Debug\print_BillItem.txt
 D:\work\jzzp\Jzzp\TP\bin\Debug\PrintDocument.xaml
-D:\work\jzzp\Jzzp\TP\obj\Debug\PrintDocument.baml
+D:\work\jzzp\Jzzp\TP\bin\Debug\PrintDocumentItem.xaml
