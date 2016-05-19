@@ -32,8 +32,8 @@ namespace TP.printing
             if (!string.IsNullOrEmpty(resPath))
             {
                 var resImg = new Image() {
-                    Height = 30,
-                    Width = 40
+                    Height = TPConfig.QRHeight,
+                    Width = TPConfig.QRWidth
                 };
                 var path = Path.Combine(Environment.CurrentDirectory, resPath);
                 resImg.Source = new BitmapImage(new Uri(path));
@@ -86,9 +86,9 @@ namespace TP.printing
             //Add qr image
             var qrImg = new Image();
             var bitmap = QRCodeUtils.GetQrCode(string.Format(TPConfig.GMap, mainView.DeliveryTabView.TPBillRefMV.TPUserAddress.Postcode),
-                TPConfig.QRHeight,
-                TPConfig.QRWidth,
-                0);
+                50,
+                50,
+                TPConfig.QRMargin);
             qrImg.Source = bitmap;
             InlineUIContainer qrContainer = new InlineUIContainer(qrImg);
             Paragraph qrPar = new Paragraph(qrContainer);

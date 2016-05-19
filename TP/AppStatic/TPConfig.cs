@@ -20,6 +20,7 @@ namespace TP.AppStatic
         public static string PrintResImagePath { get; set; }
         public static int QRHeight { get; set; }
         public static int QRWidth { get; set; }
+        public static int QRMargin { get; set; }
         public static bool EnaEnabledGMap { get; set; }
 
         public static int PrintPageWidth { get; set; }
@@ -27,6 +28,7 @@ namespace TP.AppStatic
 
         public static int FontSize { get; set; }
         public static string FontFamily { get; set; }
+        
 
         public static bool Load()
         {
@@ -45,6 +47,7 @@ namespace TP.AppStatic
                 PrintResImagePath = ConfigurationManager.AppSettings["PrintResImagePath"];
                 QRHeight = Convert.ToInt32(ConfigurationManager.AppSettings["QRHeight"]);
                 QRWidth = Convert.ToInt32(ConfigurationManager.AppSettings["QRWidth"]);
+                QRMargin = Convert.ToInt32(ConfigurationManager.AppSettings["QRMargin"]);
                 EnaEnabledGMap = Convert.ToBoolean(ConfigurationManager.AppSettings["EnaEnabledGMap"]);
 
                 //Print
