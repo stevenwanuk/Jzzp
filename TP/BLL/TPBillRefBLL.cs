@@ -6,6 +6,7 @@ using EntitiesDABL;
 using EntitiesDABL.DAL;
 using Jzzp.Enum;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using TP.Common;
 
 namespace TP.BLL
 {
@@ -14,18 +15,17 @@ namespace TP.BLL
 
         public void BindingBillId(long billRefId, string billId)
         {
-            if (!string.IsNullOrEmpty(billId))
+
+            using (var entities = new JZZPEntities())
             {
-                using (var entities = new JZZPEntities())
+                var billRef = entities.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
+                if (billRef != null)
                 {
-                    var billRef = entities.TPBillRefs.Where(i => i.BillRefId == billRefId).FirstOrDefault();
-                    if (billRef != null)
-                    {
-                        billRef.BillId_FK = billId;
-                        entities.SaveChanges();
-                    }
+                    billRef.BillId_FK = billId;
+                    entities.SaveChanges();
                 }
             }
+
         }
 
         public List<TPBillRef> GetBillRefssWithParameters(TPBillRef qBillRef, int? queryStatus, long? driverId, DateTime? qStartDate, DateTime? qEndDate)
@@ -160,7 +160,7 @@ namespace TP.BLL
             {
 
                 var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
-                result = query.Include(i => i.TPUser).Include(i =>i.TPUserAddress).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
+                result = query.Include(i=>i.TPCallIn).Include(i => i.TPUser).Include(i =>i.TPUserAddress).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
             }
             return result;
         }
@@ -276,7 +276,7 @@ namespace TP.BLL
 
         public TPBillRef CreatNewBillRef(string telno, int terminalId)
         {
-
+            
             TPBillRef billRef = null;
             using (var entities = new JZZPEntities())
             {
@@ -294,7 +294,10 @@ namespace TP.BLL
                 entities.TPCallIns.Add(callIn);
                 billRef.TPCallIn = callIn;
                 if (!string.IsNullOrEmpty(telno))
-                {   
+                {
+                    Log4netUtil.For(this).Debug(telno);
+                    telno = new string(telno.Where(char.IsDigit).ToArray());
+                    Log4netUtil.For(this).Debug(telno);
                     callIn.CellNumber = telno;
 
                     //looking for useraddress
@@ -306,9 +309,12 @@ namespace TP.BLL
                     {
                         billRef.UserId_FK = query.UserId_FK;
                         billRef.AddressId_FK = query.AddressId_FK;
+                        billRef.DeliverFeeOrigin = query.DeliverFeeOrigin;
                     }
 
                 }
+
+                Log4netUtil.For(this).Debug(string.Format("save billref: telno=>{0},terminalId=>{1},UserId_FK=>{2},AddressId_FK=>{3}", telno, terminalId, billRef.UserId_FK, billRef.AddressId_FK));
                 entities.SaveChanges();
             }
             return billRef;

@@ -10,7 +10,7 @@ namespace TP.Common.StringLib
         {
             if (format == null)
             {
-                throw new ArgumentNullException("format");
+                return string.Empty;
             }
             var formattedStrings = (from expression in SplitFormat(format)
                                     select expression.Eval(source)).ToArray();

@@ -24,9 +24,9 @@ namespace TP.View
         }
 
 
-        private SelectionCollection<BillMV> _unBindingBillMvs;
+        private SelectionCollection<TempBillMV> _unBindingBillMvs;
 
-        public SelectionCollection<BillMV> UnBindingBillMvs
+        public SelectionCollection<TempBillMV> UnBindingBillMvs
         {
             get { return _unBindingBillMvs; }
             set { SetProperty(ref _unBindingBillMvs, value, "BillMvs"); }
@@ -55,6 +55,7 @@ namespace TP.View
             TPBillRefMV = TPBillRefMV.Mapper(billRef);
             TPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
             TPBillRefMV.TPUserAddress = TPUserAddressMV.Mapper(billRef.TPUserAddress);
+            TPBillRefMV.TPCallIn = TPCallInMV.Mapper(billRef.TPCallIn);
 
             TPDeliverMV = TPDeliverMV.Mapper(billRef.TPDeliver);
             if (billRef.TPDeliver != null)
@@ -67,8 +68,8 @@ namespace TP.View
             drivers.ForEach(i => TpDriverMVs.Add(TPDriverMV.Mapper(i)));
 
             var unBindingList = new JzzpBillBLL().GetUnBindListWithCurrentBillId(billRef.BillId_FK);
-            UnBindingBillMvs = new SelectionCollection<BillMV>();
-            unBindingList.ForEach(i => UnBindingBillMvs.Add(BillMV.Mapper(i)));
+            UnBindingBillMvs = new SelectionCollection<TempBillMV>();
+            unBindingList.ForEach(i => UnBindingBillMvs.Add(TempBillMV.Mapper(i)));
             UnBindingBillMvs.SelectedItem = UnBindingBillMvs.Where(i => i.BillID == billRef.BillId_FK).FirstOrDefault();
         }
     }

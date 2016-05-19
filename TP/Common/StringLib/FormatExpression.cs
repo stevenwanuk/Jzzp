@@ -48,8 +48,13 @@ namespace TP.Common.StringLib
             {
                 throw new FormatException("Invalid expression");
             }
-            try
+
             {
+                //TODO
+                if (Expression.Equals("markup"))
+                {
+                    return "{markup:Type Paragraph}";
+                }
                 if (String.IsNullOrEmpty(Format))
                 {
                     return (DataBinder.Eval(o, Expression)
@@ -58,10 +63,7 @@ namespace TP.Common.StringLib
                 return (DataBinder.Eval(o, Expression, "{0:" + Format + "}")
                     ?? string.Empty).ToString();
             }
-            catch (HttpException)
-            {
-                throw new FormatException();
-            }
+
         }
     }
 }

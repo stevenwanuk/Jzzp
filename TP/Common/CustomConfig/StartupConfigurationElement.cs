@@ -64,7 +64,10 @@ namespace TP.Common.CustomConfig
         {
             get { return StartupCommmand; }
         }
+        public override string ToString()
+        {
+            return this.StartupCommmand;
+        }
 
-        
     }
 }

@@ -166,6 +166,7 @@
     <Compile Include="Common\DeliveryFeeCaculator.cs" />
     <Compile Include="Common\DependencyValidationUtils.cs" />
     <Compile Include="Common\EmptyStringConverter.cs" />
+    <Compile Include="Common\EnumBooleanConverter.cs" />
     <Compile Include="Common\InverseBooleanConverter.cs" />
     <Compile Include="Common\JSonEqualityComparer.cs" />
     <Compile Include="Common\Log4netUtil.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Common\PrintUtils.cs" />
     <Compile Include="Common\ProjectSetUpUtils.cs" />
     <Compile Include="Common\QRCodeUtils.cs" />
+    <Compile Include="Common\RadioBoolToIntConverter.cs" />
     <Compile Include="Common\SelectionCollection.cs" />
     <Compile Include="Common\CustomConfig\StartupConfigurationCollection.cs" />
     <Compile Include="Common\CustomConfig\StartupConfigurationElement.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Common\StringLib\LiteralFormat.cs" />
     <Compile Include="Common\StringUtils.cs" />
     <Compile Include="Common\SumConverter.cs" />
+    <Compile Include="Common\UserTitleEnum.cs" />
     <Compile Include="Common\ValueConverterGroup.cs" />
     <Compile Include="Gmap\GmapUtils.cs" />
     <Compile Include="Gmap\GoogleDirectionsResponse.cs" />
@@ -227,6 +230,11 @@
     <Compile Include="WindowForm\UsersWindow.xaml.cs">
       <DependentUpon>UsersWindow.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PrintDocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

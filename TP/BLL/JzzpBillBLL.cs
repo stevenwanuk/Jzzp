@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EntitiesDABL;
 using EntitiesDABL.DAL;
 using EntitiesDABL.DTO;
+using System.Data.Entity;
+using TP.AppStatic;
 
 namespace TP.BLL
 {
@@ -14,21 +16,26 @@ namespace TP.BLL
 
         public ICollection<OrderHistoryDTO> GetFavouriteByUserId(Guid userId, int count)
         {
-            return new JzzpBillDAL(new JZZPEntities()).GetFavouriteByUserId(userId).ToList().Take(count).ToList();
+            return new JzzpBillDAL(new JZZPEntities()).GetFavouriteByUserId(userId).Take(count).ToList();
         }
 
 
-        public List<Bill> GetUnBindListWithCurrentBillId(string billId)
+        public List<TempBill> GetUnBindListWithCurrentBillId(string billId)
         {
-            var result = new List<Bill>();
+            var result = new List<TempBill>();
             using (var entities = new JZZPEntities())
             {
-                var query = from b in entities.Bills
-                            where !entities.TPBillRefs.Any(i => i.BillId_FK == b.BillID) 
-                            || b.BillID == billId
+
+                var nowDay = DateTime.Now.Date;
+
+                var query = from b in entities.TempBills
+                            where (!entities.TPBillRefs.Any(i => i.BillId_FK == b.BillID)
+                            || b.BillID == billId)
+                            && b.BillDate != null
+                            //&& b.CheckOutTime >= nowDay
                             orderby b.BillDate descending 
                             select b;
-                result = query.ToList();
+                result = query.Take(TPConfig.UnBindingBillIdDisplayCount).ToList();
             }
             return result;
         }
@@ -64,6 +71,21 @@ namespace TP.BLL
                 result = new JzzpBillDAL(entities).GetLastPaidBillByUserId(userId);
             }
 
+            return result;
+        }
+
+        public TempBillDTO GetTempBillByBillId(string billId)
+        {
+            TempBillDTO result = null;
+            using (var entities = new JZZPEntities())
+            {
+                var dal = new JzzpBillDAL(entities);
+                result = new TempBillDTO()
+                {
+                    TempBill = dal.GetTempBillByBillId(billId).ToList().FirstOrDefault(),
+                    TempBillItems = dal.GetTempBillItemsByBIllId(billId).ToList()
+                };
+            }
             return result;
         }
 

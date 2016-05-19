@@ -111,10 +111,25 @@ namespace TP.UserControl
             }
             else
             {
-                var billDTO = new JzzpBillBLL().GetBillByBillId(BIllRefMV.BillId_FK);
-                BillMV = BillMV.Mapper(billDTO.Bill);
+                //lookup from Bill
                 BillItemMVs = new ObservableCollection<BillItemMV>();
-                billDTO.BillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+                var billDTO = new JzzpBillBLL().GetBillByBillId(BIllRefMV.BillId_FK);
+                if (billDTO.Bill != null)
+                {
+
+                    BillMV = BillMV.Mapper(billDTO.Bill);
+                    billDTO.BillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+
+                } else
+                {
+                    //looup from TempBill
+                    var tempBillDTO = new JzzpBillBLL().GetTempBillByBillId(BIllRefMV.BillId_FK);
+                    BillMV = BillMV.Mapper(tempBillDTO.TempBill);
+                    tempBillDTO.TempBillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+                }
+                
+               
+                
             }
         }
 

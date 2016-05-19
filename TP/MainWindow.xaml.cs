@@ -29,6 +29,7 @@ using System.Windows.Interop;
 using TP.printing;
 using System.Text;
 using TP.AppStatic;
+using System.Windows.Media;
 
 namespace TP
 {
@@ -44,6 +45,8 @@ namespace TP
         {
             InitializeComponent();
             InitConfig();
+            this.FontSize = TPConfig.FontSize;
+            this.FontFamily = new FontFamily(TPConfig.FontFamily);
         }
 
         public int terminalId = 0;
@@ -219,6 +222,13 @@ namespace TP
 
         private void UserSave_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+            
             var userMV = mainView.UsersTabView.TPUserMV;
             mainView.ErrorMsg = "Saved";
 
@@ -244,6 +254,13 @@ namespace TP
 
         private void UserAddressRemove_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             var selectedItem = mainView.UsersTabView.TPUserAddressMV;
             if (selectedItem != null && mainView.UsersTabView.TPUserAddressMVs.Any(i => i.UserAddressId == selectedItem.UserAddressId))
             {
@@ -256,6 +273,13 @@ namespace TP
 
         private void UserAddressSave_OnClick(object sender, RoutedEventArgs e)
         {
+
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             var userAddressMV = mainView.UsersTabView.TPUserAddressMV;
             var userAddress = userAddressMV.MapperTo();
             var billRefId = mainView.UsersTabView.TPBillRefMV.BillRefId;
@@ -267,7 +291,7 @@ namespace TP
 
                 new TPBillRefBLL().SaveAddress(billRefId, userAddress);
                 new TPBillRefBLL().SaveDliveryInfos(billRefId,
-                    mainView.UsersTabView.TPUserAddressMV.DeliveryMiles, mainView.UsersTabView.TPBillRefMV.DeliverFee);
+                    mainView.UsersTabView.TPUserAddressMV.DeliveryMiles, mainView.UsersTabView.TPBillRefMV.DeliverFeeOrigin);
 
                 LoadTabControlView(billRefId);
             }
@@ -305,17 +329,56 @@ namespace TP
 
         private void DeliveryCaculator_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             var deliverMiles = mainView.DeliveryTabView.TPBillRefMV.DeliverMiles;
+            if (deliverMiles == null)
+            {
+                mainView.ErrorMsg = "No deliverMiles";
+                return;
+            }
+
+
+            
+            var billId = mainView.DeliveryTabView.TPBillRefMV.BillId_FK;
+            var deliveryFee = decimal.Zero;
+            if (string.IsNullOrEmpty(billId))
+            {
+                deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles.Value);
+            }
+            else
+            {
+
+                var bill = new JzzpBillBLL().GetTempBillByBillId(billId);
+                if (bill != null && bill.TempBill != null)
+                {
+                    var amount = bill.TempBill.SumToPay;
+                    if (amount != null)
+                    {
+                        deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles.Value, amount.Value);
+                    }
+                }
+            }
+
             if (deliverMiles != null)
             {
 
-                var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles.Value);
+
                 mainView.DeliveryTabView.TPBillRefMV.DeliverFee = deliveryFee;
             }
         }
         private void DeliverySave_OnClick(object sender, RoutedEventArgs e)
         {
+            if (mainView.SelectedTpBillRefMv == null)
+            {
+                mainView.ErrorMsg = "No selected call";
+                return;
+            }
+
             if (mainView.DeliveryTabView.TPBillRefMV != null)
             {
 
@@ -328,32 +391,27 @@ namespace TP
                 //Refresh usercontrol
                 BUControl.LoadBill();
             }
-            
+
         }
 
         private void BillCbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem;
-            if (item != null)
+
+            if (mainView.SelectedTpBillRefMv != null)
             {
-                if (mainView.SelectedTpBillRefMv != null)
-                {
-                    var billId_FK = mainView.SelectedTpBillRefMv.BillId_FK;
-                    if (!string.IsNullOrEmpty(billId_FK) && !billId_FK.Equals(item.BillID, StringComparison.CurrentCultureIgnoreCase)) {
-
-                        //Bind billid
-                        new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item.BillID);
-
-                    }
-                }
+               //Bind billid
+                new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item?.BillID);
+                mainView.SelectedTpBillRefMv.BillId_FK = item?.BillID;
             }
+
             BUControl.LoadBill();
         }
 
         private void GmapBtn_Click(object sender, RoutedEventArgs e)
         {
             var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
-            if(!string.IsNullOrEmpty(postCode))
+            if (!string.IsNullOrEmpty(postCode))
             {
                 var gmap = new GMapWindow();
                 gmap.Owner = this;
@@ -404,6 +462,15 @@ namespace TP
                     {
 
                         mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
+
+                        //caculator intial delivery fee
+                        var deliveryMiles = mainView.UsersTabView.TPBillRefMV.DeliverMiles;
+                        if (deliveryMiles != null && deliveryMiles > 0)
+                        {
+                            mainView.UsersTabView.TPBillRefMV.DeliverFee = DeliveryFeeCaculator.GetDeliveryFee(deliveryMiles.Value);
+                        }
+
+
                     }
                 });
             }
@@ -423,30 +490,71 @@ namespace TP
             if (Decimal.TryParse(currTextBox.Text, out deliverMiles))
             {
                 var deliveryFee = DeliveryFeeCaculator.GetDeliveryFee(deliverMiles);
-                mainView.UsersTabView.TPBillRefMV.DeliverFee = deliveryFee;
+                mainView.UsersTabView.TPBillRefMV.DeliverFeeOrigin = deliveryFee;
             }
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
+            Printer.Print(mainView);
             try
             {
-                Printer.Priview(mainView);
+                
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
 
-        
+
 
         #region winmsg
+
+        internal const int WM_COPYDATA = 0x004A;
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        internal struct MyStruct
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string Message;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;       // Specifies data to be passed
+            public int cbData;          // Specifies the data size in bytes
+            public IntPtr lpData;       // Pointer to data to be passed
+        }
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
+
+                case WM_COPYDATA:
+                    {
+                        // Get the COPYDATASTRUCT struct from lParam.
+                        var cds = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(COPYDATASTRUCT));
+
+                        // If the size matches
+                        if (cds.cbData == Marshal.SizeOf(typeof(MyStruct)))
+                        {
+                            // Marshal the data from the unmanaged memory block to a 
+                            // MyStruct managed struct.
+                            MyStruct myStruct = (MyStruct)Marshal.PtrToStructure(cds.lpData,
+                                typeof(MyStruct));
+
+                            // Display the MyStruct data members.
+                            if (myStruct.Message == "Show Up")
+                            {
+                                this.Show();
+                            }
+                        }
+                        break;
+                    }
+
                 case BriSDKLib.BRI_EVENT_MESSAGE:
                     {
                         BriSDKLib.TBriEvent_Data EventData = (BriSDKLib.TBriEvent_Data)Marshal.PtrToStructure(lParam, typeof(BriSDKLib.TBriEvent_Data));
@@ -473,7 +581,7 @@ namespace TP
 
                                     var telno = StringUtils.FromASCIIByteArray(EventData.szData);
                                     strValue = "通道" + (EventData.uChannelID + 1).ToString() + "：接收到来电号码 " + telno;
-
+                                    AppendStatus(strValue);
                                     AddNewBillRef(telno);
 
                                 }
@@ -532,7 +640,7 @@ namespace TP
                 {
                     billRefMv.TPCallIn = TPCallInMV.Mapper(billRef.TPCallIn);
                 }
-                
+
                 mainView.TPBillRefs.Add(billRefMv);
             }
         }
@@ -583,7 +691,7 @@ namespace TP
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            AddNewBillRef("123456");
+            AddNewBillRef(string.Empty);
             mainView.SelectedTpBillRefMv = mainView.TPBillRefs.LastOrDefault();
             if (mainView.SelectedTpBillRefMv != null)
             {
@@ -604,7 +712,7 @@ namespace TP
                 }
             }
 
-            
+
         }
 
         private void CloseCurrTab_Click(object sender, RoutedEventArgs e)
@@ -618,13 +726,31 @@ namespace TP
                 {
                     LoadTabControlView(mainView.SelectedTpBillRefMv.BillRefId);
                 }
-                
+
             }
         }
 
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             (sender as ToggleButton).IsChecked = true;
+        }
+
+        private void HideBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainView.SelectedTpBillRefMv != null)
+            {
+                mainView.DeliveryTabView.UnBindingBillMvs.SelectedItem = null;
+            }
+        }
+
+        private void Reload_Click(object sender, RoutedEventArgs e)
+        {
+            BUControl.LoadBill();
         }
     }
 }

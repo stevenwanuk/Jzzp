@@ -20,6 +20,7 @@ namespace EntitiesDABL.DAL
         {
             var query = from bi in Entities.BillItems
                 join br in Entities.TPBillRefs on bi.BillID equals br.BillId_FK
+                where br.UserId_FK == userId
                 group bi by new { bi.MenuID, bi.MenuName} into gbi
                 orderby gbi.Count()
                 select new OrderHistoryDTO
@@ -55,6 +56,17 @@ namespace EntitiesDABL.DAL
         {
 
             return Entities.BillItems.Where(i => i.BillID.Equals(billId));
+        }
+
+        public IQueryable<TempBill> GetTempBillByBillId(string billId)
+        {
+            return Entities.TempBills.Where(i => i.BillID.Equals(billId));
+        }
+
+        public IQueryable<TempBillItem> GetTempBillItemsByBIllId(string billId)
+        {
+
+            return Entities.TempBillItems.Where(i => i.BillID.Equals(billId));
         }
     }
 }
