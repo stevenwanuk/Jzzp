@@ -55,6 +55,7 @@ namespace TP.View
             TPBillRefMV = TPBillRefMV.Mapper(billRef);
             TPBillRefMV.TPUser = TPUserMV.Mapper(billRef.TPUser);
             TPBillRefMV.TPUserAddress = TPUserAddressMV.Mapper(billRef.TPUserAddress);
+            TPBillRefMV.TPCallIn = TPCallInMV.Mapper(billRef.TPCallIn);
 
             TPDeliverMV = TPDeliverMV.Mapper(billRef.TPDeliver);
             if (billRef.TPDeliver != null)

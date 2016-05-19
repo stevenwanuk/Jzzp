@@ -160,7 +160,7 @@ namespace TP.BLL
             {
 
                 var query = new TPBillRefDAL(entities).GetTPBillRefById(billRefId);
-                result = query.Include(i => i.TPUser).Include(i =>i.TPUserAddress).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
+                result = query.Include(i=>i.TPCallIn).Include(i => i.TPUser).Include(i =>i.TPUserAddress).Include(i => i.TPDeliver).Include(i => i.TPDeliver.TPDriver).ToList().FirstOrDefault();
             }
             return result;
         }

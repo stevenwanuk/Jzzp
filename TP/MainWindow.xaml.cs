@@ -496,9 +496,10 @@ namespace TP
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
+            Printer.Print(mainView);
             try
             {
-                Printer.Priview(mainView);
+                
 
             }
             catch (Exception ex)

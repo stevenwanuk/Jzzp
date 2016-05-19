@@ -17,6 +17,7 @@ using TP.Common.StringLib;
 using TP.View;
 using System.Windows.Controls;
 using TP.AppStatic;
+using System.Printing;
 
 namespace TP.printing
 {
@@ -54,6 +55,7 @@ namespace TP.printing
                 new
                 {
 
+                    TPCallIn = mainView.DeliveryTabView.TPBillRefMV.TPCallIn,
                     TPBillRef = mainView.DeliveryTabView.TPBillRefMV,
                     TPUser = mainView.DeliveryTabView.TPBillRefMV.TPUser,
                     TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
@@ -62,7 +64,7 @@ namespace TP.printing
 
             StringReader stringReader = new StringReader(xmalString);
             var xmlReader = XmlReader.Create(stringReader);
-            var sec = XamlReader.Load(xmlReader) as Section;
+            var sec = XamlReader.Load(xmlReader) as FlowDocument;
 
             //Looking for billItem 
             var table = sec.Blocks.Where(i => i is Table).OfType<Table>().FirstOrDefault();
@@ -70,7 +72,10 @@ namespace TP.printing
             {
                 buildBillItemTable(table, billInfo.TempBillItems);
             }
-            doc1.Blocks.Add(sec);
+            for (int i = 0; i < sec.Blocks.Count; i++)
+            {
+                doc1.Blocks.Add(sec.Blocks.ElementAt(i));
+            }
 
             //Add qr image
             var qrImg = new Image();
@@ -103,29 +108,25 @@ namespace TP.printing
             // and allowing the user to select a printer.
 
             // get information about the dimensions of the seleted printer+media.
-            System.Printing.PrintDocumentImageableArea ia = null;
-            System.Windows.Xps.XpsDocumentWriter docWriter = System.Printing.PrintQueue.CreateXpsDocumentWriter(ref ia);
+            var pQueue = LocalPrintServer.GetDefaultPrintQueue();
+            var pCapabilities = pQueue.GetPrintCapabilities();
+            var printableArea = new Size(pCapabilities.PageImageableArea.ExtentWidth, pCapabilities.PageImageableArea.ExtentHeight);
+            var docWriter = PrintQueue.CreateXpsDocumentWriter(pQueue);
 
-            if (docWriter != null && ia != null)
+            if (docWriter != null && printableArea != null)
             {
                 DocumentPaginator paginator = ((IDocumentPaginatorSource)copy).DocumentPaginator;
 
                 // Change the PageSize and PagePadding for the document to match the CanvasSize for the printer device.
-                paginator.PageSize = new Size(ia.MediaSizeWidth, ia.MediaSizeHeight);
-                Thickness t = new Thickness(72);  // copy.PagePadding;
-                copy.PagePadding = new Thickness(
-                                 Math.Max(ia.OriginWidth, t.Left),
-                                   Math.Max(ia.OriginHeight, t.Top),
-                                   Math.Max(ia.MediaSizeWidth - (ia.OriginWidth + ia.ExtentWidth), t.Right),
-                                   Math.Max(ia.MediaSizeHeight - (ia.OriginHeight + ia.ExtentHeight), t.Bottom));
-
+                paginator.PageSize = new Size(printableArea.Width, printableArea.Height);
+                Thickness t = new Thickness(72); // copy.PagePadding;
+                copy.PagePadding = new Thickness(0, 0, 0, 0);
                 copy.ColumnWidth = double.PositiveInfinity;
                 //copy.PageWidth = 528; // allow the page to be the natural with of the output device
 
                 // Send content to the printer.
                 docWriter.Write(paginator);
             }
-
         }
 
         protected static void buildBillItemTable(Table table, ICollection<TempBillItem> billItems)

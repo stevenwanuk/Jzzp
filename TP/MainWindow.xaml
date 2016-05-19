@@ -19,10 +19,17 @@
         <vm:MainView></vm:MainView>
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="FontSize" Value="24" />
+        <Style x:Key="WrapButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
+
             <Setter Property="Background" Value="Blue"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsChecked" Value="True">
@@ -80,7 +87,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Width="84" Grid.Column="0">
                     <Button Content="exit" Click="ExitBtn_Click" Grid.Column="4" Height="50" ></Button>
-                    <Label Width="84">--</Label>
+                    <Label Width="84"></Label>
                 </TextBlock>
                 <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}">
                     <ItemsControl.ItemsPanel>
@@ -90,7 +97,11 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding TPCallIn.CellNumber}" Height="60" Width="80" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Click="RadioButton_Click" Checked="ToggleButton_OnChecked">
+                            <RadioButton  Height="60" Width="80" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Click="RadioButton_Click" Checked="ToggleButton_OnChecked">
+                                <RadioButton.Content>
+                                    <TextBlock Text="{Binding TPCallIn.CellNumber}" TextWrapping="Wrap"></TextBlock>
+                                    
+                                </RadioButton.Content>
                                 <RadioButton.IsChecked>
                                     <MultiBinding Converter="{StaticResource CompareConverter}">
                                         <Binding Path="BillRefId"></Binding>
@@ -480,7 +491,7 @@
                                     <uc:BillUserControl x:Name="BUControl" BillRefId="{Binding Path=DeliveryTabView.TPBillRefMV.BillRefId}"/>
                                 </Border>
 
-                                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
                                     <Button Content="Clear" Click="Clear_Click"/>
                                     <Button Content="Reload" Click="Reload_Click"/>
                                 </StackPanel>
@@ -553,8 +564,7 @@
                                     <Button Grid.Column="1" Grid.Row="3" Name="DeliveryCaculator" Content="Caculator" Click="DeliveryCaculator_OnClick"></Button>
                                     <Button Grid.Column="2" Grid.Row="3" Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
 
-                                    <Button Grid.Column="2" Grid.Row="4"  Content="print" Click="Print_Click"></Button>
-
+                                    <Button Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="4"  Content="print" Click="Print_Click"></Button>
 
                                 </Grid>
                                 

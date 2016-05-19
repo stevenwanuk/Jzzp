@@ -56,6 +56,26 @@ namespace TP.ModelView
             set { SetProperty(ref _gender, value, "Gender"); }
         }
 
+        public String Title
+        {
+            get
+            {
+                switch(Gender)
+                {
+                    case 0:
+                        return "Ms";
+                    case 1:
+                        return "Mr";
+                    case 2:
+                        return "Mrs";
+                    case 3:
+                        return "Miss";
+                    default:
+                        return "Ms";
+                }
+            }
+        }
+
 
         private ObservableCollection<TPBillRefMV> _tPBillRef;
         public virtual ObservableCollection<TPBillRefMV> TPBillRef
