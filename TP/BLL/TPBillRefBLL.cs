@@ -303,7 +303,7 @@ namespace TP.BLL
                 entities.TPBillRefs.Add(billRef);
 
                 
-                if (String.IsNullOrEmpty(defaultDriverName))
+                if (!String.IsNullOrEmpty(defaultDriverName))
                 {
                     var driver = entities.TPDrivers.FirstOrDefault(i => i.FirstName.Equals(defaultDriverName));
                     if (driver != null)

@@ -148,6 +148,10 @@ namespace TP.printing
                     {
                         errorMsg = "No User Address Infos";
                     }
+                    if (mainView.DeliveryTabView.TPDeliverMV?.TPDriver == null)
+                    {
+                        errorMsg = "No Drivers Infos";
+                    }
                     if (string.IsNullOrEmpty(TPBillRefMV.BillId_FK))
                     {
                         errorMsg = "Unbinding Jzzp Bill";
