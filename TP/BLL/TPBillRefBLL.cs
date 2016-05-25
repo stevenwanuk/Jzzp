@@ -100,6 +100,21 @@ namespace TP.BLL
             return result;
         }
 
+        public void UpdateBillStatusAfterPrint(long billRefId)
+        {
+            using (var entities = new JZZPEntities())
+            {
+
+                var billRef = entities.TPBillRefs.FirstOrDefault(i => i.BillRefId == billRefId);
+                if (billRef != null)
+                {
+                    BillRefStatusProcess(billRef, (int)BillRefStatus.OnDelivery);
+                }
+
+                entities.SaveChanges();
+            }
+        }
+
         public void UpdateBillRefUser(long billRefId, Guid userId)
         {
             
@@ -274,7 +289,7 @@ namespace TP.BLL
             return result;
         }
 
-        public TPBillRef CreatNewBillRef(string telno, int terminalId)
+        public TPBillRef CreatNewBillRefWithDefaultDriver(string telno, int terminalId, string defaultDriverName)
         {
             
             TPBillRef billRef = null;
@@ -286,6 +301,28 @@ namespace TP.BLL
                     ShowOnMain = true
                 };
                 entities.TPBillRefs.Add(billRef);
+
+                
+                if (String.IsNullOrEmpty(defaultDriverName))
+                {
+                    var driver = entities.TPDrivers.FirstOrDefault(i => i.FirstName.Equals(defaultDriverName));
+                    if (driver != null)
+                    {
+                        //Default Driver
+                        var deliver = new TPDeliver()
+                        {
+                            DriverId_FK = driver.DriverId,
+                            StartDate = DateTime.Now,
+                            Status = 1
+                        };
+                        entities.TPDelivers.Add(deliver);
+
+                        billRef.TPDeliver = deliver;
+                    }
+                }
+
+
+
                 var callIn = new TPCallIn()
                 {
                     TerminalId = terminalId,

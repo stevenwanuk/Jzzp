@@ -109,6 +109,56 @@ namespace TP.printing
             return table;
         }
 
+        public static string DataContainerCheck(MainView mainView)
+        {
+            /* make sure not null here.
+            TPCallIn = mainView.DeliveryTabView.TPBillRefMV.TPCallIn,
+                    TPBillRef = mainView.DeliveryTabView.TPBillRefMV,
+                    TPUser = mainView.DeliveryTabView.TPBillRefMV.TPUser,
+                    TPDriver = mainView.DeliveryTabView.TPDeliverMV.TPDriver,
+                    TPUserAddress = mainView.DeliveryTabView.TPBillRefMV.TPUserAddress,
+                    Bill = billInfo.TempBill,
+                    Total = billInfo.TempBill.SumToPay + mainView.DeliveryTabView.TPBillRefMV.DeliverFee,
+                    SavedDeliverFee = mainView.DeliveryTabView.TPBillRefMV.DeliverFeeOrigin - mainView.DeliveryTabView.TPBillRefMV.DeliverFee
+            */
+            var errorMsg = string.Empty;
+            if (mainView?.DeliveryTabView == null)
+            {
+                errorMsg = "No PrintData";
+
+            }
+            else
+            {
+                var TPBillRefMV = mainView.DeliveryTabView.TPBillRefMV;
+                if (TPBillRefMV == null)
+                {
+                    errorMsg = "No Selected Bill";
+                }
+                else
+                {
+                    if (TPBillRefMV.TPCallIn == null)
+                    {
+                        errorMsg = "No Calling Infos";
+                    }
+                    if (TPBillRefMV.TPUser == null)
+                    {
+                        errorMsg = "No User Infos";
+                    }
+                    if (TPBillRefMV.TPUserAddress == null)
+                    {
+                        errorMsg = "No User Address Infos";
+                    }
+                    if (string.IsNullOrEmpty(TPBillRefMV.BillId_FK))
+                    {
+                        errorMsg = "Unbinding Jzzp Bill";
+                    }
+                }
+                
+            }
+            return errorMsg;
+        }
+
+
         public static void Priview(MainView mainView)
         {
 

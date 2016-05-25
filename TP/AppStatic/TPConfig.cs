@@ -28,6 +28,10 @@ namespace TP.AppStatic
 
         public static int FontSize { get; set; }
         public static string FontFamily { get; set; }
+
+        public static int MsgPopupDuration { get; set; }
+
+        public static string DefaultDriverName { get; set; }
         
 
         public static bool Load()
@@ -59,6 +63,9 @@ namespace TP.AppStatic
                 FontFamily = ConfigurationManager.AppSettings["FontFamily"];
                 FontSize = Convert.ToInt32(ConfigurationManager.AppSettings["FontSize"]);
 
+                MsgPopupDuration = Convert.ToInt32(ConfigurationManager.AppSettings["MsgPopupDuration"]);
+
+                DefaultDriverName = ConfigurationManager.AppSettings["DefaultDriverName"];
 
                 result = true;
             }catch(Exception e)

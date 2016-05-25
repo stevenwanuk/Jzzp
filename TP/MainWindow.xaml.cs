@@ -496,17 +496,25 @@ namespace TP
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
-            
+
+            var msg = string.Empty;
             try
             {
-                Printer.Print(mainView);
-                mainView.ErrorMsg = "Print Successful";
+
+                msg = Printer.DataContainerCheck(mainView);
+                if (string.IsNullOrEmpty(msg))
+                {
+                    Printer.Print(mainView);
+                    new TPBillRefBLL().UpdateBillStatusAfterPrint(mainView.DeliveryTabView.TPBillRefMV.BillRefId);
+                    msg = "Print Successful";
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Log4netUtil.For(this).Error(ex);
+                msg = ex.ToString();
             }
-            
+            mainView.ErrorMsg = msg;
         }
 
 
@@ -632,7 +640,7 @@ namespace TP
         private void AddNewBillRef(string telno)
         {
 
-            var billRef = new TPBillRefBLL().CreatNewBillRef(telno, terminalId);
+            var billRef = new TPBillRefBLL().CreatNewBillRefWithDefaultDriver(telno, terminalId, TPConfig.DefaultDriverName);
             if (mainView.TPBillRefs != null)
             {
 

@@ -82,7 +82,7 @@ namespace TP.BLL
             using (var entities = new JZZPEntities())
             {
 
-                var billRef = new TPBillRefDAL(entities).GetTPBillRefById(billRefId).Include(i => i.TPDeliver).ToList().FirstOrDefault();
+                var billRef = new TPBillRefDAL(entities).GetTPBillRefById(billRefId).Include(i => i.TPDeliver).FirstOrDefault();
                 if (billRef != null)
                 {
                     if (billRef.TPDeliver != null )

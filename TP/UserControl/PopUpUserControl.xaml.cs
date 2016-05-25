@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TP.Annotations;
+using TP.AppStatic;
 
 namespace TP.UserControl
 {
@@ -62,7 +63,7 @@ namespace TP.UserControl
         public void PopUp()
         {
             var d = new DispatcherTimer();
-            d.Interval = new TimeSpan(0, 0, 1);
+            d.Interval = new TimeSpan(0, 0, TPConfig.MsgPopupDuration);
             d.Tick += new EventHandler((a, b) =>
             {
 
