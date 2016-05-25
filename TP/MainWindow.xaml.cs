@@ -389,7 +389,9 @@ namespace TP
                 new TPBillRefBLL().UpdateDeliveryInfos(billRefId, deliveryMiles, deliveryFee);
 
                 //Refresh usercontrol
-                LoadTabControlView(billRefId);
+                mainView.DeliveryTabView.TPBillRefMV.DeliverFee = deliveryFee;
+                mainView.DeliveryTabView.TPBillRefMV.DeliverMiles = deliveryMiles;
+
                 BUControl.LoadBill();
             }
 
@@ -404,11 +406,14 @@ namespace TP
                //Bind billid
                 new TPBillRefBLL().BindingBillId(mainView.SelectedTpBillRefMv.BillRefId, item?.BillID);
                 mainView.SelectedTpBillRefMv.BillId_FK = item?.BillID;
+                if (mainView.DeliveryTabView.TPBillRefMV != null)
+                {
+                    mainView.DeliveryTabView.TPBillRefMV.BillId_FK = item?.BillID;
+                }
 
-                var billRefId = mainView.DeliveryTabView.TPBillRefMV.BillRefId;
-                LoadTabControlView(billRefId);
                 BUControl.LoadBill();
             }
+
             
         }
 
