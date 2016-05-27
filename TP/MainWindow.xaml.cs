@@ -321,7 +321,7 @@ namespace TP
             var derverRB = (RadioButton)sender;
             var driverId = (long)derverRB.Tag;
             var billRefId = mainView.DeliveryTabView.TPBillRefMV?.BillRefId;
-            if (billRefId != null && driverId != 0)
+            if (billRefId != null && driverId != 0 && mainView.DeliveryTabView?.TPDeliverMV?.DriverId_FK != driverId)
             {
                 new TPDriverBLL().SaveOrUpdate(driverId, billRefId.Value);
                 LoadTabControlView(billRefId.Value);
