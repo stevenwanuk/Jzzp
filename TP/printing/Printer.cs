@@ -211,23 +211,33 @@ namespace TP.printing
                 var printQueueCollection =
                     printServer.GetPrintQueues(new[]
                     {EnumeratedPrintQueueTypes.Local, EnumeratedPrintQueueTypes.Connections});
-
+                
                 foreach (var item in TPConfig.PrinterNames)
                 {
                     if (!String.IsNullOrEmpty(item))
                     {
                         var selectedPrinterName = item.Trim();
+                        Log4netUtil.For(typeof(Printer)).Debug("try to print on " + selectedPrinterName);
                         var printQueue = printQueueCollection.FirstOrDefault(i => i.Name.Equals(selectedPrinterName));
 
                         if (printQueue != null)
                         {
-                            SinglePrint(copy, printQueue);
+                            try
+                            {
+                                SinglePrint(copy, printQueue);
+                            }
+                            catch (Exception e)
+                            {
+                                Log4netUtil.For(typeof(Printer)).Error(e);
+                            }
+                            
                         }
                     }
                 }
             }
             else
             {
+                Log4netUtil.For(typeof (Printer)).Debug("using default printer");
                 var pQueue = LocalPrintServer.GetDefaultPrintQueue();
                 SinglePrint(copy, pQueue);
             }
