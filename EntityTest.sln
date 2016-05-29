@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DABL", "DABL\DABL.csproj", "{C9A1D415-BEAF-49F6-A898-ABB00E7AA298}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSingleton", "TestSingleton\TestSingleton.csproj", "{8B668529-945B-4CED-84E3-C0DC3ED61B55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFlowdocument", "TestFlowdocument\TestFlowdocument.csproj", "{247F317E-4620-41BF-8848-A1927CAB04F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPFWindowPrinter", "TestWPFWindowPrinter\TestWPFWindowPrinter.csproj", "{73C52E2A-C169-4114-8820-6223BB8C531B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,12 +149,24 @@ Global
 		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{247F317E-4620-41BF-8848-A1927CAB04F9}.Release|x86.Build.0 = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Debug|x86.Build.0 = Debug|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|x86.ActiveCfg = Release|Any CPU
+		{73C52E2A-C169-4114-8820-6223BB8C531B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

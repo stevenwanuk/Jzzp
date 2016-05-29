@@ -32,7 +32,8 @@ namespace TP.AppStatic
         public static int MsgPopupDuration { get; set; }
 
         public static string DefaultDriverName { get; set; }
-        
+
+        public static string[] PrinterNames { get; set; }
 
         public static bool Load()
         {
@@ -66,6 +67,13 @@ namespace TP.AppStatic
                 MsgPopupDuration = Convert.ToInt32(ConfigurationManager.AppSettings["MsgPopupDuration"]);
 
                 DefaultDriverName = ConfigurationManager.AppSettings["DefaultDriverName"];
+                var printersStr = ConfigurationManager.AppSettings["PrinterNames"];
+                if (!string.IsNullOrEmpty(printersStr))
+                {
+                    PrinterNames = printersStr.Split(',');
+                }
+
+                
 
                 result = true;
             }catch(Exception e)

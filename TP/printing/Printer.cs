@@ -170,15 +170,12 @@ namespace TP.printing
             PrintUtils.DoPreview("test", document);
         }
 
-        public static void Print(MainView mainView)
+        protected static void SinglePrint(FlowDocument copy, PrintQueue pQueue)
         {
-            FlowDocument copy = GetPrintDocument(mainView);
-
             // Create a XpsDocumentWriter object, implicitly opening a Windows common print dialog,
             // and allowing the user to select a printer.
 
             // get information about the dimensions of the seleted printer+media.
-            var pQueue = LocalPrintServer.GetDefaultPrintQueue();
             var pCapabilities = pQueue.GetPrintCapabilities();
             var printableArea = new Size(pCapabilities.PageImageableArea.ExtentWidth, pCapabilities.PageImageableArea.ExtentHeight);
             var docWriter = PrintQueue.CreateXpsDocumentWriter(pQueue);
@@ -200,6 +197,42 @@ namespace TP.printing
                 // Send content to the printer.
                 docWriter.Write(paginator);
             }
+        }
+
+        public static void Print(MainView mainView)
+        {
+            FlowDocument copy = GetPrintDocument(mainView);
+
+            if (TPConfig.PrinterNames != null)
+            {
+
+                //Mutil-Print
+                var printServer = new PrintServer();
+                var printQueueCollection =
+                    printServer.GetPrintQueues(new[]
+                    {EnumeratedPrintQueueTypes.Local, EnumeratedPrintQueueTypes.Connections});
+
+                foreach (var item in TPConfig.PrinterNames)
+                {
+                    if (!String.IsNullOrEmpty(item))
+                    {
+                        var selectedPrinterName = item.Trim();
+                        var printQueue = printQueueCollection.FirstOrDefault(i => i.Name.Equals(selectedPrinterName));
+
+                        if (printQueue != null)
+                        {
+                            SinglePrint(copy, printQueue);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var pQueue = LocalPrintServer.GetDefaultPrintQueue();
+                SinglePrint(copy, pQueue);
+            }
+
+
         }
 
         protected static void buildBillItemTable(Table table, ICollection<TempBillItem> billItems)
