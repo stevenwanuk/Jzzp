@@ -633,7 +633,6 @@ D:\work\jzzp\Jzzp\TP\obj\Debug\TP.csproj.GenerateResource.Cache
 C:\kwan\work\c#\printing\Jzzp\TP\bin\Debug\print_BillItem.txt
 D:\work\jzzp\Jzzp\TP\bin\Debug\PrintDocument.xaml
 D:\work\jzzp\Jzzp\TP\bin\Debug\PrintDocumentItem.xaml
-D:\work\jzzp\Jzzp\TP\obj\Debug\PrintDocument.baml
 C:\kwan\work\Jzzp\TP\bin\Debug\TP.exe.config
 C:\kwan\work\Jzzp\TP\obj\Debug\TP.exe
 C:\kwan\work\Jzzp\TP\obj\Debug\TP.pdb

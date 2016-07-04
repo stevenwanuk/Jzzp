@@ -54,6 +54,31 @@ namespace TP.ModelView
             }
         }
 
+        public void RenderFromGetAddressResponse(GetAddressResponse response)
+        {
+            Log4netUtil.For(this).Debug(response);
+            if (response != null && response.Addresses != null && (response.Addresses.Length > 0))
+            {
+                Log4netUtil.For(this).Debug(response.Addresses);
+                String address = response.Addresses[0];
+                if (!String.IsNullOrEmpty(address))
+                {
+
+                    String[] infos = address.Split(',');
+                    if (infos.Length >= 5)
+                    {
+                        this.HouseNumber = infos[0].Trim();
+                            
+                        this.AddressField2 = infos[1].Trim();
+                        this.AddressField3 = infos[infos.Length - 2].Trim();
+                        this.TownCity = infos[infos.Length -1].Trim();
+                        this.Country = "United Kingdom";
+                        
+                    }
+                }
+            }
+        }
+
         public void RenderFromGoogleDirectionsResponse(GoogleDirectionsResponse response)
         {
             if ("OK".Equals(response?.status, StringComparison.CurrentCultureIgnoreCase))

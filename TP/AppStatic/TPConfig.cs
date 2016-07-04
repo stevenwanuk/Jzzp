@@ -15,6 +15,7 @@ namespace TP.AppStatic
         public static string DirectionUrl { get; set; }
         public static string StaticMapUrl { get; set; }
         public static string GMap { get; set; }
+        public static string GetAddressUrl { get; set; }
         public static string PrintFile {get;set;}
         public static string PrintItemSampleFile { get; set; }
         public static string PrintResImagePath { get; set; }
@@ -47,6 +48,7 @@ namespace TP.AppStatic
                 DirectionUrl = ConfigurationManager.AppSettings["DirectionUrl"];
                 StaticMapUrl = ConfigurationManager.AppSettings["StaticMapUrl"];
                 GMap = ConfigurationManager.AppSettings["GMap"];
+                GetAddressUrl = ConfigurationManager.AppSettings["GetAddressUrl"];
                 PrintFile = ConfigurationManager.AppSettings["PrintFile"];
                 PrintItemSampleFile = ConfigurationManager.AppSettings["PrintItemSampleFile"];
                 PrintResImagePath = ConfigurationManager.AppSettings["PrintResImagePath"];

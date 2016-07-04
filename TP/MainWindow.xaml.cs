@@ -448,19 +448,44 @@ namespace TP
             var postCode = mainView.UsersTabView.TPUserAddressMV.Postcode;
             if (!string.IsNullOrEmpty(postCode))
             {
+
                 //looking for address
-                GmapUtils.GetGeoCode(postCode, (o, args) =>
+                Log4netUtil.For(this).Debug(TPConfig.GetAddressUrl);
+                if (!String.IsNullOrEmpty(TPConfig.GetAddressUrl))
                 {
 
-                    //MessageBox.Show(args.Result);
-                    var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
-
-                    if (geoResponse != null)
+                    GmapUtils.GetAddress(postCode, (o, args) =>
                     {
 
-                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
-                    }
-                });
+                        
+                        //MessageBox.Show(args.Result);
+                        var addrResponse = JsonConvert.DeserializeObject<GetAddressResponse>(args.Result);
+
+                        if (addrResponse != null)
+                        {
+
+                            mainView.UsersTabView.TPUserAddressMV.RenderFromGetAddressResponse(addrResponse);
+                        }
+                    });
+
+                } else
+                {
+                    GmapUtils.GetGeoCode(postCode, (o, args) =>
+                    {
+
+                        //MessageBox.Show(args.Result);
+                        var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                        if (geoResponse != null)
+                        {
+
+                            mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                        }
+                    });
+                }
+
+                
+                
 
                 GmapUtils.GetDriection(postCode, (o, args) =>
                 {
