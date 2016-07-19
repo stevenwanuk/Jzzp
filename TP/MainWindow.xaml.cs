@@ -450,64 +450,70 @@ namespace TP
             {
 
                 //looking for address
-                Log4netUtil.For(this).Debug(TPConfig.GetAddressUrl);
-                if (!String.IsNullOrEmpty(TPConfig.GetAddressUrl))
+                Log4netUtil.For(this).Debug(TPConfig.GetAddressUrl + " " + postCode);
+                try
                 {
-
-                    GmapUtils.GetAddress(postCode, (o, args) =>
+                    if (!String.IsNullOrEmpty(TPConfig.GetAddressUrl))
                     {
 
-                        
-                        //MessageBox.Show(args.Result);
-                        var addrResponse = JsonConvert.DeserializeObject<GetAddressResponse>(args.Result);
-
-                        if (addrResponse != null)
+                        GmapUtils.GetAddress(postCode, (o, args) =>
                         {
 
-                            mainView.UsersTabView.TPUserAddressMV.RenderFromGetAddressResponse(addrResponse);
-                        }
-                    });
 
-                } else
-                {
-                    GmapUtils.GetGeoCode(postCode, (o, args) =>
+                            //MessageBox.Show(args.Result);
+                            var addrResponse = JsonConvert.DeserializeObject<GetAddressResponse>(args.Result);
+
+                            if (addrResponse != null)
+                            {
+
+                                mainView.UsersTabView.TPUserAddressMV.RenderFromGetAddressResponse(addrResponse);
+                            }
+                        });
+
+                    }
+                    else
+                    {
+                        GmapUtils.GetGeoCode(postCode, (o, args) =>
+                        {
+
+                            //MessageBox.Show(args.Result);
+                            var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+
+                            if (geoResponse != null)
+                            {
+
+                                mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                            }
+                        });
+                    }
+
+                    GmapUtils.GetDriection(postCode, (o, args) =>
                     {
 
                         //MessageBox.Show(args.Result);
-                        var geoResponse = JsonConvert.DeserializeObject<GoogleGeoCodeResponse>(args.Result);
+                        var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
 
                         if (geoResponse != null)
                         {
 
-                            mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleGeoCodeResponse(geoResponse);
+                            mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
+
+                            //caculator intial delivery fee
+                            var deliveryMiles = mainView.UsersTabView.TPBillRefMV.DeliverMiles;
+                            if (deliveryMiles != null && deliveryMiles > 0)
+                            {
+                                mainView.UsersTabView.TPBillRefMV.DeliverFee = DeliveryFeeCaculator.GetDeliveryFee(deliveryMiles.Value);
+                            }
+
+
                         }
                     });
-                }
-
-                
-                
-
-                GmapUtils.GetDriection(postCode, (o, args) =>
+                } catch (Exception f)
                 {
-
-                    //MessageBox.Show(args.Result);
-                    var geoResponse = JsonConvert.DeserializeObject<GoogleDirectionsResponse>(args.Result);
-
-                    if (geoResponse != null)
-                    {
-
-                        mainView.UsersTabView.TPUserAddressMV.RenderFromGoogleDirectionsResponse(geoResponse);
-
-                        //caculator intial delivery fee
-                        var deliveryMiles = mainView.UsersTabView.TPBillRefMV.DeliverMiles;
-                        if (deliveryMiles != null && deliveryMiles > 0)
-                        {
-                            mainView.UsersTabView.TPBillRefMV.DeliverFee = DeliveryFeeCaculator.GetDeliveryFee(deliveryMiles.Value);
-                        }
-
-
-                    }
-                });
+                    Log4netUtil.For(this).Error("error with " + postCode);
+                    Log4netUtil.For(this).Error(f);
+                    mainView.ErrorMsg = "No address infos";
+                }
             }
         }
 

@@ -12,13 +12,13 @@ namespace TP.Gmap
 {
     public class GmapUtils
     {
-        public static void GetAddress(string lokkingForString, DownloadStringCompletedEventHandler callBack)
+        public static  void GetAddress(string lokkingForString, DownloadStringCompletedEventHandler callBack)
         {
 
             using (var client = new WebClient())
             {
                 client.DownloadStringCompleted += callBack;
-                client.DownloadStringAsync(new Uri(string.Format(TPConfig.GetAddressUrl, lokkingForString)));
+                client.DownloadString(new Uri(string.Format(TPConfig.GetAddressUrl, lokkingForString)));
             }
         }
 
