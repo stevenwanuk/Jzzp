@@ -17,9 +17,9 @@ namespace EntitiesDABL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TPUser()
         {
-            this.TPBillRef = new HashSet<TPBillRef>();
             this.TPUserAddress = new HashSet<TPUserAddress>();
             this.TPUserCell = new HashSet<TPUserCell>();
+            this.TPBillRef = new HashSet<TPBillRef>();
         }
     
         public System.Guid UserId { get; set; }
@@ -28,10 +28,10 @@ namespace EntitiesDABL
         public Nullable<int> Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TPBillRef> TPBillRef { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPUserAddress> TPUserAddress { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPUserCell> TPUserCell { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TPBillRef> TPBillRef { get; set; }
     }
 }

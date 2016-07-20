@@ -1,0 +1,11 @@
+﻿<TableRow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xml:space="preserve">
+	<TableCell TextAlignment="Left">
+		<Paragraph><Run>{BillItem.MenuName}</Run></Paragraph>
+	</TableCell>
+	<TableCell TextAlignment="Right">
+		<Paragraph><Run>{Amount:N2}</Run></Paragraph>
+	</TableCell>
+	<TableCell TextAlignment="Right">
+		<Paragraph><Run>{Price:C}</Run></Paragraph>
+	</TableCell>
+</TableRow>

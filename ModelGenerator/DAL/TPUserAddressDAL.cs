@@ -31,7 +31,16 @@ namespace EntitiesDABL.DAL
 
         public void Save(TPUserAddress userAddress)
         {
-            Entities.TPUserAddresses.AddOrUpdate(userAddress);
+
+            if (userAddress.UserAddressId <= 0)
+            {
+                Entities.TPUserAddresses.Add(userAddress);
+            } else
+            {
+                Entities.TPUserAddresses.Attach(userAddress);
+                Entities.Entry(userAddress).State = System.Data.Entity.EntityState.Modified;
+            }
+            Entities.SaveChanges();
         }
 
         public void Remove(long userAddressId)

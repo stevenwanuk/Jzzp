@@ -15,12 +15,12 @@ namespace TP.ModelView
 
         public static TPUserMV Mapper(TPUser entity)
         {
-            return AutoMapperUtils.GetMapper().Map<TPUser, TPUserMV>(entity);
+            return AutoMapper.Mapper.Map<TPUser, TPUserMV>(entity);
         }
 
         public TPUser MapperTo()
         {
-            return AutoMapperUtils.GetMapper().Map<TPUserMV, TPUser>(this);
+            return AutoMapper.Mapper.Map<TPUserMV, TPUser>(this);
         }
 
         public TPUserMV()
@@ -33,27 +33,47 @@ namespace TP.ModelView
         private Guid _userId;
         public System.Guid UserId {
             get { return _userId; }
-            set { SetProperty(ref _userId, value); }
+            set { SetProperty(ref _userId, value, "UserId"); }
         }
 
         private string _firstName;
         public string FirstName
         {
             get { return _firstName; }
-            set { SetProperty(ref _firstName, value); }
+            set { SetProperty(ref _firstName, value, "FirstName"); }
         }
 
         private string _lastName;
         public string LastName {
             get { return _lastName; }
-            set { SetProperty(ref _lastName, value); }
+            set { SetProperty(ref _lastName, value, "LastName"); }
         }
 
         private int? _gender;
         public int? Gender
         {
             get { return _gender; }
-            set { SetProperty(ref _gender, value); }
+            set { SetProperty(ref _gender, value, "Gender"); }
+        }
+
+        public String Title
+        {
+            get
+            {
+                switch(Gender)
+                {
+                    case 0:
+                        return "Ms";
+                    case 1:
+                        return "Mr";
+                    case 2:
+                        return "Mrs";
+                    case 3:
+                        return "Miss";
+                    default:
+                        return "Ms";
+                }
+            }
         }
 
 
@@ -61,21 +81,21 @@ namespace TP.ModelView
         public virtual ObservableCollection<TPBillRefMV> TPBillRef
         {
             get { return _tPBillRef; }
-            set { SetProperty(ref _tPBillRef, value); }
+            set { SetProperty(ref _tPBillRef, value, "TPBillRef"); }
         }
 
         private ObservableCollection<TPUserCellMV> _tPUserCell;
         public virtual ObservableCollection<TPUserCellMV> TPUserCell
         {
             get { return _tPUserCell; }
-            set { SetProperty(ref _tPUserCell, value); }
+            set { SetProperty(ref _tPUserCell, value, "TPUserCell"); }
         }
 
         private ObservableCollection<TPUserAddressMV> _tPUserAddress;
         public virtual ObservableCollection<TPUserAddressMV> TPUserAddress
         {
             get { return _tPUserAddress; }
-            set { SetProperty(ref _tPUserAddress, value); }
+            set { SetProperty(ref _tPUserAddress, value, "TPUserAddress"); }
         }
 
         public string this[string columnName]

@@ -26,7 +26,23 @@ namespace EntitiesDABL.DAL
 
         public void Save(TPUser user)
         {
-            Entities.TPUsers.AddOrUpdate(user);
+            if (user.UserId != Guid.Empty)
+            {
+                var count = Entities.TPUsers.Where(i => i.UserId == user.UserId).Count();
+                if (count <= 0)
+                {
+                    Entities.TPUsers.Add(user);
+                }
+                else
+                {
+
+                    //msserver 2000 doesn't work with top (2).....
+                    Entities.TPUsers.Attach(user);
+                    Entities.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                    
+                }
+                Entities.SaveChanges();
+            }
         }
     }
 }

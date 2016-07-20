@@ -19,8 +19,9 @@ using System.Windows.Shapes;
 using System.Linq.Expressions;
 using System.Security.Policy;
 using DataMaintenance.View;
-using Prism.Commands;
+using Microsoft.Practices.Prism.Commands;
 using TP.Common;
+using TP.Common.CustomConfig;
 
 namespace DataMaintenance
 {
@@ -78,7 +79,7 @@ namespace DataMaintenance
         {
 
             ObservableCollection<StartupConfigurationElement> result = new ObservableCollection<StartupConfigurationElement>();
-            var startConfigs = ConfigurationManager.GetSection("startupSection") as StartupConfigurationSection;
+            var startConfigs = ConfigurationManager.GetSection("dispatcherConfigurationSection") as DispatcherConfigurationSection;
             if (startConfigs != null)
             {
 

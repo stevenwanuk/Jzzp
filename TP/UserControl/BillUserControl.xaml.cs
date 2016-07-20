@@ -56,7 +56,7 @@ namespace TP.UserControl
                 if (_billRefMV != value)
                 {
                     _billRefMV = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BIllRefMV");
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace TP.UserControl
                 if (_billMV != value)
                 {
                     _billMV = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BillMV");
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace TP.UserControl
                 if (_billItemMVs != value)
                 {
                     _billItemMVs = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged("BillItemMVs");
                 }
             }
         }
@@ -111,17 +111,32 @@ namespace TP.UserControl
             }
             else
             {
-                var billDTO = new JzzpBillBLL().GetBillByBillId(BIllRefMV.BillId_FK);
-                BillMV = BillMV.Mapper(billDTO.Bill);
+                //lookup from Bill
                 BillItemMVs = new ObservableCollection<BillItemMV>();
-                billDTO.BillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+                var billDTO = new JzzpBillBLL().GetBillByBillId(BIllRefMV.BillId_FK);
+                if (billDTO.Bill != null)
+                {
+
+                    BillMV = BillMV.Mapper(billDTO.Bill);
+                    billDTO.BillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+
+                } else
+                {
+                    //looup from TempBill
+                    var tempBillDTO = new JzzpBillBLL().GetTempBillByBillId(BIllRefMV.BillId_FK);
+                    BillMV = BillMV.Mapper(tempBillDTO.TempBill);
+                    tempBillDTO.TempBillItems.ForEach(i => BillItemMVs.Add(BillItemMV.Mapper(i)));
+                }
+                
+               
+                
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -19,11 +19,12 @@ namespace EntitiesDABL
         public Nullable<System.Guid> UserId_FK { get; set; }
         public Nullable<long> AddressId_FK { get; set; }
         public string BillId_FK { get; set; }
+        public Nullable<decimal> DeliverFeeOrigin { get; set; }
         public Nullable<decimal> DeliverMiles { get; set; }
         public Nullable<decimal> DeliverFee { get; set; }
         public int Status { get; set; }
         public Nullable<long> DeliverId_FK { get; set; }
-        public Nullable<decimal> DeliverFeeOrigin { get; set; }
+        public bool ShowOnMain { get; set; }
     
         public virtual TPCallIn TPCallIn { get; set; }
         public virtual TPDeliver TPDeliver { get; set; }

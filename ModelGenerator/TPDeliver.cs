@@ -26,8 +26,8 @@ namespace EntitiesDABL
         public Nullable<System.DateTime> EndDate { get; set; }
         public int Status { get; set; }
     
+        public virtual TPDriver TPDriver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TPBillRef> TPBillRef { get; set; }
-        public virtual TPDriver TPDriver { get; set; }
     }
 }

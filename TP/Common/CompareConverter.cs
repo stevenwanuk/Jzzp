@@ -14,7 +14,8 @@ namespace TP.Common
         {
             var value1 = values[0];
             var value2 = values[1];
-            return value1.Equals(value2);
+
+            return value1 != null && value2 != null && value1.Equals(value2);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

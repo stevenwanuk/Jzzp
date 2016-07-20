@@ -25,8 +25,6 @@ namespace EntitiesDABL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TPBillRef> TPBillRefs { get; set; }
-        public virtual DbSet<TPCallIn> TPCallIns { get; set; }
         public virtual DbSet<TPDeliver> TPDelivers { get; set; }
         public virtual DbSet<TPDriver> TPDrivers { get; set; }
         public virtual DbSet<TPPrintSetting> TPPrintSettings { get; set; }
@@ -38,5 +36,8 @@ namespace EntitiesDABL
         public virtual DbSet<TempBill> TempBills { get; set; }
         public virtual DbSet<TempBillItem> TempBillItems { get; set; }
         public virtual DbSet<BillPayment> BillPayments { get; set; }
+        public virtual DbSet<TPAddress> TPAddresses { get; set; }
+        public virtual DbSet<TPCallIn> TPCallIns { get; set; }
+        public virtual DbSet<TPBillRef> TPBillRefs { get; set; }
     }
 }

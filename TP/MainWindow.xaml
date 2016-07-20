@@ -10,14 +10,39 @@
         xmlns:uc="clr-namespace:TP.UserControl"
         mc:Ignorable="d"
         x:Name="MWindow"
-        Title="MainWindow" Width="400" Height="300"  Loaded="MainWindow_OnLoaded" >
-    <!--WindowState="Maximized" WindowStyle="None"-->
+        Title="MainWindow" Loaded="MainWindow_OnLoaded"  Closed="MWindow_Closed"
+        WindowState="Maximized" WindowStyle="None" Topmost="True" 
+        >
+
+
     <Window.DataContext>
         <vm:MainView></vm:MainView>
     </Window.DataContext>
     <Window.Resources>
-        <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" />
+        <Style x:Key="WrapButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RadioToggleButtonStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
+
+            <Setter Property="Background" Value="Blue"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <common:CompareConverter x:Key="CompareConverter"></common:CompareConverter>
+        <common:EmptyStringConverter x:Key="EmptyStringConverter"></common:EmptyStringConverter>
+        <common:RadioBoolToIntConverter x:Key="RadioBoolToIntConverter"></common:RadioBoolToIntConverter>
+        
+        <common:BoolToVisibilityConverter x:Key="ReversedBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible"></common:BoolToVisibilityConverter>
+        <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"></common:BoolToVisibilityConverter>
         <Style TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -50,20 +75,33 @@
     </Window.Resources>
     <Grid>
         <uc:PopUpUserControl ErrorMsg="{Binding Path=ErrorMsg}"></uc:PopUpUserControl>
+
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <TextBlock Width="84">
-                    <Label Width="84">Waitting List</Label>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Width="84" Grid.Column="0">
+                    <Button Content="exit" Click="ExitBtn_Click" Grid.Column="4" Height="50" ></Button>
+                    <Label Width="84"></Label>
                 </TextBlock>
-                <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=TPBillRefs}">
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=TPBillRefs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
+                            <WrapPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding TPCallIn.CellNumber}" Height="50" Width="60" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Checked="ToggleButton_OnChecked">
+                            <RadioButton  Height="60" Width="80" Tag="{Binding BillRefId}" GroupName="Users"  Style="{StaticResource RadioToggleButtonStyle}" Click="RadioButton_Click" Checked="ToggleButton_OnChecked">
+                                <RadioButton.Content>
+                                    <TextBlock Text="{Binding TPCallIn.CellNumber}" TextWrapping="Wrap"></TextBlock>
+                                    
+                                </RadioButton.Content>
                                 <RadioButton.IsChecked>
                                     <MultiBinding Converter="{StaticResource CompareConverter}">
                                         <Binding Path="BillRefId"></Binding>
@@ -74,34 +112,60 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
 
-            <StackPanel DockPanel.Dock="Top">
-                <Grid Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <Button Content="Add" Click="Add_Click" Grid.Column="2" Height="50"></Button>
+                <Button Content="Close" Click="CloseCurrTab_Click" Grid.Column="3" Height="50"></Button>
+                <Button Content="Hide" Click="HideBtn_Click" Grid.Column="4" Height="50"></Button>
+                
+                
+            </Grid>
+
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Line></Line>
+            </Grid>
+            <Grid Margin="0,0,0,20" HorizontalAlignment="Stretch" VerticalAlignment="Center" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="4*" />
+
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="2*" />
+
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="1" Content="Cell:"/>
+
+                <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="3*" />
-
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="3*" />
-
-                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="1" Content="Cell:"/>
-                    <Label Grid.Column="2" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"/>
-
-                    <Label Grid.Column="3" Content="Start:"/>
-                    <Label Grid.Column="4" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.StartDate}"/>
-
-                    <Label Grid.Column="5" Content="End:"/>
-                    <Label Grid.Column="6" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.EndDate}"/>
-
+                    <TextBox x:Name="callIdTB" Grid.Column="0" Text="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber}"  IsReadOnly="{Binding Path=SelectedTpBillRefMv.TPCallIn.CellNumber, Converter={StaticResource EmptyStringConverter}}"/>
+                    <Button Grid.Column="1" Visibility="{Binding ElementName=callIdTB, Path=IsReadOnly, Converter={StaticResource ReversedBoolToVisibilityConverter}}" Click="CallInSave_Click">Save</Button>
                 </Grid>
-            </StackPanel>
+
+                
+                
+
+                <Label Grid.Column="3" Content="Start:"/>
+                <Label Grid.Column="4" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.StartDate}"/>
+
+                <Label Grid.Column="5" Content="End:"/>
+                <Label Grid.Column="6" Content="{Binding Path=SelectedTpBillRefMv.TPCallIn.EndDate}"/>
+
+
+            </Grid>
+
 
             <TabControl TabStripPlacement="Left" x:Name="tPTabControl" Margin="1,0,0,0" SelectionChanged="TPTabControl_OnSelectionChanged">
                 <TabControl.Resources>
@@ -120,7 +184,7 @@
                         <Setter Property="Padding" Value="3" />
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="UserDetails" Foreground="Blue" Height="80" >
+                <TabItem Header="UserDetails" Foreground="Blue" Height="80" IsSelected="True">
                     <StackPanel Margin="2,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -142,8 +206,44 @@
                             <Label Visibility="Hidden" Grid.Column="0" Grid.Row="1" Content="UserId:" HorizontalAlignment="Right"/>
                             <Label Visibility="Hidden" Grid.Column="1" Grid.Row="1" Content="{Binding Path=UsersTabView.TPUserMV.UserId}"/>
 
-                            <Label Grid.Column="0" Grid.Row="1" Content="Gender:" HorizontalAlignment="Right"/>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Title:" HorizontalAlignment="Right"/>
+<!--                            
                             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=UsersTabView.TPUserMV.Gender}"/>
+-->
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <RadioButton Content="Ms" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=0}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Mr" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=1}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Mrs" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=2}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                                <RadioButton Content="Miss" GroupName="TitleGroup" Width="60" IsChecked="{Binding Path=UsersTabView.TPUserMV.Gender, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    <RadioButton.Template>
+                                        <ControlTemplate>
+                                            <ToggleButton IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                                Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                                        </ControlTemplate>
+                                    </RadioButton.Template>
+                                </RadioButton>
+                            </StackPanel>
 
                             <Label Grid.Column="0" Grid.Row="2" Content="FirstName:" HorizontalAlignment="Right"/>
                             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=UsersTabView.TPUserMV.FirstName}"/>
@@ -160,10 +260,10 @@
                         <Grid>
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="190*"></ColumnDefinition>
-                                <ColumnDefinition Width="141*"></ColumnDefinition>
-                                <ColumnDefinition Width="49*"/>
-                                <ColumnDefinition Width="47*"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <ListBox ItemsSource="{Binding Path=UsersTabView.TPUserAddressMVs}" SelectionChanged="ListBox_SelectionChanged" 
@@ -183,8 +283,8 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel Tag="{Binding UserAddressId}">
-                                            <TextBlock Text="{Binding UserAddressId}" />
-                                            <TextBlock Text=", " />
+                                            <TextBlock Text="  " />
+                                            <TextBlock Text="  " />
                                             <TextBlock Text="{Binding HouseNumber}" FontWeight="Bold" />
                                             <TextBlock Text=" " />
                                             <TextBlock Text="{Binding AddressField1}" FontWeight="Bold" />
@@ -204,7 +304,7 @@
                             <Grid Grid.Column="1" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20"></RowDefinition>
@@ -238,16 +338,33 @@
                                 <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=UsersTabView.TPUserAddressMV.TownCity}"/>
 
                                 <Label Grid.Column="0" Grid.Row="6" Content="Postcode" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}"/>
+                                <Grid Grid.Column="1" Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox  Text="{Binding Path=UsersTabView.TPUserAddressMV.Postcode}"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button HorizontalAlignment="Right"  Content="LCode" Click="LCodeBtn_Click" 
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource ReversedBoolToVisibilityConverter}}"/>
+                                        <Button HorizontalAlignment="Right"  Content="Find" Click="GCodeBtn_Click"
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        <Button HorizontalAlignment="Right"  Content="Map" Click="GmapBtn_Click"
+                                                Visibility="{Binding Path=UsersTabView.EnabledGmap, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    </StackPanel>
+                                    
+                                </Grid>
+                                
 
                                 <Label Grid.Column="0" Grid.Row="7" Content="Country" HorizontalAlignment="Right"/>
                                 <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=UsersTabView.TPUserAddressMV.Country}"/>
 
                                 <Label Grid.Column="0" Grid.Row="8" Content="Delivery Miles" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPUserAddressMV.DeliveryMiles}"/>
+                                <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=UsersTabView.TPUserAddressMV.DeliveryMiles}" TextChanged="TextBox_LostFocus"/>
 
-                                <Label Grid.Column="0" Grid.Row="9" Content="Delivery Fee" HorizontalAlignment="Right"/>
-                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFee}"/>
+                                <Label Grid.Column="0" Grid.Row="9" Content="Initial Delivery Fee" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=UsersTabView.TPBillRefMV.DeliverFeeOrigin}" />
 
                                 <StackPanel Grid.ColumnSpan="2" Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button HorizontalAlignment="Right" Click="UserAddressRemove_OnClick">Remove</Button>
@@ -256,7 +373,7 @@
                                 </StackPanel>
                             </Grid>
                         </Grid>
-
+<!-- example of validation
                         <TextBox Height="30" x:Name="txtinput" Background="AliceBlue" Width="189" AllowDrop="True" Text="{Binding UsersTabView.TPBillRefMV.TPUser.FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" />
                         <Button Content="Query" Name="QueryUser" Click="QueryUser_OnClick">
                             <Button.Style>
@@ -273,6 +390,7 @@
                                 </Style>
                             </Button.Style>
                         </Button>
+-->                        
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="OrderHistory" Foreground="YellowGreen" Height="80" >
@@ -324,7 +442,7 @@
                     </DockPanel>
                 </TabItem>
 
-                <TabItem Header="Delivery" Foreground="Green" Height="80" IsSelected="True">
+                <TabItem Header="Delivery" Foreground="Green" Height="80" >
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Top">
                             <!-- user infos -->
@@ -350,12 +468,33 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" HorizontalAlignment="Center" Content="Bill Infos" FontSize="14" FontWeight="Bold">
                                 </Label>
+                                <ComboBox ItemsSource="{Binding DeliveryTabView.UnBindingBillMvs}" SelectedItem="{Binding Path=DeliveryTabView.UnBindingBillMvs.SelectedItem}" 
+                                          SelectionChanged="BillCbx_OnSelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding Path=TableName}"></TextBlock>
+                                                <TextBlock Grid.Column="1" Text="{Binding Path=BillID}"></TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                                 <Border BorderBrush="Black" BorderThickness="2" Grid.Row="1">
                                     <uc:BillUserControl x:Name="BUControl" BillRefId="{Binding Path=DeliveryTabView.TPBillRefMV.BillRefId}"/>
                                 </Border>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                                    <Button Content="Clear" Click="Clear_Click"/>
+                                    <Button Content="Reload" Click="Reload_Click"/>
+                                </StackPanel>
                             </Grid>
 
                             <!--drivers -->
@@ -408,15 +547,25 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     
                                     <Label Grid.Column="1" Grid.Row="0" Content="DeliveryMiles" HorizontalAlignment="Right"></Label>
-                                    <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverMiles}"></TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverMiles}" ></TextBox>
 
-                                    <Label Grid.Column="1" Grid.Row="1" Content="DeliveryFee" HorizontalAlignment="Right"></Label>
-                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFee}"></TextBox>
+                                    <Label Grid.Column="1" Grid.Row="1" Content="Inital DeliveryFee" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFeeOrigin}"></TextBox>
 
-                                    <Button Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="DeliveryFee" HorizontalAlignment="Right"></Label>
+                                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Path=DeliveryTabView.TPBillRefMV.DeliverFee}"></TextBox>
+
+                                    <Button Grid.Column="1" Grid.Row="3" Name="DeliveryCaculator" Content="Caculator" Click="DeliveryCaculator_OnClick"></Button>
+                                    <Button Grid.Column="2" Grid.Row="3" Name="DeliverySave" Content="Save" Click="DeliverySave_OnClick"></Button>
+
+                                    <Button Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="4"  Content="print" Click="Print_Click"></Button>
+
                                 </Grid>
                                 
                             </Grid>

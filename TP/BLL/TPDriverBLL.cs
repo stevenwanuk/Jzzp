@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntitiesDABL;
 using EntitiesDABL.DAL;
+using Jzzp.Enum;
 using TP.ModelView;
 
 namespace TP.BLL
@@ -26,12 +27,40 @@ namespace TP.BLL
             return result;
         }
 
+        public long GetDeliverCount(long driverId)
+        {
+            var result = 0;
+            using (var entities = new JZZPEntities())
+            {
+
+                result = entities.TPDelivers.Where(i => i.DriverId_FK == driverId).Count();
+            }
+            return result;
+        }
+
         public void SaveOrUpdate(TPDriver driver)
         {
             using (var entities = new JZZPEntities())
             {
+                /**
+                var count = entities.TPDrivers.Where(i => i.DriverId == driver.DriverId).Count();
+                if (count <= 0)
+                {
+                    entities.TPDrivers.Add(driver);
+                }
+                else
+                {
+
+                    
+                    entities.TPDrivers.Attach(driver);
+                    entities.Entry(driver).State = System.Data.Entity.EntityState.Modified;
+
+                }
+                **/
                 entities.TPDrivers.AddOrUpdate(driver);
                 entities.SaveChanges();
+
+
             }
         }
 
@@ -53,7 +82,7 @@ namespace TP.BLL
             using (var entities = new JZZPEntities())
             {
 
-                var billRef = new TPBillRefDAL(entities).GetTPBillRefById(billRefId).Include(i => i.TPDeliver).ToList().FirstOrDefault();
+                var billRef = new TPBillRefDAL(entities).GetTPBillRefById(billRefId).Include(i => i.TPDeliver).FirstOrDefault();
                 if (billRef != null)
                 {
                     if (billRef.TPDeliver != null )
@@ -75,9 +104,8 @@ namespace TP.BLL
                     };
                     entities.TPDelivers.Add(deliver);
 
-
-                    billRef.DeliverId_FK = deliver.DeliverId;
-
+                    billRef.TPDeliver = deliver;
+                    TPBillRefBLL.BillRefStatusProcess(billRef, (int)BillRefStatus.Distributed);
                     entities.SaveChanges();
                 }
             }
