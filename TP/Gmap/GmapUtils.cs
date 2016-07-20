@@ -18,7 +18,7 @@ namespace TP.Gmap
             using (var client = new WebClient())
             {
                 client.DownloadStringCompleted += callBack;
-                client.DownloadString(new Uri(string.Format(TPConfig.GetAddressUrl, lokkingForString)));
+                client.DownloadStringAsync(new Uri(string.Format(TPConfig.GetAddressUrl, lokkingForString)));
             }
         }
 

@@ -459,15 +459,25 @@ namespace TP
                         GmapUtils.GetAddress(postCode, (o, args) =>
                         {
 
+                            Log4netUtil.For(this).Error("error with " + args.Error);
+                            if (args.Error == null)
+                            {
+                                //MessageBox.Show(args.Result);
+                                Log4netUtil.For(this).Debug("result is " + args.Result);
+                                var addrResponse = JsonConvert.DeserializeObject<GetAddressResponse>(args.Result);
+                                
+                                if (addrResponse != null)
+                                {
 
-                            //MessageBox.Show(args.Result);
-                            var addrResponse = JsonConvert.DeserializeObject<GetAddressResponse>(args.Result);
-
-                            if (addrResponse != null)
+                                    mainView.UsersTabView.TPUserAddressMV.RenderFromGetAddressResponse(addrResponse);
+                                }
+                            } else
                             {
 
-                                mainView.UsersTabView.TPUserAddressMV.RenderFromGetAddressResponse(addrResponse);
+                                mainView.ErrorMsg = "";
+                                mainView.ErrorMsg = "No address infos";
                             }
+                            
                         });
 
                     }
@@ -512,6 +522,7 @@ namespace TP
                 {
                     Log4netUtil.For(this).Error("error with " + postCode);
                     Log4netUtil.For(this).Error(f);
+                    mainView.ErrorMsg = "";
                     mainView.ErrorMsg = "No address infos";
                 }
             }

@@ -833,7 +833,7 @@
           </Key>
           <Property Name="UserAddressId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId_FK" Type="Guid" Nullable="false" />
-          <Property Name="HouseNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HouseNumber" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="AddressField1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddressField2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddressField3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
